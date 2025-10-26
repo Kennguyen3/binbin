@@ -1,0 +1,112 @@
+diff --git a/node_modules/react-native-dropdown-select-list/components/MultipleSelectList.tsx b/node_modules/react-native-dropdown-select-list/components/MultipleSelectList.tsx
+index a3bba1d..fad0ada 100644
+--- a/node_modules/react-native-dropdown-select-list/components/MultipleSelectList.tsx
++++ b/node_modules/react-native-dropdown-select-list/components/MultipleSelectList.tsx
+@@ -10,7 +10,8 @@ import {
+     TextInput,
+     ViewStyle,
+     Pressable,
+-    Keyboard
++    Keyboard,
++    FlatList
+ } from 'react-native';
+ 
+ import { MultipleSelectListProps } from '..';
+@@ -44,7 +45,8 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
+         badgeTextStyles,
+         checkBoxStyles,
+         save = 'key',
+-        dropdownShown = false
++        dropdownShown = false,
++        prefixIcon
+     }) => {
+ 
+     const oldOption = React.useRef(null)
+@@ -173,7 +175,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
+                         <View>
+                             <Text style={[{fontWeight:'600',fontFamily},labelStyles]}>{ label }</Text>
+                             <View style={{flexDirection:'row',marginBottom:8,flexWrap:'wrap'}}>
+-                                {
++                                {/* {
+                                     selectedval?.map((item,index) => {
+                                         return (
+                                             <View key={index} style={[{backgroundColor:'gray',paddingHorizontal:20,paddingVertical:5,borderRadius:50,marginRight:10,marginTop:10}, badgeStyles]}>
+@@ -181,13 +183,22 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
+                                             </View>
+                                         )
+                                     })
+-                                }
++                                } */}
++                                <FlatList horizontal data={selectedval} renderItem={({item,index})=>{
++                                    return (
++                                        <View key={index} style={[{backgroundColor:'gray',paddingHorizontal:20,paddingVertical:5,borderRadius:50,marginRight:10,marginTop:10}, badgeStyles]}>
++                                                <Text style={[{color:'white',fontSize:12,fontFamily}, badgeTextStyles]}>{item}</Text>
++                                        </View>
++                                    )
++                                }}/>
+                             </View>
+                         </View>
+                     </TouchableOpacity>
+                 :
+                     <TouchableOpacity style={[styles.wrapper,boxStyles]} onPress={() => { if(!dropdown){ Keyboard.dismiss(); slidedown() }else{ slideup() } }}>
+-                        <Text style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text>
++                        <View style={{display:'flex',flexDirection:'row',alignItems:'center'}}>{prefixIcon}
++                        <Text style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text></View>
++                        
+                         {
+                             (!arrowicon)
+                             ?
+@@ -376,7 +387,7 @@ const MultipleSelectList: React.FC<MultipleSelectListProps> = ({
+ export default MultipleSelectList;
+ 
+ const styles = StyleSheet.create({
+-    wrapper:{ borderWidth:1,borderRadius:10,borderColor:'gray',paddingHorizontal:20,paddingVertical:12,flexDirection:'row',justifyContent:'space-between',marginBottom:10 },
++    wrapper:{ borderWidth:1,borderRadius:10,borderColor:'gray',paddingHorizontal:20,paddingVertical:1,flexDirection:'row',justifyContent:'space-between',marginBottom:10 },
+     dropdown:{ borderWidth:1,borderRadius:10,borderColor:'gray',overflow:'hidden'},
+     option:{ paddingHorizontal:20,paddingVertical:8,flexDirection:'row',alignItems:'center'},
+     disabledoption:{ paddingHorizontal:20,paddingVertical:8,flexDirection:'row',alignItems:'center', backgroundColor:'whitesmoke'}
+diff --git a/node_modules/react-native-dropdown-select-list/components/SelectList.tsx b/node_modules/react-native-dropdown-select-list/components/SelectList.tsx
+index 234a7e1..55d2c5b 100644
+--- a/node_modules/react-native-dropdown-select-list/components/SelectList.tsx
++++ b/node_modules/react-native-dropdown-select-list/components/SelectList.tsx
+@@ -37,7 +37,8 @@ const SelectList: React.FC<SelectListProps> =  ({
+         onSelect = () => {},
+         save = 'key',
+         dropdownShown = false,
+-        fontFamily
++        fontFamily,
++        prefixIcon
+     }) => {
+ 
+     const oldOption = React.useRef(null)
+@@ -170,7 +171,9 @@ const SelectList: React.FC<SelectListProps> =  ({
+                     </View>
+                 :
+                     <TouchableOpacity style={[styles.wrapper,boxStyles]} onPress={() => { if(!dropdown){ Keyboard.dismiss(); slidedown() }else{ slideup() } }}>
+-                        <Text style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text>
++                        <View style={{display:'flex',flexDirection:'row',alignItems:'center'}}>{prefixIcon}
++                        <Text style={[{fontFamily},inputStyles]}>{ (selectedval == "") ? (placeholder) ? placeholder : 'Select option' : selectedval  }</Text></View>
++                        
+                         {
+                             (!arrowicon)
+                             ?
+diff --git a/node_modules/react-native-dropdown-select-list/index.d.ts b/node_modules/react-native-dropdown-select-list/index.d.ts
+index cee3ba0..46735bb 100644
+--- a/node_modules/react-native-dropdown-select-list/index.d.ts
++++ b/node_modules/react-native-dropdown-select-list/index.d.ts
+@@ -112,6 +112,7 @@ export interface SelectListProps  {
+     *  Pass any JSX to this prop like Text, Image or Icon to show instead of close icon
+     */
+     closeicon?: JSX.Element,
++    prefixIcon?:JSX.Element,
+ }
+ 
+ 
+@@ -257,6 +258,7 @@ export interface MultipleSelectListProps  {
+     * Additional styles for label
+     */
+     labelStyles?: TextStyle,
++    prefixIcon?: JSX.Element,
+ }
+ 
+ declare class MultipleSelectList extends React.Component<MultipleSelectListProps> {}

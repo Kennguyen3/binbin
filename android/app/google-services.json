@@ -1,0 +1,131 @@
+{
+  "project_info": {
+    "project_number": "718812079188",
+    "firebase_url": "https://allmyne-7b923-default-rtdb.firebaseio.com",
+    "project_id": "allmyne-7b923",
+    "storage_bucket": "allmyne-7b923.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718812079188:android:50425915d7b30994d139c1",
+        "android_client_info": {
+          "package_name": "com.allmynefev2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718812079188-176ls4hn6s3nq2fs4ajtqr0lut97v6a7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allmynefev2",
+            "certificate_hash": "e70a3beaa3a334fe0432ec4fe777bd56eefe1bc2"
+          }
+        },
+        {
+          "client_id": "718812079188-5t1qfdjmmgtag82sog9jao1vudog97lm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allmynefev2",
+            "certificate_hash": "e58b5d30f0e4f91d423e7838d96063ae29d7ee71"
+          }
+        },
+        {
+          "client_id": "718812079188-6vda9sg5egela7j6enhhj54oe2peuj2e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allmynefev2",
+            "certificate_hash": "e97333ab3e28a6e132cbf195166de32d647e3200"
+          }
+        },
+        {
+          "client_id": "718812079188-jan5oh585nrvpoknjrr6bhhf50mgi9qe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allmynefev2",
+            "certificate_hash": "8efe85b7ec285fc3be3bf36c8e6f05e5ebfd079a"
+          }
+        },
+        {
+          "client_id": "718812079188-o7c6itrggceseigc3jspgpp19jdrs452.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.allmynefev2",
+            "certificate_hash": "e1034c6f0d3fbf6c1be1ff61af5b395db0a0c641"
+          }
+        },
+        {
+          "client_id": "718812079188-8h0koj8jubl17uq2gj7rb6au50tcogaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9jrcx3ybDO1H6cJi2m2iEptTLWcqFALU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718812079188-8h0koj8jubl17uq2gj7rb6au50tcogaq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "718812079188-8bhc5bmhbf61cbdbrliiqq9vulj7gn8k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cloudtenlabs.allmyne"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718812079188:android:549f8d3b93e1604fd139c1",
+        "android_client_info": {
+          "package_name": "com.cloudtenlabs.allmyne"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718812079188-tk4nf78mmu8hctd9er43thg6au7at7fe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cloudtenlabs.allmyne",
+            "certificate_hash": "24cacc82c86160b132e192c6c6cd62226096dccc"
+          }
+        },
+        {
+          "client_id": "718812079188-8h0koj8jubl17uq2gj7rb6au50tcogaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9jrcx3ybDO1H6cJi2m2iEptTLWcqFALU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718812079188-8h0koj8jubl17uq2gj7rb6au50tcogaq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "718812079188-8bhc5bmhbf61cbdbrliiqq9vulj7gn8k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cloudtenlabs.allmyne"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,26 @@
+pluginManagement {
+  repositories {
+    google(); mavenCentral(); gradlePluginPortal()
+  }
+  includeBuild("../node_modules/@react-native/gradle-plugin")
+}
+
+plugins {
+  id("com.facebook.react")          version "0.79.2" apply false
+  id("com.facebook.react.settings") version "0.79.2"
+}
+
+extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
+  ex.autolinkLibrariesFromCommand()           // thêm
+}
+
+rootProject.name = "allmyneFeV2"
+include(":app")
+
+include(":react-native-config")
+project(":react-native-config").projectDir =
+    new File(rootProject.projectDir,"../node_modules/react-native-config/android")
+
+include(":react-native-incall-manager")
+project(":react-native-incall-manager").projectDir =
+    new File(rootProject.projectDir,"../node_modules/react-native-incall-manager/android")

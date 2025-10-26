@@ -1,0 +1,145 @@
+// src/views/Login/styles.ts
+import { StyleSheet, Dimensions} from 'react-native';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+    flexDirection: 'column',
+    backgroundColor: '#FFFFFF',
+    position: "relative"
+  },
+  logo: {
+    marginBottom: 30,
+    width: 110,
+    height: 110,
+    resizeMode: 'contain'
+  },
+  welcome: {
+    fontSize: 24,
+    marginBottom: 50,
+    color: '#000000',
+    fontWeight: 'bold'
+  },
+
+  placeholder: {
+    color: '#000000',
+    fontSize: 14,
+    width: '100%',
+    textAlign: 'left',
+    marginBottom: 10
+  },
+  groupInput: {
+    flexDirection: 'row',     // Đảm bảo các thành phần con nằm cùng hàng ngang
+    alignItems: 'center',     // Căn giữa theo chiều dọc
+    paddingHorizontal: 20,    // Khoảng cách ngang
+    paddingVertical: 5,      // Khoảng cách dọc
+    borderWidth: 1,           // Đường viền
+    borderRadius: 5,          // Độ cong viền
+    borderColor: '#ccc',
+    marginBottom: 10
+  },
+  prefixText: {
+    paddingRight: 10,         // Khoảng cách phải của text
+    borderRightWidth: 1,      // Độ dày của đường viền
+    borderColor: '#ccc',      // Màu của đường viền
+    color: "#000"
+  },
+  icon_back:{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    position: "absolute",
+    left: 20,
+    top: 20
+  },
+  input: {
+    flex: 1,                  // Mở rộng input
+    height: 40,               // Chiều cao của input
+    paddingLeft: 10,          // Khoảng cách bên trái
+    color: "#000"
+  },
+  btnNext: {
+    width: '100%',
+    borderRadius: 5,
+    padding: 15,
+    textAlign: 'center',
+    backgroundColor: '#2079FF',
+    color: '#FFFFFF',
+    fontSize: 14
+  },
+  register_group: {
+    width: '100%',
+    padding: 15,
+    paddingBottom: 0,
+    display: 'flex',
+    textAlign: 'center',
+    gap: 10,
+    alignContent : 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  register_text: {
+    fontSize: 14,
+    color: '#000'
+  },
+  register_link: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: '#2079FF'
+  },
+  divider: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#D9D9D9',
+    marginBottom: 30,
+    marginTop: 30,
+    position: 'relative'
+  },
+  divi_text: {
+    position: 'absolute',
+    zIndex: 1,
+    fontSize: 14,
+    width: 80,
+    lineHeight: 14,
+    padding: 10,
+    top: -16,
+    backgroundColor: '#FFFFFF',
+    textAlign: 'center',
+    left: Dimensions.get('window').width / 2 - 50,
+    color: '#000000'
+  },
+  buttonLogin: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    height: 50,
+    backgroundColor: '#F3F3F3', // Màu của nút Facebook
+    borderRadius: 5,
+    justifyContent: 'flex-start',
+    marginBottom: 10,
+    paddingHorizontal: 20,
+    position: 'relative'
+  },
+  iconLogin: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+    position: 'absolute',
+    left: 15,
+    top: 15
+  },
+  buttonTextLogin: {
+    fontSize: 14,
+    color: '#000', // Màu chữ
+    width: '100%',
+    textAlign: 'center'
+  },
+});

@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.allmynefev2",
+  "variantName": "googlePlayRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 19,
+      "versionName": "2.0.0",
+      "outputFile": "app-googlePlay-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

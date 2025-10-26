@@ -1,0 +1,72 @@
+ENV['RCT_NEW_ARCH_ENABLED'] = '0'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+
+
+def node_require(script)
+  # Resolve script with node to allow for hoisting
+  require Pod::Executable.execute_command('node', ['-p',
+    "require.resolve(
+      '#{script}',
+      {paths: [process.argv[1]]},
+    )", __dir__]).strip
+end
+
+# Use it to require both react-native's and this package's scripts:
+node_require('react-native/scripts/react_native_pods.rb')
+node_require('react-native-permissions/scripts/setup.rb')
+
+platform :ios, '16.0'
+prepare_react_native_project!
+
+use_frameworks! :linkage => :static
+
+target 'BinBin' do
+  config = use_native_modules!
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  setup_permissions(['AppTrackingTransparency', 'LocationAlways', 'LocationWhenInUse'])
+
+    rn_maps_path = '../node_modules/react-native-maps'
+    pod 'react-native-google-maps', :path => rn_maps_path
+    pod 'GoogleMaps'
+    pod 'Google-Maps-iOS-Utils'
+    pod 'react-native-blob-util', :path => '../node_modules/react-native-blob-util'
+
+    # Specify the exact glog source path to avoid duplicate declarations
+    pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => true
+
+    # Set DoubleConversion to use modular headers
+    pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec', :modular_headers => true
+    pod 'ReactNativeIncallManager', :path => '../node_modules/react-native-incall-manager'
+
+
+  # Fix Firebase module map error
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'FirebaseDatabase', :modular_headers => true
+  pod 'FirebaseMessaging', :modular_headers => true
+  pod 'FirebaseAppCheckInterop', :modular_headers => true
+  pod 'leveldb-library', :modular_headers => true
+  $RNFirebaseAsStaticFramework = true
+
+  post_install do |installer|
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false
+    )
+
+    # Fix Stripe Swift module build
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+        config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+      end
+    end
+  end
+end

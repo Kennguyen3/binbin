@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>718812079188-qu8okjmhf1a01vvv8saoub1v8a3tfcm8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.718812079188-qu8okjmhf1a01vvv8saoub1v8a3tfcm8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>718812079188-176ls4hn6s3nq2fs4ajtqr0lut97v6a7.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBMICa7LTAYBtu_E7tIaJmmaghvyH58suw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>718812079188</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.allmyne.rn</string>
+	<key>PROJECT_ID</key>
+	<string>allmyne-7b923</string>
+	<key>STORAGE_BUCKET</key>
+	<string>allmyne-7b923.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:718812079188:ios:24115ccfae04d465d139c1</string>
+	<key>DATABASE_URL</key>
+	<string>https://allmyne-7b923-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

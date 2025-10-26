@@ -1,0 +1,148 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Network / phone / misc  -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.android.vending.BILLING"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <!-- PSTN (tuỳ bạn có dùng hay không). Nếu CHỈ VoIP/WebRTC, có thể bỏ CALL_PHONE/READ_PHONE_* -->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <!-- Contacts (đọc danh bạ) -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <!-- Location (bạn đang dùng bản đồ) -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!-- Bluetooth cho audio devices (tai nghe, v.v.) -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" android:usesPermissionFlags="neverForLocation"/>
+
+    <!-- Camera / Mic cho gọi video/voice (foreground UI) -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Notifications (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:targetApi="tiramisu"/>
+
+    <!-- Quyền đọc media (Android 13+) cho gửi ảnh/video/voice -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:targetApi="tiramisu"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:targetApi="tiramisu"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" tools:targetApi="tiramisu"/>
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+
+    <!-- Backward-compat cho <= Android 12 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+
+    <!-- HARD-REMOVE: tuyệt đối không ship Call Log & FGS media playback -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" tools:node="remove"/>
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" tools:node="remove"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" tools:node="remove"/>
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" tools:node="remove" />
+
+    <!-- Hardware features -->
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.audio.output"/>
+    <uses-feature android:name="android.hardware.microphone"/>
+
+    <application
+            android:name=".MainApplication"
+            android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:allowBackup="false"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            android:hardwareAccelerated="true"
+            android:usesCleartextTraffic="true">
+
+        <!-- KHÔNG dùng background audio: gỡ service của react-native-track-player -->
+        <service
+                android:name="com.doublesymmetry.trackplayer.service.MusicService"
+                tools:node="remove" />
+
+        <service
+            android:name="com.transistorsoft.locationmanager.service.TrackingService"
+            android:foregroundServiceType="location"
+            tools:ignore="ExportedService" />
+        <service
+            android:name="com.transistorsoft.locationmanager.service.LocationRequestService"
+            android:foregroundServiceType="location"
+            tools:ignore="ExportedService" />
+
+
+        <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
+        <!-- react-native-background-geolocation licence -->
+        <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="16f19f0da7da62586ca89430e729254b8d0fe863c700e5344628303919279b0b" />
+        <activity
+                android:name=".MainActivity"
+                android:label="@string/app_name"
+                android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+                android:launchMode="singleTask"
+                android:windowSoftInputMode="adjustResize"
+                android:screenOrientation="portrait"
+                android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="allmyne"/>
+            </intent-filter>
+
+            <!-- Branch URI Scheme -->
+            <intent-filter>
+                <data android:scheme="ALLMYNE" android:host="open"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+
+            <!-- Branch App Links - Live -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="https"/>
+                <data android:host="allmyne-alternate.app.link"/>
+                <data android:host="allmyne.app.link"/>
+            </intent-filter>
+
+            <!-- Branch App Links - Test -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="https"/>
+                <data android:host="allmyne-alternate.test-app.link"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Branch / Facebook / Maps -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_mznKTMUoTN6dxGDvwWg5mokpCAbzNfNc"/>
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_live_mznKTMUoTN6dxGDvwWg5mokpCAbzNfNc"/>
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="false"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyASNgTRVBAkMa-W5fbwLO3Q6n-uZ7c5f6s"/>
+    </application>
+</manifest>

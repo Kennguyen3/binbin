@@ -1,0 +1,91 @@
+name: App Store - Build - TestFlight
+
+# Manual deployment
+on:
+  workflow_dispatch:
+    inputs:
+      version_number:
+        description: Version Number
+        required: true
+        default: '2.0.0'
+      build_number:
+        description: Build Number
+        required: true
+        default: '1'
+
+jobs:
+  testFlight-build:
+    name: ios-testflight-build
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      # Setup Node
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Setup XCode
+      - name: Install XCodes
+        run: |
+          brew install robotsandpencils/made/xcodes
+          xcodes install 14.2
+
+      # Echo selected build and version numbers
+      - name: Print Build and Version Numbers
+        run: |
+          echo "BUILD NUMBER: ${{ github.event.inputs.build_number }}"
+          echo "VERSION NUMBER: ${{ github.event.inputs.version_number }}"
+
+      # Checkout the Repository
+      - name: Checkout to git repository
+        uses: actions/checkout@v2
+
+      # Setup our Firebase Service Account file
+      - name: Setup Service Account Credential Files
+        run: echo "${{secrets.FIREBASE_SERVICE_ACCOUNT_JSON}}" > "${{ github.workspace }}/firebase-service-account.json"
+
+      # Install NPM Packages
+      - name: Install dependencies
+        run: yarn
+
+      # Setup Ruby while Caching Gems
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.4
+          bundler-cache: true
+
+      # Install fastlane
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      # Setup GitHub name and email for the Auto-Versioning Commit
+      - name: Setup Git Config
+        run: |
+          git config user.name "developer-at-speer"
+          git config user.email "developer@speer.io"
+
+      # Setup our App Store Service Account file
+      - name: Setup Service Account Credential Files
+        run: echo "${{ secrets.APPLE_API_KEY_FILE }}" > "${{ github.workspace }}/AppleApiKey.p8"
+
+      - name: Build and Upload to App Store
+        uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'ios test_flight'
+          bundler-cache: true
+        env:
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_ISSUER_ID: ${{ secrets.APPLE_ISSUER_ID }}
+          BUNDLE_ID: ${{ secrets.BUNDLE_ID }}
+          APPLE_APP_ID: ${{ secrets.APPLE_APP_ID }}
+          GIT_PERSONAL_ACCESS_TOKEN: ${{ secrets.GIT_PERSONAL_ACCESS_TOKEN }}
+          BUILD_NUMBER: ${{ github.event.inputs.build_number }}
+          VERSION_NUMBER: ${{ github.event.inputs.version_number }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          MATCH_REPO_URL: ${{ secrets.MATCH_REPO_URL }}
+          TEMP_KEYCHAIN_USER: ${{ secrets.TEMP_KEYCHAIN_USER }}
+          TEMP_KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}

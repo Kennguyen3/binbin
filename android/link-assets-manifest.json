@@ -1,0 +1,65 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Alexander-Regular.ttf",
+      "sha1": "45aada0f15585f62c615099b00d43c7bad77ab49"
+    },
+    {
+      "path": "assets/fonts/Charlie.ttf",
+      "sha1": "0027a07aeda23c7122e80a5e859db212b62b0ae4"
+    },
+    {
+      "path": "assets/fonts/Handlee.ttf",
+      "sha1": "7bfbcc74e78e521eac4dba8f33817675f9b1340c"
+    },
+    {
+      "path": "assets/fonts/Lauren.ttf",
+      "sha1": "ce1a8517e517660d1f10afbac854860db9840318"
+    },
+    {
+      "path": "assets/fonts/OpenSans-Bold.ttf",
+      "sha1": "1f22568081c57eb8980ccbec86decd452f35d6b0"
+    },
+    {
+      "path": "assets/fonts/OpenSans-Italic.ttf",
+      "sha1": "f902cb596cd3ec77ea9328a66913765838dc7521"
+    },
+    {
+      "path": "assets/fonts/OpenSans-Regular.ttf",
+      "sha1": "b4596a8e11ee5b6331f2fecf656a53f61677b56e"
+    },
+    {
+      "path": "assets/fonts/OpenSans-SemiBold.ttf",
+      "sha1": "96b49e2ee8d4d25996146841eaaebdbb5894ed33"
+    },
+    {
+      "path": "assets/fonts/Roboto.ttf",
+      "sha1": "56c5c0d38bde4c1f1549dda43db37b09c608aad3"
+    },
+    {
+      "path": "assets/fonts/Sarah.ttf",
+      "sha1": "2f074bdb3c958ab1a702c8cfd5b9a5c8d495b9f4"
+    },
+    {
+      "path": "assets/sounds/calling.mp3",
+      "sha1": "d266e4934ab6e4f1f5a1185615d966311d4c67b1"
+    },
+    {
+      "path": "assets/sounds/missCall.mp3",
+      "sha1": "04582c0d2b6e477a13e94953334b6b2671230d12"
+    },
+    {
+      "path": "assets/sounds/notification.mp3",
+      "sha1": "7419d8af3c560f11eb53364b253820b3f6e3a8e5"
+    },
+    {
+      "path": "assets/sounds/ringtone.mp3",
+      "sha1": "01344f0a2eae8d55235302022083ae80d7293c1e"
+    },
+    {
+      "path": "node_modules/react-native-international-phone-number/lib/assets/fonts/TwemojiMozilla.woff2",
+      "sha1": "3a2bb214a3ba69716cbc6a3177480aefb6b867e4"
+    }
+  ]
+}

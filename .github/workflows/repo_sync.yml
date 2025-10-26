@@ -1,0 +1,20 @@
+name: Repo Sync
+
+on: 
+ push:
+    branches:
+      - combined-dev
+      
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    name: Git Repo Sync
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: wangchucheng/git-repo-sync@v0.1.0
+      with:
+        target-url: ${{ secrets.ALLMYNE_GIT_FRONTEND_URL }}
+        target-username: ${{ secrets.ALLMYNE_GIT_USERNAME }}
+        target-token: ${{ secrets.ALLMYNE_GIT_FRONTEND_TOKEN }}

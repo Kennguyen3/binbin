@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.transistorsoft.fetch</string>
+		<string>com.transistorsoft.geoTrackingTask</string>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>BinBin</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb7316919581670119</string>
+				<string>com.googleusercontent.apps.718812079188-qu8okjmhf1a01vvv8saoub1v8a3tfcm8</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>BinBin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>BinBin</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>binbin</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>7316919581670119</string>
+	<key>FacebookClientToken</key>
+	<string>6fb9f5dbceefb6936ea716957c5a36d8</string>
+	<key>FacebookDisplayName</key>
+	<string>BinBin</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>mailto</string>
+		<string>message</string>
+		<string>readdle-spark</string>
+		<string>airmail</string>
+		<string>ms-outlook</string>
+		<string>googlegmail</string>
+		<string>inbox-gmail</string>
+		<string>ymail</string>
+		<string>superhuman</string>
+		<string>yandexmail</string>
+		<string>fastmail</string>
+		<string>protonmail</string>
+		<string>szn-email</string>
+	</array>
+	<key>LSMinimumSystemVersion</key>
+	<string>12.0</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to take photos and record videos for you to share with your friends and family</string>
+	<key>NSContactsUsageDescription</key>
+	<string>We use your contacts to find friends on BinBin.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Unlock chat with Face ID</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We kindly request access to your location, both while using the app and at all times, to provide you with the best experience through location-based features, including interactive mapping and personalized recommendations</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We kindly request access to your location at all times to provide you with the best experience through location-based features, including interactive mapping and personalized recommendations</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We kindly request access to your location while using the app to provide you with the best experience through location-based features, including interactive mapping and personalized recommendations</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Access to the microphone is required to record audio for journal entries and save voice-recorded memories. This helps in personalizing your journal and preserving your moments in your own voice.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>BinBin Motion Usage Description</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We request access to your photo library to allow you to select and upload photos for sharing and personalizing your profile</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+    <string>We need access to your photo library to save downloaded videos.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Tracking permission helps us improve app performance and provide better, more relevant content</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
+		<string>Charlie.ttf</string>
+		<string>Handlee.ttf</string>
+		<string>Lauren.ttf</string>
+		<string>Roboto.ttf</string>
+		<string>Sarah.ttf</string>
+		<string>Alexander-Regular.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+		<string>processing</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>branch_key</key>
+	<dict>
+		<key>live</key>
+		<string>key_live_mznKTMUoTN6dxGDvwWg5mokpCAbzNfNc</string>
+		<key>test</key>
+		<string>key_live_mznKTMUoTN6dxGDvwWg5mokpCAbzNfNc</string>
+	</dict>
+	<key>branch_universal_link_domains</key>
+	<array>
+		<string>applinks:binbin.app.link</string>
+		<string>applinks:binbin-alternate.app.link</string>
+		<string>applinks:binbin.test.app.link</string>
+	</array>
+</dict>
+</plist>

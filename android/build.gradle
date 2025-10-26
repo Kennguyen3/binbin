@@ -1,0 +1,44 @@
+// android/build.gradle – chỉ sửa 2 chỗ: thêm version cố định & bỏ react-native plugin
+
+buildscript {
+    ext.kotlinVersion = "1.9.23"
+     ext.buildToolsVersion = "35.0.0"
+     ext.minSdkVersion = 24
+     ext.compileSdkVersion = 35
+     ext.targetSdkVersion = 35
+     ext.supportLibVersion = "28.0.0"
+     ext.playServicesLocationVersion = "21.0.1"
+     ext.ndkVersion = "27.1.12297006"
+     ext.androidXBrowser = "1.0.0"
+     ext.androidXAnnotation = "1.1.0"
+     ext.slf4jVersion = "2.0.7"
+     ext.logbackVersion = "3.0.0"
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://www.jitpack.io" }
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.4.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath("com.google.gms:google-services:4.4.2")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.9")
+        // KHÔNG thêm com.facebook.react:react-native-gradle-plugin ở đây nữa
+    }
+}
+
+allprojects {
+    repositories {
+        // It's been reported that some people might require mavenLocal() repo here.
+        // I leave it disabled for now.
+        //mavenLocal()
+
+        // Required for react-native-background-geolocation
+        maven { url("${project(':react-native-background-geolocation').projectDir}/libs") }
+        maven { url 'https://developer.huawei.com/repo/' }
+        // Required for react-native-background-fetch
+        maven { url("${project(':react-native-background-fetch').projectDir}/libs") }
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"
