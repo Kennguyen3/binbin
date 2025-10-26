@@ -1,5 +1,5 @@
 {
-  "name": "BinBin",
+  "name": "binbin",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,8 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "postinstall": "patch-package",
-    "android:dev": "adb reverse tcp:8081 tcp:8081 && cd android && ./gradlew :app:installDevDebug && adb shell am start -n com.allmynefev2/.MainActivity",
-    "android:gp:debug": "adb reverse tcp:8081 tcp:8081 && cd android && ./gradlew :app:installGooglePlayDebug && adb shell am start -n com.allmynefev2/.MainActivity",
+    "android:dev": "adb reverse tcp:8081 tcp:8081 && cd android && ./gradlew :app:installDevDebug && adb shell am start -n com.binbinfev2/.MainActivity",
+    "android:gp:debug": "adb reverse tcp:8081 tcp:8081 && cd android && ./gradlew :app:installGooglePlayDebug && adb shell am start -n com.binbinfev2/.MainActivity",
     "android:clean": "cd android && ./gradlew clean",
     "android:release": "cd android && ./gradlew :app:assembleGooglePlayRelease",
     "metro": "react-native start --reset-cache",

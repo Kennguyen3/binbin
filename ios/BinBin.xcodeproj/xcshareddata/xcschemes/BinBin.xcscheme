@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "ALLMYNE.app"
+               BuildableName = "BinBin.app"
                BlueprintName = "BinBin"
-               ReferencedContainer = "container:ALLMYNE.xcodeproj">
+               ReferencedContainer = "container:BinBin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               ReferencedContainer = "container:ALLMYNE.xcodeproj">
+               ReferencedContainer = "container:BinBin.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ALLMYNE.app"
+            BuildableName = "BinBin.app"
             BlueprintName = "BinBin"
-            ReferencedContainer = "container:ALLMYNE.xcodeproj">
+            ReferencedContainer = "container:BinBin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ALLMYNE.app"
+            BuildableName = "BinBin.app"
             BlueprintName = "BinBin"
-            ReferencedContainer = "container:ALLMYNE.xcodeproj">
+            ReferencedContainer = "container:BinBin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

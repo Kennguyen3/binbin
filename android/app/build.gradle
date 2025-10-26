@@ -103,9 +103,9 @@ android {
               exclude "**/assets_icons_stripeicon.png"
     }
 
-    namespace "com.allmynefev2"
+    namespace "com.allmyne.pro"
     defaultConfig {
-        applicationId "com.allmynefev2"
+        applicationId "com.allmyne.pro"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 204

@@ -14,7 +14,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   ex.autolinkLibrariesFromCommand()           // thêm
 }
 
-rootProject.name = "allmyneFeV2"
+rootProject.name = "BinBin"
 include(":app")
 
 include(":react-native-config")

@@ -24,9 +24,8 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		95C26D32599246418551C4FA /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E27E0249E0F4DC8A6E3B5DC /* Roboto.ttf */; };
 		A2B3DD2602B342E29AAE66DA /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 60B7ACCCB3DF45FA820BFB8F /* OpenSans-Italic.ttf */; };
-		AA45970F6977BDC6D2F29ADC /* Pods_ALLMYNE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81151447F4689F080F35477A /* Pods_ALLMYNE.framework */; };
-		B585F819F3CF917A4BC108B0 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		B6D61B43322F4FA2B4C0F21F /* Handlee.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2139DB2D44A40A09B45D206 /* Handlee.ttf */; };
+		D0E4EB28F26692239CFFA600 /* Pods_BinBin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6733217719C8D9A431AF5C08 /* Pods_BinBin.framework */; };
 		D2BC012BDF3A4134A60A889A /* Alexander-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 718D05C49CA545BE93AD254F /* Alexander-Regular.ttf */; };
 		E70C7DC5CB3246139222F042 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6B53BAEB07F4360B9BBAEA6 /* OpenSans-SemiBold.ttf */; };
 		F07967F22AF9A26700C86AB5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F07967F12AF9A26700C86AB5 /* GoogleService-Info.plist */; };
@@ -43,11 +42,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		076479A334A6F1181075F8B8 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ALLMYNE/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		076479A334A6F1181075F8B8 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = BinBin/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		07780D0D2B694CEF005AE345 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		13B07F961A680F5B00A75B9A /* ALLMYNE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALLMYNE.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ALLMYNE/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ALLMYNE/Info.plist; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* BinBin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BinBin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BinBin/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BinBin/Info.plist; sourceTree = "<group>"; };
 		32EB089FADC94AF89A253747 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../assets/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		3E27E0249E0F4DC8A6E3B5DC /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = ../assets/fonts/Roboto.ttf; sourceTree = "<group>"; };
 		525A9D652CC9082200879F2A /* calling.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = calling.mp3; sourceTree = "<group>"; };
@@ -60,25 +59,25 @@
 		52707E292E33B5C400EA3627 /* miss_call.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = miss_call.mp3; sourceTree = "<group>"; };
 		52707E2A2E33B5C400EA3627 /* notification.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notification.mp3; sourceTree = "<group>"; };
 		60B7ACCCB3DF45FA820BFB8F /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Italic.ttf"; path = "../assets/fonts/OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		6733217719C8D9A431AF5C08 /* Pods_BinBin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BinBin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D734EFE37024D8BB8F7D32E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		718D05C49CA545BE93AD254F /* Alexander-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Alexander-Regular.ttf"; path = "../assets/fonts/Alexander-Regular.ttf"; sourceTree = "<group>"; };
-		732F44B22AF4393800B5114E /* ALLMYNE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ALLMYNE.entitlements; path = ALLMYNE/ALLMYNE.entitlements; sourceTree = "<group>"; };
+		732F44B22AF4393800B5114E /* BinBin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BinBin.entitlements; path = BinBin/BinBin.entitlements; sourceTree = "<group>"; };
 		735AAB4B2B6AE55300F8D761 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		759C26D7630C4C8DA94C76E4 /* Sarah.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Sarah.ttf; path = ../assets/fonts/Sarah.ttf; sourceTree = "<group>"; };
-		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ALLMYNE/AppDelegate.swift; sourceTree = "<group>"; };
-		81151447F4689F080F35477A /* Pods_ALLMYNE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ALLMYNE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ALLMYNE/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = BinBin/AppDelegate.swift; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BinBin/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D3D2B23135444A697001BFC /* Lauren.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Lauren.ttf; path = ../assets/fonts/Lauren.ttf; sourceTree = "<group>"; };
 		A7B73A960E2E4A6A942A8830 /* Charlie.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Charlie.ttf; path = ../assets/fonts/Charlie.ttf; sourceTree = "<group>"; };
-		BDA7ED8A0CA4E1A8E0336498 /* Pods-ALLMYNE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALLMYNE.debug.xcconfig"; path = "Target Support Files/Pods-ALLMYNE/Pods-ALLMYNE.debug.xcconfig"; sourceTree = "<group>"; };
+		BDA7ED8A0CA4E1A8E0336498 /* Pods-BinBin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BinBin.debug.xcconfig"; path = "Target Support Files/Pods-BinBin/Pods-BinBin.debug.xcconfig"; sourceTree = "<group>"; };
 		C6B53BAEB07F4360B9BBAEA6 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		C8FF541A907B4CF89D2CA48A /* TwemojiMozilla.woff2 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = TwemojiMozilla.woff2; path = "../node_modules/react-native-international-phone-number/lib/assets/fonts/TwemojiMozilla.woff2"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F019B8752B97A059004D4B45 /* ALLMYNE-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ALLMYNE-Bridging-Header.h"; sourceTree = "<group>"; };
+		F019B8752B97A059004D4B45 /* BinBin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BinBin-Bridging-Header.h"; sourceTree = "<group>"; };
 		F019B8762B97A059004D4B45 /* dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
 		F07967F12AF9A26700C86AB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F2139DB2D44A40A09B45D206 /* Handlee.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Handlee.ttf; path = ../assets/fonts/Handlee.ttf; sourceTree = "<group>"; };
-		FBD848A37DB50D04C728759C /* Pods-ALLMYNE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ALLMYNE.release.xcconfig"; path = "Target Support Files/Pods-ALLMYNE/Pods-ALLMYNE.release.xcconfig"; sourceTree = "<group>"; };
+		FBD848A37DB50D04C728759C /* Pods-BinBin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BinBin.release.xcconfig"; path = "Target Support Files/Pods-BinBin/Pods-BinBin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,24 +86,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				07780D0E2B694CEF005AE345 /* StoreKit.framework in Frameworks */,
-				B585F819F3CF917A4BC108B0 /* (null) in Frameworks */,
-				AA45970F6977BDC6D2F29ADC /* Pods_ALLMYNE.framework in Frameworks */,
+				D0E4EB28F26692239CFFA600 /* Pods_BinBin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* ALLMYNE */ = {
+		13B07FAE1A68108700A75B9A /* BinBin */ = {
 			isa = PBXGroup;
 			children = (
-				732F44B22AF4393800B5114E /* ALLMYNE.entitlements */,
+				732F44B22AF4393800B5114E /* BinBin.entitlements */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 			);
-			name = ALLMYNE;
+			name = BinBin;
 			sourceTree = "<group>";
 		};
 		21EC94D745A54D37B2F48B7E /* Resources */ = {
@@ -136,7 +134,7 @@
 				07780D0D2B694CEF005AE345 /* StoreKit.framework */,
 				735AAB4B2B6AE55300F8D761 /* hermes.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				81151447F4689F080F35477A /* Pods_ALLMYNE.framework */,
+				6733217719C8D9A431AF5C08 /* Pods_BinBin.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -173,9 +171,9 @@
 			isa = PBXGroup;
 			children = (
 				F019B8762B97A059004D4B45 /* dummy.swift */,
-				F019B8752B97A059004D4B45 /* ALLMYNE-Bridging-Header.h */,
+				F019B8752B97A059004D4B45 /* BinBin-Bridging-Header.h */,
 				F07967F12AF9A26700C86AB5 /* GoogleService-Info.plist */,
-				13B07FAE1A68108700A75B9A /* ALLMYNE */,
+				13B07FAE1A68108700A75B9A /* BinBin */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -191,7 +189,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* ALLMYNE.app */,
+				13B07F961A680F5B00A75B9A /* BinBin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,8 +197,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BDA7ED8A0CA4E1A8E0336498 /* Pods-ALLMYNE.debug.xcconfig */,
-				FBD848A37DB50D04C728759C /* Pods-ALLMYNE.release.xcconfig */,
+				BDA7ED8A0CA4E1A8E0336498 /* Pods-BinBin.debug.xcconfig */,
+				FBD848A37DB50D04C728759C /* Pods-BinBin.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -227,8 +225,8 @@
 			dependencies = (
 			);
 			name = BinBin;
-			productName = ALLMYNE;
-			productReference = 13B07F961A680F5B00A75B9A /* ALLMYNE.app */;
+			productName = BinBin;
+			productReference = 13B07F961A680F5B00A75B9A /* BinBin.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -245,7 +243,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ALLMYNE" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BinBin" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = "en-US";
 			hasScannedForEncodings = 0;
@@ -362,19 +360,19 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ALLMYNE/Pods-ALLMYNE-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BinBin/Pods-BinBin-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			inputPaths = (
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ALLMYNE/Pods-ALLMYNE-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BinBin/Pods-BinBin-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ALLMYNE/Pods-ALLMYNE-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BinBin/Pods-BinBin-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ACDB086D67157FE97EA86304 /* [CP] Embed Pods Frameworks */ = {
@@ -383,19 +381,19 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ALLMYNE/Pods-ALLMYNE-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BinBin/Pods-BinBin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			inputPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ALLMYNE/Pods-ALLMYNE-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BinBin/Pods-BinBin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ALLMYNE/Pods-ALLMYNE-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BinBin/Pods-BinBin-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F76075F4F9937498B5930AF8 /* [CP] Check Pods Manifest.lock */ = {
@@ -413,7 +411,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ALLMYNE-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BinBin-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -436,18 +434,18 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BDA7ED8A0CA4E1A8E0336498 /* Pods-ALLMYNE.debug.xcconfig */;
+			baseConfigurationReference = BDA7ED8A0CA4E1A8E0336498 /* Pods-BinBin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = ALLMYNE/ALLMYNE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BinBin/BinBin.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = ALLMYNE/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ALLMYNE;
+				INFOPLIST_FILE = BinBin/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BinBin;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -460,13 +458,13 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allmyne.rn;
-				PRODUCT_NAME = ALLMYNE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.allmyne.pro;
+				PRODUCT_NAME = BinBin;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "ALLMYNE-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "BinBin-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -476,17 +474,17 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBD848A37DB50D04C728759C /* Pods-ALLMYNE.release.xcconfig */;
+			baseConfigurationReference = FBD848A37DB50D04C728759C /* Pods-BinBin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = ALLMYNE/ALLMYNE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BinBin/BinBin.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = ALLMYNE/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ALLMYNE;
+				INFOPLIST_FILE = BinBin/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BinBin;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -499,13 +497,13 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allmyne.rn;
-				PRODUCT_NAME = ALLMYNE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.allmyne.pro;
+				PRODUCT_NAME = BinBin;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "ALLMYNE-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "BinBin-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -712,7 +710,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ALLMYNE" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BinBin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

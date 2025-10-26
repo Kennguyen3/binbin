@@ -1,4 +1,4 @@
-package com.allmynefev2
+package com.allmyne.pro
 
 import android.os.Bundle
 import android.content.Intent
