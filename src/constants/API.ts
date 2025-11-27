@@ -1,7 +1,7 @@
 // src/constants/API.ts
 // const API_URL = 'http://delivery.kennjdemo.com/api';
 // const API_URL = 'http://10.0.2.2:8000/api';
-const API_URL = 'https://delivery-staging.kennjdemo.com/api';
+const API_URL = 'https://delivery-staging.kendemo.com/api';
 export const PRODUCT_ENDPOINT = `${API_URL}/personal/home-page`;
 export const CATEGORY_ENDPOINT = `${API_URL}/personal/get-group`;
 export const PRODUCT_SEARCH = `${API_URL}/personal/get-store`;
