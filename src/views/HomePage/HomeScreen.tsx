@@ -49,7 +49,7 @@ const HomeScreen = () => {
   const handleShopPress = (shopId: number, shopName: string) => {
     navigation.navigate('ShopDetail', { shopId: String(shopId), shopName });
   };
-  const handleFilterPage = (typeId: number, keySearch: string , name: string = "") => {
+  const handleFilterPage = (typeId: number, keySearch: string, name: string = "") => {
     navigation.navigate('FilterPage', { typeId, keySearch, name });
   };
   const getLocation = () => {

@@ -108,6 +108,7 @@ export const styles = StyleSheet.create({
     color: '#000',
     fontSize: 14,
     marginLeft: 5,
+    height: 40
   },
   titleGroup: {
     flexDirection: 'row',

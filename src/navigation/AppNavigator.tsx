@@ -25,6 +25,7 @@ import SupportCenter from '../views/Profile/SupportCenter';
 import Conditions from '../views/Profile/Conditions';
 import Refund from '../views/Profile/Refund';
 import { SafeAreaView } from 'react-native';
+import BottomTabs from '@/navigation/BottomTabs';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -48,6 +49,7 @@ export type RootStackParamList = {
   Conditions: undefined;
   Refund: undefined;
   FilterPage: undefined;
+  MainTabs: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -57,7 +59,13 @@ const AppNavigator = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <AuthProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="HomePage">
+          
+          <Stack.Navigator id="Root" initialRouteName="MainTabs" screenOptions={{ headerShown: false }}>
+
+            {/* ---- BottomTab Navigator ---- */}
+            <Stack.Screen name="MainTabs" component={BottomTabs} />
+
+            {/* ---- Screens ngoài tab ---- */}
             <Stack.Screen name="UpdateFullName" component={UpdateFullName} />
             <Stack.Screen name="Conditions" component={Conditions} />
             <Stack.Screen name="Refund" component={Refund} />
@@ -73,11 +81,10 @@ const AppNavigator = () => {
             <Stack.Screen name="VerifyLocation" component={VerifyLocationScreen} />
             <Stack.Screen name="VerifyPhone" component={VerifyPhoneScreen} />
             <Stack.Screen name="ProductList" component={ProductListScreen} />
-            <Stack.Screen name="HomePage" component={HomeScreen} />
             <Stack.Screen name="Wishlist" component={WishlistScreen} />
             <Stack.Screen name="Notify" component={NotifyScreen} />
-            <Stack.Screen name="ShopDetail" component={ShopDetailScreen} options={{ title: 'Shop Detail' }} />
-            <Stack.Screen name="OrderDetail" component={OrderDetailScreen} options={{ title: 'Order Detail' }} />
+            <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
+            <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />
             <Stack.Screen name="ConfirmOrder" component={ConfirmOrderScreen} />
 
           </Stack.Navigator>
@@ -86,5 +93,6 @@ const AppNavigator = () => {
     </SafeAreaView>
   );
 };
+
 
 export default AppNavigator;
