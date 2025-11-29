@@ -181,6 +181,7 @@
     "prettier": "2.8.8",
     "react-native-clean-project": "^4.0.3",
     "react-native-dotenv": "^3.4.9",
+    "react-native-make": "^1.0.1",
     "react-test-renderer": "19.0.0",
     "typescript": "5.0.4",
     "uri-scheme": "^1.1.0"
