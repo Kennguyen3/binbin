@@ -446,7 +446,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allmyne.pro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.binbin.customer;
 				PRODUCT_NAME = BinBin;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -485,7 +485,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.allmyne.pro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.binbin.customer;
 				PRODUCT_NAME = BinBin;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

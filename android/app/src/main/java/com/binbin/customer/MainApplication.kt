@@ -1,4 +1,4 @@
-package com.allmyne.pro
+package com.binbin.customer
 
 import android.app.Application
 import com.facebook.react.PackageList
@@ -12,7 +12,7 @@ import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
 import com.facebook.soloader.SoLoader
 import io.branch.rnbranch.RNBranchModule
-import com.allmyne.pro.BuildConfig
+import com.binbin.customer.BuildConfig
 import com.lugg.RNCConfig.RNCConfigPackage
 
 class MainApplication : Application(), ReactApplication {
