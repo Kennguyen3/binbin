@@ -1809,32 +1809,6 @@ PODS:
     - React-Core
   - react-native-safe-area-context (5.6.2):
     - React-Core
-  - react-native-skia (2.4.5):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.11.18.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React
-    - React-callinvoker
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-hermes
-    - React-ImageManager
-    - React-jsi
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-renderercss
-    - React-rendererdebug
-    - React-utils
-    - ReactCodegen
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
   - react-native-slider (4.5.7):
     - DoubleConversion
     - glog
@@ -2284,8 +2258,6 @@ PODS:
     - React-logger (= 0.79.7)
     - React-perflogger (= 0.79.7)
     - React-utils (= 0.79.7)
-  - ReactNativeIncallManager (4.2.1):
-    - React-Core
   - RecaptchaInterop (101.0.0)
   - RevenueCat (5.32.0)
   - RNAppleAuthentication (2.5.0):
@@ -2616,42 +2588,6 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
   - SocketRocket (0.7.1)
-  - Stripe (24.11.1):
-    - StripeApplePay (= 24.11.1)
-    - StripeCore (= 24.11.1)
-    - StripePayments (= 24.11.1)
-    - StripePaymentsUI (= 24.11.1)
-    - StripeUICore (= 24.11.1)
-  - stripe-react-native (0.44.0):
-    - React-Core
-    - Stripe (~> 24.11.0)
-    - StripeApplePay (~> 24.11.0)
-    - StripeFinancialConnections (~> 24.11.0)
-    - StripePayments (~> 24.11.0)
-    - StripePaymentSheet (~> 24.11.0)
-    - StripePaymentsUI (~> 24.11.0)
-  - StripeApplePay (24.11.1):
-    - StripeCore (= 24.11.1)
-  - StripeCore (24.11.1)
-  - StripeFinancialConnections (24.11.1):
-    - StripeCore (= 24.11.1)
-    - StripeUICore (= 24.11.1)
-  - StripePayments (24.11.1):
-    - StripeCore (= 24.11.1)
-    - StripePayments/Stripe3DS2 (= 24.11.1)
-  - StripePayments/Stripe3DS2 (24.11.1):
-    - StripeCore (= 24.11.1)
-  - StripePaymentSheet (24.11.1):
-    - StripeApplePay (= 24.11.1)
-    - StripeCore (= 24.11.1)
-    - StripePayments (= 24.11.1)
-    - StripePaymentsUI (= 24.11.1)
-  - StripePaymentsUI (24.11.1):
-    - StripeCore (= 24.11.1)
-    - StripePayments (= 24.11.1)
-    - StripeUICore (= 24.11.1)
-  - StripeUICore (24.11.1):
-    - StripeCore (= 24.11.1)
   - SwiftAudioEx (1.1.0)
   - TOCropViewController (2.7.4)
   - Yoga (0.0.0)
@@ -2732,7 +2668,6 @@ DEPENDENCIES:
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
-  - "react-native-skia (from `../node_modules/@shopify/react-native-skia`)"
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-track-player (from `../node_modules/react-native-track-player`)
   - react-native-video (from `../node_modules/react-native-video`)
@@ -2770,7 +2705,6 @@ DEPENDENCIES:
   - ReactAppDependencyProvider (from `build/generated/ios`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - ReactNativeIncallManager (from `../node_modules/react-native-incall-manager`)
   - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - RNAudioRecorderPlayer (from `../node_modules/react-native-audio-recorder-player`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
@@ -2803,7 +2737,6 @@ DEPENDENCIES:
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - RNVoipPushNotification (from `../node_modules/react-native-voip-push-notification`)
-  - "stripe-react-native (from `../node_modules/@stripe/stripe-react-native`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -2855,14 +2788,6 @@ SPEC REPOS:
     - SDWebImage
     - SDWebImageWebPCoder
     - SocketRocket
-    - Stripe
-    - StripeApplePay
-    - StripeCore
-    - StripeFinancialConnections
-    - StripePayments
-    - StripePaymentSheet
-    - StripePaymentsUI
-    - StripeUICore
     - SwiftAudioEx
     - TOCropViewController
 
@@ -2994,8 +2919,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-pdf"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
-  react-native-skia:
-    :path: "../node_modules/@shopify/react-native-skia"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
   react-native-track-player:
@@ -3070,8 +2993,6 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  ReactNativeIncallManager:
-    :path: "../node_modules/react-native-incall-manager"
   RNAppleAuthentication:
     :path: "../node_modules/@invertase/react-native-apple-authentication"
   RNAudioRecorderPlayer:
@@ -3136,8 +3057,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-vector-icons"
   RNVoipPushNotification:
     :path: "../node_modules/react-native-voip-push-notification"
-  stripe-react-native:
-    :path: "../node_modules/@stripe/stripe-react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -3247,7 +3166,6 @@ SPEC CHECKSUMS:
   react-native-pager-view: 22c8753a8dc7ee427df271f1faf075bc16dd5923
   react-native-pdf: 73accc61238e8e9bc6e376191225028af20b996e
   react-native-safe-area-context: e48706fb09fde89f82e12bfb49b140cfdcb761f7
-  react-native-skia: d0492ea9da6199fa8cd033df6b66f828389080d1
   react-native-slider: b477e9bc16bd1522093679323f17149dbaf62612
   react-native-track-player: 24ecd55d64da8a6471ba96484b67bc9cee6fc629
   react-native-video: 16e5bf071f6d65a82f2c4bc2a23d2d3b18574f58
@@ -3285,7 +3203,6 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: 65c525dfdca3ae0cea9af8421314a9d3ff3ef75d
   ReactCodegen: 595a01d91323ef695de4ef0a93e40fa17556af20
   ReactCommon: 8bc3fc0ade0f3bc923617b70a5fe7a983a5dccb6
-  ReactNativeIncallManager: 65a85aed033c1d9ec66f98a943cca51c61a210e9
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
   RevenueCat: 7e1d0768fb287c9983173c9b28e39ccbeeb828a9
   RNAppleAuthentication: c088adfc7b371d44eb3da20c38d450d5543e5a0a
@@ -3323,19 +3240,10 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  Stripe: 27045ee70dced5f9bd6d68dc6a3ec6a1224a2a2b
-  stripe-react-native: 2816b70573f1332b80f9ad186a5e148986f7788d
-  StripeApplePay: ba4d3945eca1fc77e1e1e0a5f9a8e5f559a95149
-  StripeCore: c52f344bd536463458b2fd9a9596fe59198654da
-  StripeFinancialConnections: 5656524a8d3456004f5980485422f11ad11b423b
-  StripePayments: 531338872a070975e272c519c732955b9655c58b
-  StripePaymentSheet: 8bb985c442d613c30c7e60d8a484400ea762f114
-  StripePaymentsUI: 47b030d75d5676ec5e3c19d974e7b09584778a86
-  StripeUICore: 814828b4235e5be53f2a0443c71639e1a6a52f74
   SwiftAudioEx: f6aa653770f3a0d3851edaf8d834a30aee4a7646
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   Yoga: f22c05e55f05232d6e42995401c939937a52ce2f
 
-PODFILE CHECKSUM: 733d3a4e8f67b9a4b3db2844af9593e048ccba84
+PODFILE CHECKSUM: a348d79e670fd40d7c1a94dfd54838df9e8dbf2e
 
 COCOAPODS: 1.16.2

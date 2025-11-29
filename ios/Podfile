@@ -41,7 +41,6 @@ target 'BinBin' do
 
     # Set DoubleConversion to use modular headers
     pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec', :modular_headers => true
-    pod 'ReactNativeIncallManager', :path => '../node_modules/react-native-incall-manager'
 
 
   # Fix Firebase module map error
