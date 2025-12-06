@@ -117,6 +117,7 @@
 		<string>Roboto.ttf</string>
 		<string>Sarah.ttf</string>
 		<string>Alexander-Regular.ttf</string>
+		<string>MaterialIcons.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

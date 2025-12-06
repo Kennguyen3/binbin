@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     borderColor: "#ccc",
     position: "absolute",
     left: 20,
-    top: 20
+    top: 60
   },
   input: {
     flex: 1,                  // Mở rộng input

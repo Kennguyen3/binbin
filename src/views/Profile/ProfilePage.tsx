@@ -52,6 +52,8 @@ const ProfilePage = () => {
 
     return initials;
   };
+
+  console.log('===> ProfilePage User Info:', user);
   return (
 
     <View style={styles.container}>

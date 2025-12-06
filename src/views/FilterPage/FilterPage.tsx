@@ -23,8 +23,8 @@ interface FilterPageProps {
   };
 }
 const FilterPage: React.FC<FilterPageProps> = ({ route }) => {
-  const { typeId, keySearch, name} = route.params;
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { typeId, keySearch, name } = route.params;
+  const { login, user, logout } = useAuth();
   const [loadding, setLoadding] = useState(false);
   const [activeButton, setActiveButton] = useState('home');
   const navigation = useNavigation<FilterPageNavigationProp>();
@@ -57,7 +57,7 @@ const FilterPage: React.FC<FilterPageProps> = ({ route }) => {
     fetch(PRODUCT_SEARCH, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', 
+        'Content-Type': 'application/json',
         // Authorization: `Bearer ${user?.access_token}`,
       },
       body: JSON.stringify({
@@ -114,7 +114,7 @@ const FilterPage: React.FC<FilterPageProps> = ({ route }) => {
     fetch(PRODUCT_SEARCH, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', 
+        'Content-Type': 'application/json',
         // Authorization: `Bearer ${user?.access_token}`,
       },
       body: JSON.stringify(bodyData),
@@ -146,18 +146,18 @@ const FilterPage: React.FC<FilterPageProps> = ({ route }) => {
               <Image source={require('../../media/icon/back.png')} style={styles.backHeaderIMG} />
             </TouchableOpacity>
             {typeId != 5 && (
-            <View style={styles.groupSeach}>
-              <Icon name="search" size={16} style={styles.iconSearch} onPress={() => handleFilter()} />
-              <TextInput
-                placeholder="Bạn tìm kiếm gì ?"
-                style={styles.inputSearch}
-                placeholderTextColor="#000"
-                value={keySearchI}
-                onChangeText={setKeySearchI}
-              />
-            </View>
+              <View style={styles.groupSeach}>
+                <Icon name="search" size={16} style={styles.iconSearch} onPress={() => handleFilter()} />
+                <TextInput
+                  placeholder="Bạn tìm kiếm gì ?"
+                  style={styles.inputSearch}
+                  placeholderTextColor="#000"
+                  value={keySearchI}
+                  onChangeText={setKeySearchI}
+                />
+              </View>
             )}
-            
+
           </View>
 
           {stores && stores.length > 0 && (
