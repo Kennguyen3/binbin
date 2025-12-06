@@ -1,29 +1,19 @@
 
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, ScrollView, Alert, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, Alert, TextInput, Image, TouchableOpacity } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './stylesProfile';
 import { useAuth } from '../../context/AuthContext';
 import { UPDATE_PASSWORD_ENDPOINT } from '../../constants/API';
-import { useLayoutEffect } from 'react';
-import { GooglePlacesAutocomplete, GooglePlaceData, GooglePlaceDetail } from 'react-native-google-places-autocomplete';
-import MapView, { Marker } from 'react-native-maps';
-import FooterMenu from '../../components/FooterMenu';
-import HeaderTab from '../../components/HeaderTab';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import LoadingOverlay from '../../components/LoadingOverlay';
 type ProfilePageNavigationProp = NavigationProp<RootStackParamList, 'UpdatePassword'>;
 
 const UpdatePassword = () => {
-  const [activeButton, setActiveButton] = useState('profile');
   const [loadding, setLoadding] = useState(false);
   const navigation = useNavigation<ProfilePageNavigationProp>();
-
-  const [activeItem, setActiveItem] = useState<number | null>(1);
-  const { setLoginInfo, login, user, logout } = useAuth();
-
+  const { login, user, logout } = useAuth();
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -46,9 +36,9 @@ const UpdatePassword = () => {
     fetch(UPDATE_PASSWORD_ENDPOINT, {
       method: 'POST',
       body: JSON.stringify({
-        "old_password" : oldPassword,
-        "password" : newPassword,
-        "password_confirmation" : confirmPassword
+        "old_password": oldPassword,
+        "password": newPassword,
+        "password_confirmation": confirmPassword
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -75,21 +65,7 @@ const UpdatePassword = () => {
       headerShown: false, // Ẩn thanh navbar
     });
   }, [navigation]);
-  const handleNavigate = async () => {
-    try {
-      await AsyncStorage.removeItem('userInfo');
-    } catch (error) {
-      console.error('Failed to clear login info', error);
-    }
-    navigation.navigate("Login");
-  };
-  const handleNavigatePage = (screen: string) => {
-    if (!user) {
-      navigation.navigate("Login");
-      return;
-    }
-    navigation.navigate(screen);
-  };
+
   const getInitials = (fullName) => {
     if (!fullName) return '';
 
@@ -171,7 +147,6 @@ const UpdatePassword = () => {
 
 
       </ScrollView>
-      <FooterMenu active={activeButton} />
     </View>
   );
 };

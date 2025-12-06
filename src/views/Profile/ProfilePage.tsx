@@ -16,9 +16,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginScreen from '../Login/LoginScreen';
 type ProfilePageNavigationProp = NavigationProp<RootStackParamList, 'ProfilePage'>;
 
-const ProfilePage = () => {
+const ProfilePage = ({ navigation }) => {
   const [activeButton, setActiveButton] = useState('profile');
-  const navigation = useNavigation<ProfilePageNavigationProp>();
+  // const navigation = useNavigation<ProfilePageNavigationProp>();
 
   const [activeItem, setActiveItem] = useState<number | null>(1);
   const { login, user, logout } = useAuth();
@@ -133,7 +133,7 @@ const ProfilePage = () => {
               color="#444444"
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleNavigatePage('Wishlist')} style={styles.item_list}>
+          {/* <TouchableOpacity onPress={() => handleNavigatePage('Wishlist')} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
                 name={"favorite"}
@@ -177,7 +177,7 @@ const ProfilePage = () => {
               size={14}
               color="#444444"
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <TouchableOpacity onPress={() => handleNavigate()} style={styles.item_list}>
             <View style={styles.group_1}>

@@ -1,28 +1,15 @@
 
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, ScrollView, Alert, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import React, { useState } from 'react';
+import { View, Text, ScrollView, Alert, TextInput, Image, TouchableOpacity } from 'react-native';
 import { styles } from './stylesProfile';
 import { useAuth } from '../../context/AuthContext';
 import { UPDATE_FULLNAME_PROFILE } from '../../constants/API';
-import { useLayoutEffect } from 'react';
-import { GooglePlacesAutocomplete, GooglePlaceData, GooglePlaceDetail } from 'react-native-google-places-autocomplete';
-import MapView, { Marker } from 'react-native-maps';
-import FooterMenu from '../../components/FooterMenu';
-import HeaderTab from '../../components/HeaderTab';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import LoadingOverlay from '../../components/LoadingOverlay';
-type ProfilePageNavigationProp = NavigationProp<RootStackParamList, 'UpdateFullName'>;
 
-const UpdateFullName = () => {
-  const [activeButton, setActiveButton] = useState('profile');
+const UpdateFullName = ({ navigation }) => {
   const [loadding, setLoadding] = useState(false);
-  const navigation = useNavigation<ProfilePageNavigationProp>();
-
-  const [activeItem, setActiveItem] = useState<number | null>(1);
-  const { setLoginInfo, login, user, logout, updateActiveFullName } = useAuth();
+  const { user, updateUser } = useAuth();
 
   const [fullNameUpdate, setFullNameUpdate] = useState<string>(user?.full_name ? user?.full_name : '');
 
@@ -35,7 +22,7 @@ const UpdateFullName = () => {
       Alert.alert("Vui lòng nhập đầy đủ họ tên.");
       return;
     }
-    
+
     setLoadding(true);
     fetch(UPDATE_FULLNAME_PROFILE, {
       method: 'POST',
@@ -50,7 +37,7 @@ const UpdateFullName = () => {
       .then(response => response.json())
       .then(data => {
         setLoadding(false);
-        updateActiveFullName(fullNameUpdate);
+        updateUser({ ...user, full_name: fullNameUpdate });
         Alert.alert("Đã thay đổi họ tên");
         return;
       })
@@ -65,21 +52,7 @@ const UpdateFullName = () => {
       headerShown: false, // Ẩn thanh navbar
     });
   }, [navigation]);
-  const handleNavigate = async () => {
-    try {
-      await AsyncStorage.removeItem('userInfo');
-    } catch (error) {
-      console.error('Failed to clear login info', error);
-    }
-    navigation.navigate("Login");
-  };
-  const handleNavigatePage = (screen: string) => {
-    if (!user) {
-      navigation.navigate("Login");
-      return;
-    }
-    navigation.navigate(screen);
-  };
+
   const getInitials = (fullName) => {
     if (!fullName) return '';
 
@@ -141,7 +114,7 @@ const UpdateFullName = () => {
 
 
       </ScrollView>
-      <FooterMenu active={activeButton} />
+      {/* <FooterMenu active={activeButton} /> */}
     </View>
   );
 };
