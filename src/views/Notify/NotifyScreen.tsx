@@ -1,28 +1,21 @@
 
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity } from 'react-native';
 import { styles } from './stylesNotify';
 import { useAuth } from '../../context/AuthContext';
-import { LOGIN_ENDPOINT } from '../../constants/API';
-import { useLayoutEffect } from 'react';
-import { GooglePlacesAutocomplete, GooglePlaceData, GooglePlaceDetail } from 'react-native-google-places-autocomplete';
-import MapView, { Marker } from 'react-native-maps';
 import FooterMenu from '../../components/FooterMenu';
 import HeaderTab from '../../components/HeaderTab';
-import { Home } from '../../models/Home';
 import { Store } from '../../models/Store';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { LIST_FAVORITE } from '../../constants/API';
-type NotifyScreenNavigationProp = NavigationProp<RootStackParamList, 'Notify'>;
+import { useFocusEffect } from '@react-navigation/native';
+import LoginScreen from '../Login/LoginScreen';
 
-const NotifyScreen = () => {
+const NotifyScreen = ({ navigation }) => {
   const [activeButton, setActiveButton] = useState('Notify');
   const [loadding, setLoadding] = useState(false);
   const [products, setProducts] = useState<Store[]>([]);
   const { user } = useAuth();
-  const navigation = useNavigation<NotifyScreenNavigationProp>();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -30,7 +23,7 @@ const NotifyScreen = () => {
     });
   }, [navigation]);
   const handleShopPress = (shopId: number, shopName: string) => {
-    
+
   };
 
   useEffect(() => {
@@ -55,9 +48,38 @@ const NotifyScreen = () => {
 
   }, []);
 
+
+  const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      checkLoginStatus();
+    }, [user])
+  );
+
+  const checkLoginStatus = async () => {
+    console.log('Checking login status...: ', user);
+    if (!user) {
+      setVisibleLoginScreen(true);
+    } else {
+      setVisibleLoginScreen(false);
+    }
+  };
+
+
   return (
 
     <View style={styles.container}>
+      {
+        visibleLoginScreen &&
+        <LoginScreen
+          isVisible={visibleLoginScreen}
+          onClose={() => {
+            setVisibleLoginScreen(false)
+            navigation.navigate('MainTabs', { screen: 'Home' });
+          }}
+        />
+      }
       {loadding ?
         <LoadingOverlay />
         :

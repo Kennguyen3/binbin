@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useNavigation, NavigationProp, useFocusEffect } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './stylesWishlist';
 import { useAuth } from '../../context/AuthContext';
@@ -13,13 +13,12 @@ import FooterMenu from '../../components/FooterMenu';
 import HeaderTab from '../../components/HeaderTab';
 import { Store } from '../../models/Store';
 import LoadingOverlay from '../../components/LoadingOverlay';
-type WishlistScreenNavigationProp = NavigationProp<RootStackParamList, 'Wishlist'>;
+import LoginScreen from '../Login/LoginScreen';
 
-const WishlistScreen = () => {
+const WishlistScreen = ({ navigation }) => {
   const [activeButton, setActiveButton] = useState('wishlist');
   const [loadding, setLoadding] = useState(false);
   const { user } = useAuth();
-  const navigation = useNavigation<WishlistScreenNavigationProp>();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -53,10 +52,35 @@ const WishlistScreen = () => {
 
   }, []);
 
+  const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      checkLoginStatus();
+    }, [user])
+  );
+
+  const checkLoginStatus = async () => {
+    console.log('Checking login status...: ', user);
+    if (!user) {
+      setVisibleLoginScreen(true);
+    } else {
+      setVisibleLoginScreen(false);
+    }
+  };
 
   return (
-
     <View style={styles.container}>
+      {
+        visibleLoginScreen &&
+        <LoginScreen
+          isVisible={visibleLoginScreen}
+          onClose={() => {
+            setVisibleLoginScreen(false)
+            navigation.navigate('MainTabs', { screen: 'Home' });
+          }}
+        />
+      }
       {loadding ?
         <LoadingOverlay />
         :

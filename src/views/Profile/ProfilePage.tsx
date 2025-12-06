@@ -17,8 +17,6 @@ import LoginScreen from '../Login/LoginScreen';
 type ProfilePageNavigationProp = NavigationProp<RootStackParamList, 'ProfilePage'>;
 
 const ProfilePage = ({ navigation }) => {
-  const [activeButton, setActiveButton] = useState('profile');
-  // const navigation = useNavigation<ProfilePageNavigationProp>();
 
   const [activeItem, setActiveItem] = useState<number | null>(1);
   const { login, user, logout } = useAuth();
@@ -248,7 +246,6 @@ const ProfilePage = ({ navigation }) => {
         </View>
 
       </ScrollView>
-      <FooterMenu active={activeButton} />
     </View>
   );
 };
