@@ -36,7 +36,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [repassword, setRepassword] = useState('');
   const [emailInput, setEmailInput] = useState('');
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { login, user, logout } = useAuth();
   const [loadding, setLoadding] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRe, setShowPasswordRe] = useState(false);

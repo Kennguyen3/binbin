@@ -12,7 +12,7 @@ type VerifyPhoneScreenNavigationProp = NavigationProp<RootStackParamList, 'Verif
 const VerifyPhoneScreen = () => {
 
   const navigation = useNavigation<VerifyPhoneScreenNavigationProp>();
-  const { setLoginInfo, login, user, logout, updatePhoneNumber } = useAuth();
+  const { login, user, logout, updateUser } = useAuth();
   const [loadding, setLoadding] = useState(false);
 
   React.useLayoutEffect(() => {
@@ -46,8 +46,7 @@ const VerifyPhoneScreen = () => {
       .then(response => response.json())
       .then(data => {
         setLoadding(false);
-        updatePhoneNumber(phoneNumber);
-        // navigation.navigate('Verify');
+        updateUser(data.result);
         navigation.navigate('VerifyLocation');
         return;
       })

@@ -20,7 +20,7 @@ const ProfilePage = () => {
   const navigation = useNavigation<ProfilePageNavigationProp>();
 
   const [activeItem, setActiveItem] = useState<number | null>(1);
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { login, user, logout } = useAuth();
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false, // Ẩn thanh navbar

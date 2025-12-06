@@ -29,7 +29,7 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
 
   const [activeButton, setActiveButton] = useState('home');
   const navigation = useNavigation<ShopDetailScreenNavigationProp>();
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { login, user, logout } = useAuth();
 
   const [chooseProduct, setChooseProduct] = useState<Product | null>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -109,14 +109,14 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
       ...stores,
       favorite: wishlist
     });
-     fetch(ADD_REMOVE_FAVORITE, {
+    fetch(ADD_REMOVE_FAVORITE, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
       },
       body: JSON.stringify({
-        shop_id : shopId
+        shop_id: shopId
       })
     })
       .then(response => response.json())

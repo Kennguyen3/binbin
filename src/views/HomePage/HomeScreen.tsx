@@ -26,7 +26,7 @@ type HomePageScreenNavigationProp = NavigationProp<RootStackParamList, 'HomePage
 
 
 const HomeScreen = () => {
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { login, user, logout } = useAuth();
   const [loadding, setLoadding] = useState(false);
   const [activeButton, setActiveButton] = useState('home');
   const navigation = useNavigation<HomePageScreenNavigationProp>();

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, Alert, Image, TouchableWithoutFeedback, TouchableOpacity, Modal } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './styles';
@@ -16,19 +16,14 @@ import { onGoogleSignIn } from '@/utils/firebase';
 
 type LoginScreenNavigationProp = NavigationProp<RootStackParamList, 'Login'>;
 
-
-
-export const onFacebookSignIn = async (): Promise<any> => {
-
-};
-
-
-const LoginScreen = () => {
+const LoginScreen = ({ isVisible, onClose }) => {
 
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const handleGoBack = () => {
     // navigation.navigate("HomePage");
-    navigation.navigate('MainTabs');
+    // navigation.navigate('MainTabs');
+    setVisible(false);
+    onClose()
   };
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,39 +31,41 @@ const LoginScreen = () => {
     });
   }, [navigation]);
 
+  const [visible, setVisible] = useState(true);
+
 
   useEffect(() => {
     const autoLogin = async () => {
       console.log('===> Auto login check');
-      setLoadding(true);
+      setLoading(true);
       const userInfo = await getLoginInfo();
       if (userInfo) {
         login(userInfo);
-        setLoadding(false);
+        setLoading(false);
         if (userInfo) {
           // Nếu user đã đăng nhập, chuyển hướng đến HomeScreen
-          if (userInfo.is_phone == 1) {
-            navigation.navigate('VerifyPhone');
-          } else if (userInfo.is_address == 1) {
-            navigation.navigate('VerifyLocation');
-          } else {
-            navigation.navigate('HomePage');
-          }
+          // if (userInfo.is_phone == 1) {
+          //   navigation.navigate('VerifyPhone');
+          // } else if (userInfo.is_address == 1) {
+          //   navigation.navigate('VerifyLocation');
+          // } else {
+          //   navigation.navigate('HomePage');
+          // }
         }
       }
-      setLoadding(false);
+      setLoading(false);
     };
     autoLogin();
   }, []);
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
-  const { setLoginInfo, login, user, logout } = useAuth();
-  const [loadding, setLoadding] = useState(false);
+  const { login, user, logout } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const onGoogleButtonPress = async (): Promise<any> => {
-    setLoadding(true);
+    setLoading(true);
     try {
       // GoogleSignin.configure({
       //   webClientId:
@@ -113,21 +110,21 @@ const LoginScreen = () => {
             return;
           }
           login(data.result);
-          setLoadding(false);
+          setLoading(false);
 
           if (data.result) {
             // Nếu user đã đăng nhập, chuyển hướng đến HomeScreen
-            if (data.result.is_phone == 1) {
-              navigation.navigate('VerifyPhone');
-            } else if (data.result.is_address == 1) {
-              navigation.navigate('VerifyLocation');
-            } else {
-              navigation.navigate('HomePage');
-            }
+            // if (data.result.is_phone == 1) {
+            //   navigation.navigate('VerifyPhone');
+            // } else if (data.result.is_address == 1) {
+            //   navigation.navigate('VerifyLocation');
+            // } else {
+            //   navigation.navigate('HomePage');
+            // }
           }
         })
         .catch(error => {
-          setLoadding(false);
+          setLoading(false);
           Alert.alert(error);
         });
       // console.log('Google Sign-In successful', userCredential.user.uid);
@@ -138,7 +135,7 @@ const LoginScreen = () => {
 
       return signingGoogle.user;
     } catch (error) {
-      setLoadding(false);
+      setLoading(false);
       console.log('error signed in user', error);
       return false;
     }
@@ -165,7 +162,7 @@ const LoginScreen = () => {
       Alert.alert("Vui lòng nhập mật khẩu.");
       return; // Dừng code
     }
-    setLoadding(true);
+    setLoading(true);
     try {
       fetch(LOGIN_ENDPOINT, {
         method: 'POST',
@@ -183,12 +180,12 @@ const LoginScreen = () => {
         .then(data => {
           console.log(data);
           if (data.error_code == 1) {
-            setLoadding(false);
+            setLoading(false);
             Alert.alert(data.message);
             return;
           }
           if (data.success == "false") {
-            setLoadding(false);
+            setLoading(false);
             Alert.alert(data.message);
             return;
           }
@@ -198,7 +195,7 @@ const LoginScreen = () => {
             console.error('Failed to save login info', error);
           }
           login(data.result);
-          setLoadding(false);
+          setLoading(false);
 
           if (data.result) {
             // Nếu user đã đăng nhập, chuyển hướng đến HomeScreen
@@ -212,126 +209,128 @@ const LoginScreen = () => {
           }
         })
         .catch(error => {
-          setLoadding(false);
+          setLoading(false);
           Alert.alert(error);
         });
 
     } catch (error) {
-      setLoadding(false);
+      setLoading(false);
       console.log('error signed in user', error);
       return false;
     }
   };
 
 
-  const handleLogin = () => {
+  // const handleLogin = () => {
 
-    navigation.navigate('Verify');
-    return;
-    // Gọi API đăng nhập và lưu thông tin đăng nhập
-    fetch(LOGIN_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ phoneNumber }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Lưu thông tin đăng nhập vào context
-        setLoginInfo(data);
-        navigation.navigate('ProductList');
-      })
-      .catch(error => {
-        console.log(error);
-        console.error('Error logging in', error);
-      });
-  };
-  const handleLoginSocial = () => {
+  //   navigation.navigate('Verify');
+  //   return;
+  //   // Gọi API đăng nhập và lưu thông tin đăng nhập
+  //   fetch(LOGIN_ENDPOINT, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ phoneNumber }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       // Lưu thông tin đăng nhập vào context
+  //       setLoginInfo(data);
+  //       navigation.navigate('ProductList');
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       console.error('Error logging in', error);
+  //     });
+  // };
+  // const handleLoginSocial = () => {
 
-    navigation.navigate('VerifyPhone');
-    return;
-    // Gọi API đăng nhập và lưu thông tin đăng nhập
-    fetch(LOGIN_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ phoneNumber }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Lưu thông tin đăng nhập vào context
-        setLoginInfo(data);
-        navigation.navigate('ProductList');
-      })
-      .catch(error => {
-        console.log(error);
-        console.error('Error logging in', error);
-      });
-  };
+  //   navigation.navigate('VerifyPhone');
+  //   return;
+  //   // Gọi API đăng nhập và lưu thông tin đăng nhập
+  //   fetch(LOGIN_ENDPOINT, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ phoneNumber }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       // Lưu thông tin đăng nhập vào context
+  //       setLoginInfo(data);
+  //       navigation.navigate('ProductList');
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       console.error('Error logging in', error);
+  //     });
+  // };
   return (
-    <View style={styles.container}>
-      {loadding ?
-        <LoadingOverlay />
-        :
-        null
-      }
-      <TouchableOpacity
-        style={styles.icon_back}
-        onPress={() => handleGoBack()}>
-        <Icon
-          name="arrow-left-l"
-          size={20}
-          color="#000"
-        />
-      </TouchableOpacity>
-      <Image source={require('../../media/logoLogin.png')} style={styles.logo} />
-      <Text style={styles.welcome}>Chào mừng bạn</Text>
-      <Text style={styles.placeholder}>Nhập số điện thoại của bạn</Text>
-      <View style={styles.groupInput}>
-        <Text style={styles.prefixText}>+84</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nhập số điện thoại"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          keyboardType="phone-pad"
-        />
-      </View>
-      <View style={styles.groupInput}>
+    <Modal transparent visible={isVisible} animationType="slide">
+
+      <View style={styles.container}>
+        {loading ?
+          <LoadingOverlay />
+          :
+          null
+        }
         <TouchableOpacity
-          onPress={() => setShowPassword(!showPassword)}>
+          style={styles.icon_back}
+          onPress={() => handleGoBack()}>
           <Icon
-            name={showPassword ? "eye" : "locked"}
-            size={14}
-            color="#888"
+            name="arrow-left-l"
+            size={20}
+            color="#000"
           />
         </TouchableOpacity>
-        <TextInput
-          style={styles.input}
-          placeholder="Nhập mật khẩu"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={!showPassword}// Ẩn ký tự nhập vào
-          autoCapitalize="none"  // Không viết hoa chữ cái đầu tiên
-        />
-      </View>
-      <TouchableWithoutFeedback onPress={handleLoginNew}>
-        <Text style={styles.btnNext}>Tiếp tục</Text>
-      </TouchableWithoutFeedback>
-      <View style={styles.register_group}>
-        <Text style={styles.register_text}>Nếu chưa có tài khoản ?
-          <TouchableWithoutFeedback onPress={handleRegister}>
-            <Text style={styles.register_link} > Đăng ký</Text>
-          </TouchableWithoutFeedback>
-        </Text>
+        <Image source={require('../../media/logoLogin.png')} style={styles.logo} />
+        <Text style={styles.welcome}>Chào mừng bạn</Text>
+        <Text style={styles.placeholder}>Nhập số điện thoại của bạn</Text>
+        <View style={styles.groupInput}>
+          <Text style={styles.prefixText}>+84</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Nhập số điện thoại"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            keyboardType="phone-pad"
+          />
+        </View>
+        <View style={styles.groupInput}>
+          <TouchableOpacity
+            onPress={() => setShowPassword(!showPassword)}>
+            <Icon
+              name={showPassword ? "eye" : "locked"}
+              size={14}
+              color="#888"
+            />
+          </TouchableOpacity>
+          <TextInput
+            style={styles.input}
+            placeholder="Nhập mật khẩu"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}// Ẩn ký tự nhập vào
+            autoCapitalize="none"  // Không viết hoa chữ cái đầu tiên
+          />
+        </View>
+        <TouchableWithoutFeedback onPress={handleLoginNew}>
+          <Text style={styles.btnNext}>Tiếp tục</Text>
+        </TouchableWithoutFeedback>
+        <View style={styles.register_group}>
+          <Text style={styles.register_text}>Nếu chưa có tài khoản ?
+            <TouchableWithoutFeedback onPress={handleRegister}>
+              <Text style={styles.register_link} > Đăng ký</Text>
+            </TouchableWithoutFeedback>
+          </Text>
 
-      </View>
-      <View style={styles.divider}>
-        <Text style={styles.divi_text}>Hoặc</Text>
-      </View>
-      {/*
+        </View>
+        <View style={styles.divider}>
+          <Text style={styles.divi_text}>Hoặc</Text>
+        </View>
+        {/*
       <TouchableOpacity style={styles.buttonLogin} onPress={onFacebookSignIn}>
         <Image
           source={require('../../media/ico_lg_facebook.png')} 
@@ -340,15 +339,16 @@ const LoginScreen = () => {
         <Text style={styles.buttonTextLogin}>Đăng nhập bằng Facebook</Text>
       </TouchableOpacity>
       */}
-      <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleButtonPress}>
-        <Image
-          source={require('../../media/ico_lg_google.png')}
-          style={styles.iconLogin}
-        />
-        <Text style={styles.buttonTextLogin}>Đăng nhập bằng Google</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleButtonPress}>
+          <Image
+            source={require('../../media/ico_lg_google.png')}
+            style={styles.iconLogin}
+          />
+          <Text style={styles.buttonTextLogin}>Đăng nhập bằng Google</Text>
+        </TouchableOpacity>
 
-    </View>
+      </View>
+    </Modal>
   );
 };
 

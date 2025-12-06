@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use, useCallback } from 'react';
 import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useNavigation, NavigationProp, useFocusEffect } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './stylesShipping';
 import { useAuth } from '../../context/AuthContext';
@@ -10,11 +10,12 @@ import FooterMenu from '../../components/FooterMenu';
 import HeaderTab from '../../components/HeaderTab';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { OrderList } from '../../models/OrderCreate';
+import LoginScreen from '../Login/LoginScreen';
 
 type ShippingScreenNavigationProp = NavigationProp<RootStackParamList, 'Shipping'>;
 
 const ShippingScreen = () => {
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { login, user, logout } = useAuth();
   const [activeButton, setActiveButton] = useState('orders');
   const [orders, setOrders] = useState<OrderList[]>();
   const [ordersProcess, setOrdersProcess] = useState<OrderList[]>();
@@ -102,9 +103,37 @@ const ShippingScreen = () => {
   const getTotalItems = (order_personal_items) => {
     return order_personal_items.reduce((total, item) => total + item.qty, 0);
   };
+
+
+  const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      checkLoginStatus();
+    }, [user])
+  );
+
+  const checkLoginStatus = async () => {
+    console.log('Checking login status...: ', user);
+    if (!user) {
+      setVisibleLoginScreen(true);
+    } else {
+      setVisibleLoginScreen(false);
+    }
+  };
   return (
 
     <View style={styles.container}>
+      {
+        visibleLoginScreen &&
+        <LoginScreen
+          isVisible={visibleLoginScreen}
+          onClose={() => {
+            setVisibleLoginScreen(false)
+            navigation.navigate('MainTabs', { screen: 'Home' });
+          }}
+        />
+      }
       {loadding ?
         <LoadingOverlay />
         :
