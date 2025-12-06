@@ -1,4 +1,4 @@
-// src/views/Login/LoginScreen.tsx
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, ScrollView, Alert, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';

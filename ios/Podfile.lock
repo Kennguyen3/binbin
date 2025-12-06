@@ -1648,9 +1648,9 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-config (1.6.0):
-    - react-native-config/App (= 1.6.0)
-  - react-native-config/App (1.6.0):
+  - react-native-config (1.6.1):
+    - react-native-config/App (= 1.6.1)
+  - react-native-config/App (1.6.1):
     - React-Core
   - react-native-contacts (8.0.7):
     - DoubleConversion
@@ -1751,7 +1751,7 @@ PODS:
     - React-Core
   - react-native-image-resizer (1.4.5):
     - React-Core
-  - react-native-keyboard-controller (1.19.6):
+  - react-native-keyboard-controller (1.20.1):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2266,7 +2266,7 @@ PODS:
     - React-Core
   - RNBackgroundFetch (4.2.8):
     - React-Core
-  - RNBackgroundGeolocation (4.19.2):
+  - RNBackgroundGeolocation (4.19.3):
     - CocoaLumberjack (~> 3.8.5)
     - React-Core
   - RNCAsyncStorage (2.2.0):
@@ -2553,7 +2553,7 @@ PODS:
     - Yoga
   - RNSoundPlayer (0.14.5):
     - React-Core
-  - RNSVG (15.15.0):
+  - RNSVG (15.15.1):
     - React-Core
   - RNVectorIcons (10.3.0):
     - DoubleConversion
@@ -3149,7 +3149,7 @@ SPEC CHECKSUMS:
   react-native-branch: eec9c1c37321d13c365174b10313bdd86337c554
   react-native-cameraroll: 38419de89a1ca1b974b2b2a53eb63124b6dc1a0a
   react-native-compressor: c647719c8c73988ab3e6de317aa39ff2d657102e
-  react-native-config: 9b5857573d57aaf6003fa3f66f7c177c927b5044
+  react-native-config: 97ffff0aec29e12269f4dd2d41c6669c0056c7aa
   react-native-contacts: 4340ffa243f7640b0b55d9cb47d02d54e3805e38
   react-native-date-picker: b64721d6278b52708457292c218196b383b553b1
   react-native-document-picker: 95bf9f46da1a56715d86309dd2bf773caa60cac6
@@ -3159,7 +3159,7 @@ SPEC CHECKSUMS:
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
   react-native-google-maps: 8cb46ae72c332204bc364dcbaf09423d244480d5
   react-native-image-resizer: d9fb629a867335bdc13230ac2a58702bb8c8828f
-  react-native-keyboard-controller: 85d7698d806579aeab076cafa6be331e5fb0bc62
+  react-native-keyboard-controller: cb8cfe7fd97c5fabf4466f52e95e858e45c7b744
   react-native-maps: d7c0974353b8a495642d7ce3b80f239fc6b87bfb
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
   react-native-notification-badge: c33673c5f9334703ba8c3ca599b6ba67a2eed2dc
@@ -3208,7 +3208,7 @@ SPEC CHECKSUMS:
   RNAppleAuthentication: c088adfc7b371d44eb3da20c38d450d5543e5a0a
   RNAudioRecorderPlayer: 76b1d9ea2b22bf5ece274c0ff99c341daca42dc4
   RNBackgroundFetch: 534f5bba01d1e45559aa7d53f42e00124378db93
-  RNBackgroundGeolocation: b16e2849ac9ddf4b45fda893a6fafbb9a18a6955
+  RNBackgroundGeolocation: 1b5ff439c04579eaa08b4a5416a56ccb1527a6ab
   RNCAsyncStorage: 23e56519cc41d3bade3c8d4479f7760cb1c11996
   RNCCheckbox: 471ebdc33884c084f362615c1ef3507496cc07f1
   RNCClipboard: dfeb43751adff21e588657b5b6c888c72f3aa68e
@@ -3234,7 +3234,7 @@ SPEC CHECKSUMS:
   RNReanimated: e8361570e24bde25bf57e23ee3f47ec9db569f24
   RNScreens: d45cf1c927dcfedafbdef4cde7bf19d724dd668d
   RNSoundPlayer: 95b72e12a6990e4fabfd71b1c7fac579f9e60e75
-  RNSVG: ee7aec9cc5f0b3bde6c84cbf6d893c0afe769fc5
+  RNSVG: 565234ef21c053be08de03f012503c446bfcf755
   RNVectorIcons: 0fc50ad8056eda63e0f9b01efadfc4a9634585f1
   RNVoipPushNotification: a6f7c09e1ca7220e2be1c45e9b6b897c9600024b
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
