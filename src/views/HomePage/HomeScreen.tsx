@@ -1,20 +1,19 @@
 // src/views/ProductList/ProductListScreen.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity } from 'react-native';
 import { getStores } from '../../services/HomeService';
 import { useAuth } from '../../context/AuthContext';
 import { Home } from '../../models/Home';
 import { styles } from './styles';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../navigation/AppNavigator';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import FooterMenu from '../../components/FooterMenu';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import ImageSlider from 'react-native-image-slider';
 import { PRODUCT_ENDPOINT, CATEGORY_ENDPOINT } from '../../constants/API';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import LoginScreen from '../Login/LoginScreen';
 
 export interface CategoryItem {
   id: number;
@@ -22,14 +21,9 @@ export interface CategoryItem {
   icon: string;
 }
 
-type HomePageScreenNavigationProp = NavigationProp<RootStackParamList, 'HomePage'>;
-
-
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const { login, user, logout } = useAuth();
   const [loadding, setLoadding] = useState(false);
-  const [activeButton, setActiveButton] = useState('home');
-  const navigation = useNavigation<HomePageScreenNavigationProp>();
   const [keySearchI, setKeySearchI] = useState('');
   const [locationUser, setLocationUser] = useState({ "latitude": 10.7960147, "longitude": 106.6408417 });
   const [categories, setCategories] = useState<CategoryItem[]>([]);
@@ -47,6 +41,10 @@ const HomeScreen = () => {
   // const { cart, addToCart } = useAuth();
 
   const handleShopPress = (shopId: number, shopName: string) => {
+    if (!user) {
+      setVisibleLoginScreen(true);
+      return;
+    }
     navigation.navigate('ShopDetail', { shopId: String(shopId), shopName });
   };
   const handleFilterPage = (typeId: number, keySearch: string, name: string = "") => {
@@ -120,6 +118,24 @@ const HomeScreen = () => {
       });
 
   }, []);
+
+
+  const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     checkLoginStatus();
+  //   }, [user])
+  // );
+
+  const checkLoginStatus = async () => {
+    console.log('Checking login status...: ', user);
+    if (!user) {
+      setVisibleLoginScreen(true);
+    } else {
+      setVisibleLoginScreen(false);
+    }
+  };
 
 
   const renderHeader = () => (
@@ -270,6 +286,16 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      {
+        visibleLoginScreen &&
+        <LoginScreen
+          isVisible={visibleLoginScreen}
+          onClose={() => {
+            setVisibleLoginScreen(false)
+            navigation.navigate('MainTabs', { screen: 'Home' });
+          }}
+        />
+      }
       {loadding ?
         <LoadingOverlay />
         :
@@ -310,7 +336,6 @@ const HomeScreen = () => {
         />
       </View>
       <View>
-        {/* <FooterMenu active={activeButton} /> */}
       </View>
     </View>
   );
