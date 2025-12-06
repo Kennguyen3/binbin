@@ -1,7 +1,7 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useNavigation, NavigationProp, useFocusEffect } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './stylesProfile';
 import { useAuth } from '../../context/AuthContext';
@@ -11,8 +11,9 @@ import { GooglePlacesAutocomplete, GooglePlaceData, GooglePlaceDetail } from 're
 import MapView, { Marker } from 'react-native-maps';
 import FooterMenu from '../../components/FooterMenu';
 import HeaderTab from '../../components/HeaderTab';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoginScreen from '../Login/LoginScreen';
 type ProfilePageNavigationProp = NavigationProp<RootStackParamList, 'ProfilePage'>;
 
 const ProfilePage = () => {
@@ -54,10 +55,37 @@ const ProfilePage = () => {
   };
 
   console.log('===> ProfilePage User Info:', user);
+
+  const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      checkLoginStatus();
+    }, [user])
+  );
+
+  const checkLoginStatus = async () => {
+    console.log('Checking login status...: ', user);
+    if (!user) {
+      setVisibleLoginScreen(true);
+    } else {
+      setVisibleLoginScreen(false);
+    }
+  };
+
   return (
 
     <View style={styles.container}>
-
+      {
+        visibleLoginScreen &&
+        <LoginScreen
+          isVisible={visibleLoginScreen}
+          onClose={() => {
+            setVisibleLoginScreen(false)
+            navigation.navigate('MainTabs', { screen: 'Home' });
+          }}
+        />
+      }
       {/* <HeaderTab showBack={false} title={"Tài Khoản " + user?.full_name} /> */}
       <View style={styles.HeaderCusomeProfile}>
         <TouchableOpacity onPress={() => handleNavigatePage('UpdateFullName')} style={styles.HeaderGroup}>
@@ -78,14 +106,14 @@ const ProfilePage = () => {
           <TouchableOpacity onPress={() => handleNavigatePage('UpdateFullName')} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
-                name={"user"}
+                name={"person"}
                 size={14}
                 color="#444444"
               />
               <Text style={[styles.btnNext]}>Đổi thông tin</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />
@@ -100,7 +128,7 @@ const ProfilePage = () => {
               <Text style={[styles.btnNext]}>Đổi mật khẩu</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />
@@ -108,14 +136,14 @@ const ProfilePage = () => {
           <TouchableOpacity onPress={() => handleNavigatePage('Wishlist')} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
-                name={"heart"}
+                name={"favorite"}
                 size={14}
                 color="#444444"
               />
               <Text style={[styles.btnNext]}>Yêu thích</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />
@@ -123,14 +151,14 @@ const ProfilePage = () => {
           <TouchableOpacity onPress={() => handleNavigatePage('Shipping')} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
-                name={"clipboard-list"}
+                name={"shopping-cart"}
                 size={14}
                 color="#444444"
               />
               <Text style={[styles.btnNext]}>Đơn hàng</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />
@@ -138,14 +166,14 @@ const ProfilePage = () => {
           <TouchableOpacity onPress={() => handleNavigatePage('Notify')} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
-                name={"bell"}
+                name={"notifications"}
                 size={14}
                 color="#444444"
               />
               <Text style={[styles.btnNext]}>Thông báo</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />
@@ -154,14 +182,14 @@ const ProfilePage = () => {
           <TouchableOpacity onPress={() => handleNavigate()} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
-                name={"sign-out-alt"}
+                name={"logout"}
                 size={14}
                 color="#444444"
               />
               <Text style={[styles.btnNext]}>Đăng xuất</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />
@@ -174,14 +202,14 @@ const ProfilePage = () => {
           <TouchableOpacity onPress={() => handleNavigatePage('SupportCenter')} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
-                name={"envelope"}
+                name={"help-outline"}
                 size={14}
                 color="#444444"
               />
               <Text style={[styles.btnNext]}>Trung tâm trợ giúp</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />
@@ -189,14 +217,14 @@ const ProfilePage = () => {
           <TouchableOpacity onPress={() => handleNavigatePage('Refund')} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
-                name={"exchange-alt"}
+                name={"money"}
                 size={14}
                 color="#444444"
               />
               <Text style={[styles.btnNext]}>Chính sách hoàn tiền</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />
@@ -204,14 +232,14 @@ const ProfilePage = () => {
           <TouchableOpacity onPress={() => handleNavigatePage('Conditions')} style={styles.item_list}>
             <View style={styles.group_1}>
               <Icon
-                name={"scroll"}
+                name={"description"}
                 size={14}
                 color="#444444"
               />
               <Text style={[styles.btnNext]}>Điều khoản & Điều kiện</Text>
             </View>
             <Icon
-              name={"angle-right"}
+              name={"arrow-right"}
               size={14}
               color="#444444"
             />

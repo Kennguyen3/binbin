@@ -24,7 +24,9 @@ const LoginScreen = ({ isVisible, onClose }) => {
     // navigation.navigate("HomePage");
     // navigation.navigate('MainTabs');
     setVisible(false);
-    onClose()
+    if (onClose) {
+      onClose();
+    }
   };
   React.useLayoutEffect(() => {
     navigation.setOptions({
