@@ -12,6 +12,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Fontisto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { onGoogleSignIn } from '@/utils/firebase';
 
 type LoginScreenNavigationProp = NavigationProp<RootStackParamList, 'Login'>;
 
@@ -26,7 +27,8 @@ const LoginScreen = () => {
 
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const handleGoBack = () => {
-    navigation.navigate("HomePage");
+    // navigation.navigate("HomePage");
+    navigation.navigate('MainTabs');
   };
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -37,6 +39,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     const autoLogin = async () => {
+      console.log('===> Auto login check');
       setLoadding(true);
       const userInfo = await getLoginInfo();
       if (userInfo) {
@@ -64,26 +67,32 @@ const LoginScreen = () => {
   const [loadding, setLoadding] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const onGoogleSignIn = async (): Promise<any> => {
+  const onGoogleButtonPress = async (): Promise<any> => {
     setLoadding(true);
     try {
-      GoogleSignin.configure({
-        webClientId:
-          '1008270887751-u4e0ucmtddfeavvc41c443fsuigj3aim.apps.googleusercontent.com',
-      });
+      // GoogleSignin.configure({
+      //   webClientId:
+      //     '874677192536-r0n2atfv164ug7nlmsaiveal39rgj3cf.apps.googleusercontent.com',
+      // });
 
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const userInfo = await GoogleSignin.signIn();
-      const googleIdToken = userInfo.idToken;
-      const googleUserId = userInfo.user.id;
-      const googleEmail = userInfo.user.email;
-      // Create a Google credential with the token
-      const googleCredential = auth.GoogleAuthProvider.credential(googleIdToken);
+      // await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      // const userInfo = await GoogleSignin.signIn();
+      // console.log('===> Google Sign-In response', userInfo.type);
 
-      // Sign in with the credential
-      const userCredential = await auth().signInWithCredential(googleCredential);
-      // const confirmation = await auth().signInWithPhoneNumber("+84961177604");
-      // return;
+      // const userInfoData = userInfo.data
+      // const googleIdToken = userInfoData.idToken;
+      // const googleUserId = userInfoData.user.id;
+      // const googleEmail = userInfoData.user.email;
+      // // Create a Google credential with the token
+      // const googleCredential = auth.GoogleAuthProvider.credential(googleIdToken);
+
+      // // Sign in with the credential
+      // const userCredential = await auth().signInWithCredential(googleCredential);
+      // // const confirmation = await auth().signInWithPhoneNumber("+84961177604");
+      // // return;
+
+      const signingGoogle = await onGoogleSignIn();
+      console.log('===> Google Sign-In response', signingGoogle);
 
       fetch(LOGIN_ENDPOINT, {
         method: 'POST',
@@ -92,7 +101,7 @@ const LoginScreen = () => {
         },
         body: JSON.stringify({
           "login_type": "is_google",
-          "uid": userCredential.user.uid
+          "uid": signingGoogle.user.uid
         }),
       })
         .then(response => response.json())
@@ -127,7 +136,7 @@ const LoginScreen = () => {
       // Example: navigation.navigate('ProductList');
       // navigation.navigate('ProductList');
 
-      return googleIdToken;
+      return signingGoogle.user;
     } catch (error) {
       setLoadding(false);
       console.log('error signed in user', error);
@@ -331,7 +340,7 @@ const LoginScreen = () => {
         <Text style={styles.buttonTextLogin}>Đăng nhập bằng Facebook</Text>
       </TouchableOpacity>
       */}
-      <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleSignIn}>
+      <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleButtonPress}>
         <Image
           source={require('../../media/ico_lg_google.png')}
           style={styles.iconLogin}

@@ -6,7 +6,7 @@ end
 
 firebase_android_distribution_groups = "internal"
 github_match_url = ENV['MATCH_REPO_URL']
-ios_app_scheme = "ALLMYNE"
+ios_app_scheme = "BinBin"
 appstore_provision_file = "match AppStore com.allmyne.rn"
 adhoc_provision_file = "match AdHoc com.allmyne.rn"
 code_signing_identity = "Apple Distribution: ALLMYNE.COM 21:21 Inc. (69P674CYLH)"

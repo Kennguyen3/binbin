@@ -83,13 +83,14 @@ const RegisterPage = () => {
 
           if (data.result) {
             // Nếu user đã đăng nhập, chuyển hướng đến HomeScreen
-            if (data.result.is_phone == 1) {
-              navigation.navigate('VerifyPhone');
-            } else if (data.result.is_address == 1) {
-              navigation.navigate('VerifyLocation');
-            } else {
-              navigation.navigate('HomePage');
-            }
+            // if (data.result.is_phone == 1) {
+            //   navigation.navigate('VerifyPhone');
+            // } else if (data.result.is_address == 1) {
+            //   navigation.navigate('VerifyLocation');
+            // } else {
+            //   navigation.navigate('HomePage');
+            // }
+            navigation.navigate('HomePage');
           }
         })
         .catch(error => {
@@ -117,7 +118,7 @@ const RegisterPage = () => {
   const handleLoginNew = async (): Promise<any> => {
     if (!phoneNumber || phoneNumber.trim() === "") {
       Alert.alert("Vui lòng nhập số điện thoại.");
-      return; 
+      return;
     }
     if (!password || password.trim() === "") {
       Alert.alert("Vui lòng nhập mật khẩu.");
@@ -125,11 +126,11 @@ const RegisterPage = () => {
     }
     if (!repassword || repassword.trim() === "") {
       Alert.alert("Vui lòng nhập lại mật khẩu.");
-      return; 
+      return;
     }
     if (repassword != password) {
       Alert.alert("Mật khẩu không trùng khớp.");
-      return; 
+      return;
     }
     // if (!emailInput || emailInput.trim() === "") {
     //   Alert.alert("Vui lòng nhập Email.");
@@ -147,7 +148,7 @@ const RegisterPage = () => {
           "password": password,
           "user_type": 'personal',
           // "email" : emailInput,
-          "password_confirmation" : repassword
+          "password_confirmation": repassword
         }),
       })
         .then(response => response.json())

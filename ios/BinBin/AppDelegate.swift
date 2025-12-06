@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     window = UIWindow(frame: UIScreen.main.bounds)
 
-    // Thay "ALLMYNE" bằng moduleName bạn dùng cho index.js
+    // Thay "BinBin" bằng moduleName bạn dùng cho index.js
     factory.startReactNative(
       withModuleName: "BinBin",
       in: window,

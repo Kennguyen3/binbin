@@ -10,9 +10,9 @@
 	</array>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:allmyne.app.link</string>
-		<string>applinks:allmyne-alternate.app.link</string>
-		<string>applinks:allmyne.test.app.link</string>
+		<string>applinks:binbincus.app.link</string>
+		<string>applinks:binbincus-alternate.app.link</string>
+		<string>applinks:binbincus.test.app.link</string>
 	</array>
 </dict>
 </plist>

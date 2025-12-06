@@ -28,7 +28,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb7316919581670119</string>
-				<string>com.googleusercontent.apps.718812079188-qu8okjmhf1a01vvv8saoub1v8a3tfcm8</string>
+				<string>com.googleusercontent.apps.874677192536-r0n2atfv164ug7nlmsaiveal39rgj3cf</string>
 			</array>
 		</dict>
 		<dict>
@@ -99,10 +99,10 @@
 	<string>Access to the microphone is required to record audio for journal entries and save voice-recorded memories. This helps in personalizing your journal and preserving your moments in your own voice.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>BinBin Motion Usage Description</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need access to your photo library to save downloaded videos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We request access to your photo library to allow you to select and upload photos for sharing and personalizing your profile</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-    <string>We need access to your photo library to save downloaded videos.</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>Tracking permission helps us improve app performance and provide better, more relevant content</string>
 	<key>UIAppFonts</key>
