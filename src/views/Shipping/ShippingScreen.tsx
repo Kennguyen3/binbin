@@ -14,12 +14,12 @@ import LoginScreen from '../Login/LoginScreen';
 
 type ShippingScreenNavigationProp = NavigationProp<RootStackParamList, 'Shipping'>;
 
-const ShippingScreen = () => {
+const ShippingScreen = ({ navigation }) => {
   const { login, user, logout } = useAuth();
   const [activeButton, setActiveButton] = useState('orders');
   const [orders, setOrders] = useState<OrderList[]>();
   const [ordersProcess, setOrdersProcess] = useState<OrderList[]>();
-  const navigation = useNavigation<ShippingScreenNavigationProp>();
+  // const navigation = useNavigation<ShippingScreenNavigationProp>();
 
   const [loadding, setLoadding] = useState(false);
   const [activeItem, setActiveItem] = useState<number | null>(1);
@@ -129,10 +129,16 @@ const ShippingScreen = () => {
         <LoginScreen
           isVisible={visibleLoginScreen}
           onClose={() => {
-            setVisibleLoginScreen(false)
+            setVisibleLoginScreen(false);
             navigation.navigate('MainTabs', { screen: 'Home' });
-          }}
-        />
+          }} onRegister={() => {
+            setVisibleLoginScreen(false);
+            navigation.navigate('RegisterPage', {
+              onLoginPress: () => {
+                setVisibleLoginScreen(true);
+              }
+            });
+          }} />
       }
       {loadding ?
         <LoadingOverlay />

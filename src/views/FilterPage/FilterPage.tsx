@@ -8,26 +8,26 @@ import { Store } from '../../models/Store';
 import { styles } from './stylesFilter';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
-import Icon from 'react-native-vector-icons/Fontisto';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import FooterMenu from '../../components/FooterMenu';
 import { PRODUCT_ENDPOINT, PRODUCT_SEARCH } from '../../constants/API';
 import LoadingOverlay from '../../components/LoadingOverlay';
 type FilterPageNavigationProp = NavigationProp<RootStackParamList, 'FilterPage'>;
-interface FilterPageProps {
-  route: {
-    params: {
-      typeId: number;
-      keySearch: string;
-      name: string;
-    };
-  };
-}
-const FilterPage: React.FC<FilterPageProps> = ({ route }) => {
+// interface FilterPageProps {
+//   route: {
+//     params: {
+//       typeId: number;
+//       keySearch: string;
+//       name: string;
+//     };
+//   };
+// }
+const FilterPage = ({ route, navigation }) => {
   const { typeId, keySearch, name } = route.params;
   const { login, user, logout } = useAuth();
   const [loadding, setLoadding] = useState(false);
   const [activeButton, setActiveButton] = useState('home');
-  const navigation = useNavigation<FilterPageNavigationProp>();
+  // const navigation = useNavigation<FilterPageNavigationProp>();
 
   const [keySearchI, setKeySearchI] = useState(keySearch);
   const [typeKey, setTypeKey] = useState('');

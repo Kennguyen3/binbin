@@ -12,18 +12,13 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/Fontisto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-type RegisterPageNavigationProp = NavigationProp<RootStackParamList, 'RegisterPage'>;
-
-
 
 export const onFacebookSignIn = async (): Promise<any> => {
 
 };
+const RegisterPage = ({ route, navigation }) => {
 
-
-const RegisterPage = () => {
-
-  const navigation = useNavigation<RegisterPageNavigationProp>();
+  // const navigation = useNavigation<RegisterPageNavigationProp>();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -112,7 +107,9 @@ const RegisterPage = () => {
   };
 
   const handleRegister = async (): Promise<any> => {
-    navigation.navigate('Login');
+    // navigation.navigate('Login');
+    route.params.onLoginPress?.();
+    navigation.goBack();
   };
 
   const handleLoginNew = async (): Promise<any> => {
@@ -189,52 +186,52 @@ const RegisterPage = () => {
   };
 
 
-  const handleLogin = () => {
+  // const handleLogin = () => {
 
-    navigation.navigate('Verify');
-    return;
-    // Gọi API đăng nhập và lưu thông tin đăng nhập
-    fetch(LOGIN_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ phoneNumber }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Lưu thông tin đăng nhập vào context
-        setLoginInfo(data);
-        navigation.navigate('ProductList');
-      })
-      .catch(error => {
-        console.log(error);
-        console.error('Error logging in', error);
-      });
-  };
-  const handleLoginSocial = () => {
+  //   navigation.navigate('Verify');
+  //   return;
+  //   // Gọi API đăng nhập và lưu thông tin đăng nhập
+  //   fetch(LOGIN_ENDPOINT, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ phoneNumber }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       // Lưu thông tin đăng nhập vào context
+  //       setLoginInfo(data);
+  //       navigation.navigate('ProductList');
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       console.error('Error logging in', error);
+  //     });
+  // };
+  // const handleLoginSocial = () => {
 
-    navigation.navigate('VerifyPhone');
-    return;
-    // Gọi API đăng nhập và lưu thông tin đăng nhập
-    fetch(LOGIN_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ phoneNumber }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Lưu thông tin đăng nhập vào context
-        setLoginInfo(data);
-        navigation.navigate('ProductList');
-      })
-      .catch(error => {
-        console.log(error);
-        console.error('Error logging in', error);
-      });
-  };
+  //   navigation.navigate('VerifyPhone');
+  //   return;
+  //   // Gọi API đăng nhập và lưu thông tin đăng nhập
+  //   fetch(LOGIN_ENDPOINT, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ phoneNumber }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       // Lưu thông tin đăng nhập vào context
+  //       setLoginInfo(data);
+  //       navigation.navigate('ProductList');
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       console.error('Error logging in', error);
+  //     });
+  // };
   return (
     <View style={styles.container}>
       {loadding ?

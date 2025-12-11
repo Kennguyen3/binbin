@@ -11,16 +11,13 @@ import LoadingOverlay from '../../components/LoadingOverlay';
 import { UPDATE_ADDRESS_PROFILE, GETFULL_ADDRESS_PROFILE } from '../../constants/API';
 import Geolocation from 'react-native-geolocation-service';
 
-type VerifyLocationScreenNavigationProp = NavigationProp<RootStackParamList, 'VerifyLocation'>;
-
-const VerifyLocationScreen = () => {
+const VerifyLocationScreen = ({ route, navigation }) => {
 
   const [showMenu, setShowMenu] = useState(false);
-  const navigation = useNavigation<VerifyLocationScreenNavigationProp>();
   const [locationAddress, setLocationAddress] = useState("");
 
   const [fullName, setFullName] = useState('');
-  const { user, updateActiveAddress, updateActiveFullName } = useAuth();
+  const { user, updateUser } = useAuth();
   const [loadding, setLoadding] = useState(false);
 
   const [fullAddress, setFullAddress] = useState('');
@@ -31,7 +28,7 @@ const VerifyLocationScreen = () => {
     longitudeDelta: 0.0421,
   });
 
-  
+
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -42,9 +39,9 @@ const VerifyLocationScreen = () => {
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
-        setLocationDefault({ 
-          "latitude": position.coords.latitude, 
-          "longitude": position.coords.longitude , 
+        setLocationDefault({
+          "latitude": position.coords.latitude,
+          "longitude": position.coords.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
         });
@@ -69,8 +66,8 @@ const VerifyLocationScreen = () => {
         Authorization: `Bearer ${user?.access_token}`,
       },
       body: JSON.stringify({
-        "lat" : lat,
-        "lng" :  long
+        "lat": lat,
+        "lng": long
       }),
     })
       .then(response => response.json())
@@ -78,7 +75,7 @@ const VerifyLocationScreen = () => {
         setFullAddress(data.result);
         setLocationAddress(data.result);
       })
-      .catch(error => {});
+      .catch(error => { });
   };
 
   const handleLogin = () => {
@@ -104,9 +101,10 @@ const VerifyLocationScreen = () => {
       .then(response => response.json())
       .then(data => {
         setLoadding(false);
-        updateActiveAddress();
-        updateActiveFullName(fullName);
-        navigation.navigate('HomePage');
+        updateUser(data.result);
+        // updateActiveAddress();
+        // updateActiveFullName(fullName);
+        navigation.replace('MainTabs');
         return;
       })
       .catch(error => {
@@ -123,7 +121,7 @@ const VerifyLocationScreen = () => {
   const handleCloseLoaciton = () => {
     setShowMenu(false);
   };
-  
+
   const handleConfirmLocation = () => {
     if (locationAddress == "") {
       Alert.alert('Chọn địa chỉ của bạn trước khi sử dụng ứng dụng');

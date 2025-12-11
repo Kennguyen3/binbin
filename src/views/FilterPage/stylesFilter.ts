@@ -90,7 +90,8 @@ export const styles = StyleSheet.create({
     borderColor: '#EFEFEF',
     paddingHorizontal: 15,
     marginBottom: 20,
-    width: '90%'
+    flex:1,
+    height: 40
   },
   iconSearch: {
     color: '#000',

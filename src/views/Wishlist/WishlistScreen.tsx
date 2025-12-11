@@ -76,10 +76,16 @@ const WishlistScreen = ({ navigation }) => {
         <LoginScreen
           isVisible={visibleLoginScreen}
           onClose={() => {
-            setVisibleLoginScreen(false)
+            setVisibleLoginScreen(false);
             navigation.navigate('MainTabs', { screen: 'Home' });
-          }}
-        />
+          }} onRegister={() => {
+            setVisibleLoginScreen(false);
+            navigation.navigate('RegisterPage', {
+              onLoginPress: () => {
+                setVisibleLoginScreen(true);
+              }
+            });
+          }} />
       }
       {loadding ?
         <LoadingOverlay />

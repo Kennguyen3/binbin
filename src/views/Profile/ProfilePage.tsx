@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation, NavigationProp, useFocusEffect } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './stylesProfile';
@@ -26,12 +26,24 @@ const ProfilePage = ({ navigation }) => {
     });
   }, [navigation]);
   const handleNavigate = async () => {
-    try {
-      await AsyncStorage.removeItem('userInfo');
-    } catch (error) {
-      console.error('Failed to clear login info', error);
-    }
-    navigation.navigate("Login");
+    Alert.alert('Bạn có chắc chắn muốn đăng xuất?', '', [
+      {
+        text: 'Hủy', style: 'cancel'
+      },
+      {
+        text: 'Đăng xuất', style: 'destructive', onPress: () => {
+          logout()
+          navigation.replace('MainTabs', { screen: 'Home' });
+        }
+      }
+    ]);
+    // try {
+    //   await AsyncStorage.removeItem('userInfo');
+    //   logout()
+    // } catch (error) {
+    //   console.error('Failed to clear login info', error);
+    // }
+    // navigation.navigate("Login");
   };
   const handleNavigatePage = (screen: string) => {
     if (!user) {
@@ -79,10 +91,16 @@ const ProfilePage = ({ navigation }) => {
         <LoginScreen
           isVisible={visibleLoginScreen}
           onClose={() => {
-            setVisibleLoginScreen(false)
+            setVisibleLoginScreen(false);
             navigation.navigate('MainTabs', { screen: 'Home' });
-          }}
-        />
+          }} onRegister={() => {
+            setVisibleLoginScreen(false);
+            navigation.navigate('RegisterPage', {
+              onLoginPress: () => {
+                setVisibleLoginScreen(true);
+              }
+            });
+          }} />
       }
       {/* <HeaderTab showBack={false} title={"Tài Khoản " + user?.full_name} /> */}
       <View style={styles.HeaderCusomeProfile}>

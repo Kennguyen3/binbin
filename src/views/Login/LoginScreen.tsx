@@ -17,7 +17,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 type LoginScreenNavigationProp = NavigationProp<RootStackParamList, 'Login'>;
 
-const LoginScreen = ({ isVisible, onClose }) => {
+const LoginScreen = ({ isVisible, onClose, onRegister }) => {
 
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const handleGoBack = () => {
@@ -26,6 +26,8 @@ const LoginScreen = ({ isVisible, onClose }) => {
     setVisible(false);
     if (onClose) {
       onClose();
+    } else {
+      navigation.goBack();
     }
   };
   React.useLayoutEffect(() => {
@@ -145,7 +147,8 @@ const LoginScreen = ({ isVisible, onClose }) => {
   };
 
   const handleRegister = async (): Promise<any> => {
-    navigation.navigate('RegisterPage');
+    onRegister()
+    // navigation.navigate('RegisterPage');
   };
   const getLoginInfo = async () => {
     try {

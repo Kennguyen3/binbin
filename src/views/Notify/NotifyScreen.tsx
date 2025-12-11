@@ -78,6 +78,14 @@ const NotifyScreen = ({ navigation }) => {
             setVisibleLoginScreen(false)
             navigation.navigate('MainTabs', { screen: 'Home' });
           }}
+          onRegister={() => {
+            setVisibleLoginScreen(false);
+            navigation.navigate('RegisterPage', {
+              onLoginPress: () => {
+                setVisibleLoginScreen(true);
+              }
+            })
+          }}
         />
       }
       {loadding ?
