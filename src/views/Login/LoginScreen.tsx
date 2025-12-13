@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onGoogleSignIn } from '@/utils/firebase';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import DeviceInfo from "react-native-device-info";
 
 type LoginScreenNavigationProp = NavigationProp<RootStackParamList, 'Login'>;
 
@@ -355,6 +356,11 @@ const LoginScreen = ({ isVisible, onClose, onRegister }) => {
             <Text style={styles.buttonTextLogin}>Đăng nhập bằng Google</Text>
           </TouchableOpacity>
 
+          <View style={styles.versionInfoContainer}>
+            <Text style={styles.versionText}>
+              v{DeviceInfo.getVersion()} ({DeviceInfo.getBuildNumber()})
+            </Text>
+          </View>
         </View>
       </SafeAreaView>
     </Modal>

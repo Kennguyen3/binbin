@@ -108,8 +108,8 @@ android {
         applicationId "com.binbin.customer"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 204
-        versionName "2.2.3"
+        versionCode 1
+        versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true
         missingDimensionStrategy 'store', 'play'
     }

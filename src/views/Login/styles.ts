@@ -1,5 +1,5 @@
 // src/views/Login/styles.ts
-import { StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     borderColor: '#ccc',      // Màu của đường viền
     color: "#000"
   },
-  icon_back:{
+  icon_back: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -82,7 +82,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     textAlign: 'center',
     gap: 10,
-    alignContent : 'center',
+    alignContent: 'center',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -141,5 +141,17 @@ export const styles = StyleSheet.create({
     color: '#000', // Màu chữ
     width: '100%',
     textAlign: 'center'
+  },
+  versionInfoContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 32,
+    marginTop: 16,
+  },
+  versionText: {
+    fontSize: 14,
+    color: '#000'
   },
 });
