@@ -83,6 +83,10 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>This app requires access to the microphone to record audio as part of its features.</string>
+  <key>NSMotionUsageDescription</key>
+  <string>BinBin Motion Usage Description</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to your camera to take photos and record videos for you to share with your friends and family</string>
 	<key>NSContactsUsageDescription</key>
@@ -127,6 +131,8 @@
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
