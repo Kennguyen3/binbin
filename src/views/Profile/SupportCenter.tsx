@@ -11,17 +11,15 @@ import { GooglePlacesAutocomplete, GooglePlaceData, GooglePlaceDetail } from 're
 import MapView, { Marker } from 'react-native-maps';
 import FooterMenu from '../../components/FooterMenu';
 import HeaderTab from '../../components/HeaderTab';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadingOverlay from '../../components/LoadingOverlay';
 type ProfilePageNavigationProp = NavigationProp<RootStackParamList, 'SupportCenter'>;
 
 const SupportCenter = () => {
-  const [activeButton, setActiveButton] = useState('profile');
   const [loadding, setLoadding] = useState(false);
   const navigation = useNavigation<ProfilePageNavigationProp>();
-
-  const { setLoginInfo, login, user, logout, updateActiveFullName } = useAuth();
+  const { login, user, logout } = useAuth();
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -81,7 +79,7 @@ const SupportCenter = () => {
             Nếu bạn cần hỗ trợ, có thắc mắc hoặc muốn yêu cầu xử lý thông tin cá nhân, vui lòng liên hệ chúng tôi qua email:
           </Text>
           <TouchableOpacity onPress={handleEmailPress} style={styles.emailContainer}>
-            <Icon name="envelope" size={16} color="#2079FF" />
+            <Icon name="email" size={16} color="#2079FF" />
             <Text style={styles.emailText}> binbin@gmail.com</Text>
           </TouchableOpacity>
 
@@ -109,7 +107,7 @@ const SupportCenter = () => {
 
 
       </ScrollView>
-      <FooterMenu active={activeButton} />
+      {/* <FooterMenu active={activeButton} /> */}
     </View>
   );
 };

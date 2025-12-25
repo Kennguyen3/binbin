@@ -12,7 +12,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import LoginScreen from '../Login/LoginScreen';
 
 const NotifyScreen = ({ navigation }) => {
-  const [activeButton, setActiveButton] = useState('Notify');
+  // const [activeButton, setActiveButton] = useState('Notify');
   const [loadding, setLoadding] = useState(false);
   const [products, setProducts] = useState<Store[]>([]);
   const { user } = useAuth();
@@ -129,7 +129,7 @@ const NotifyScreen = ({ navigation }) => {
           )}
         </View>
       </ScrollView>
-      <FooterMenu active={activeButton} />
+      {/* <FooterMenu active={activeButton} /> */}
     </View>
   );
 };

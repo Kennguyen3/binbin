@@ -135,7 +135,7 @@ const WishlistScreen = ({ navigation }) => {
           )}
         </View>
       </ScrollView>
-      <FooterMenu active={activeButton} />
+      {/* <FooterMenu active={activeButton} /> */}
     </View>
   );
 };

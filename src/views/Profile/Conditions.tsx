@@ -11,7 +11,7 @@ import { GooglePlacesAutocomplete, GooglePlaceData, GooglePlaceDetail } from 're
 import MapView, { Marker } from 'react-native-maps';
 import FooterMenu from '../../components/FooterMenu';
 import HeaderTab from '../../components/HeaderTab';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoadingOverlay from '../../components/LoadingOverlay';
 type ProfilePageNavigationProp = NavigationProp<RootStackParamList, 'Conditions'>;
@@ -21,7 +21,7 @@ const Conditions = () => {
   const [loadding, setLoadding] = useState(false);
   const navigation = useNavigation<ProfilePageNavigationProp>();
 
-  const { setLoginInfo, login, user, logout, updateActiveFullName } = useAuth();
+  const { login, user, logout } = useAuth();
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -137,7 +137,7 @@ const Conditions = () => {
 
 
       </ScrollView>
-      <FooterMenu active={activeButton} />
+      {/* <FooterMenu active={activeButton} /> */}
     </View>
   );
 };

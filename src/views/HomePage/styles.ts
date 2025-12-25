@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
-    // paddingBottom: 20,
   },
   headerHome: {
     backgroundColor: '#2079FF',
@@ -142,8 +141,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   itemContainerStores: {
-    width: width * 0.35,
-    marginRight: 10
+    width: '100%',
+    marginRight: 10,
   },
   imageStores: {
     width: '100%',

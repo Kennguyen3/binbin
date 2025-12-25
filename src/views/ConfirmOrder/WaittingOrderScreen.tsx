@@ -35,7 +35,7 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
   const navigation = useNavigation<WaittingOrderScreenNavigationProp>();
   const [id, setId] = useState<number>(route.params.id);
   const [loadding, setLoadding] = useState(false);
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { login, user, logout } = useAuth();
   const [order, setOrder] = useState<OrderResponseDetail>();
   const [showGet, setShowGet] = useState<number>(0);
   const [showSuccess, setShowSuccess] = useState<number>(0);
