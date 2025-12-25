@@ -10,8 +10,9 @@ import { useLayoutEffect } from 'react';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import Icon from 'react-native-vector-icons/Fontisto';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { onGoogleSignIn } from '@/utils/firebase';
 
 export const onFacebookSignIn = async (): Promise<any> => {
 
@@ -32,30 +33,37 @@ const RegisterPage = ({ route, navigation }) => {
   const [repassword, setRepassword] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const { login, user, logout } = useAuth();
-  const [loadding, setLoadding] = useState(false);
+  // const [loadding, setLoadding] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRe, setShowPasswordRe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const onGoogleSignIn = async (): Promise<any> => {
-    setLoadding(true);
+  const onGoogleButtonPress = async (): Promise<any> => {
+    setLoading(true);
     try {
-      GoogleSignin.configure({
-        webClientId:
-          '1008270887751-u4e0ucmtddfeavvc41c443fsuigj3aim.apps.googleusercontent.com',
-      });
+      // GoogleSignin.configure({
+      //   webClientId:
+      //     '874677192536-r0n2atfv164ug7nlmsaiveal39rgj3cf.apps.googleusercontent.com',
+      // });
 
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const userInfo = await GoogleSignin.signIn();
-      const googleIdToken = userInfo.idToken;
-      const googleUserId = userInfo.user.id;
-      const googleEmail = userInfo.user.email;
-      // Create a Google credential with the token
-      const googleCredential = auth.GoogleAuthProvider.credential(googleIdToken);
+      // await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+      // const userInfo = await GoogleSignin.signIn();
+      // console.log('===> Google Sign-In response', userInfo.type);
 
-      // Sign in with the credential
-      const userCredential = await auth().signInWithCredential(googleCredential);
-      // const confirmation = await auth().signInWithPhoneNumber("+84961177604");
-      // return;
+      // const userInfoData = userInfo.data
+      // const googleIdToken = userInfoData.idToken;
+      // const googleUserId = userInfoData.user.id;
+      // const googleEmail = userInfoData.user.email;
+      // // Create a Google credential with the token
+      // const googleCredential = auth.GoogleAuthProvider.credential(googleIdToken);
+
+      // // Sign in with the credential
+      // const userCredential = await auth().signInWithCredential(googleCredential);
+      // // const confirmation = await auth().signInWithPhoneNumber("+84961177604");
+      // // return;
+
+      const signingGoogle = await onGoogleSignIn();
+      console.log('===> Google Sign-In response', signingGoogle);
 
       fetch(LOGIN_ENDPOINT, {
         method: 'POST',
@@ -64,17 +72,19 @@ const RegisterPage = ({ route, navigation }) => {
         },
         body: JSON.stringify({
           "login_type": "is_google",
-          "uid": userCredential.user.uid
+          "uid": signingGoogle.user.uid
         }),
       })
         .then(response => response.json())
         .then(data => {
+
+          console.log(data);
           if (data.success == "false") {
             Alert.alert(data.message);
             return;
           }
           login(data.result);
-          setLoadding(false);
+          setLoading(false);
 
           if (data.result) {
             // Nếu user đã đăng nhập, chuyển hướng đến HomeScreen
@@ -85,11 +95,10 @@ const RegisterPage = ({ route, navigation }) => {
             // } else {
             //   navigation.navigate('HomePage');
             // }
-            navigation.navigate('HomePage');
           }
         })
         .catch(error => {
-          setLoadding(false);
+          setLoading(false);
           Alert.alert(error);
         });
       // console.log('Google Sign-In successful', userCredential.user.uid);
@@ -98,9 +107,9 @@ const RegisterPage = ({ route, navigation }) => {
       // Example: navigation.navigate('ProductList');
       // navigation.navigate('ProductList');
 
-      return googleIdToken;
+      return signingGoogle.user;
     } catch (error) {
-      setLoadding(false);
+      setLoading(false);
       console.log('error signed in user', error);
       return false;
     }
@@ -133,7 +142,7 @@ const RegisterPage = ({ route, navigation }) => {
     //   Alert.alert("Vui lòng nhập Email.");
     //   return; 
     // }
-    setLoadding(true);
+    setLoading(true);
     try {
       fetch(REGISTER_ENDPOINT, {
         method: 'POST',
@@ -152,17 +161,17 @@ const RegisterPage = ({ route, navigation }) => {
         .then(data => {
           console.log(data);
           if (data.error_code == 1) {
-            setLoadding(false);
+            setLoading(false);
             Alert.alert(data.message);
             return;
           }
           if (data.success == "false") {
-            setLoadding(false);
+            setLoading(false);
             Alert.alert(data.message);
             return;
           }
           login(data.result);
-          setLoadding(false);
+          setLoading(false);
           try {
             AsyncStorage.setItem('userInfo', JSON.stringify(data.result));
           } catch (error) {
@@ -174,12 +183,12 @@ const RegisterPage = ({ route, navigation }) => {
           }
         })
         .catch(error => {
-          setLoadding(false);
+          setLoading(false);
           Alert.alert(error);
         });
 
     } catch (error) {
-      setLoadding(false);
+      setLoading(false);
       console.log('error signed in user', error);
       return false;
     }
@@ -232,14 +241,30 @@ const RegisterPage = ({ route, navigation }) => {
   //       console.error('Error logging in', error);
   //     });
   // };
+
+  const handleGoBack = () => {
+    // navigation.navigate("HomePage");
+    // navigation.navigate('MainTabs');
+    // setVisible(false);
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
-      {loadding ?
+      {loading ?
         <LoadingOverlay />
         :
         null
       }
-
+      <TouchableOpacity
+        style={styles.icon_back}
+        onPress={() => handleGoBack()}>
+        <Icon
+          name="arrow-back"
+          size={20}
+          color="#000"
+        />
+      </TouchableOpacity>
       <Image source={require('../../media/logoLogin.png')} style={styles.logo} />
       <Text style={styles.welcome}>Đăng Ký</Text>
       <Text style={styles.placeholder}>Nhập số điện thoại của bạn</Text>
@@ -257,7 +282,7 @@ const RegisterPage = ({ route, navigation }) => {
         <TouchableOpacity
           onPress={() => setShowPassword(!showPassword)}>
           <Icon
-            name={showPassword ? "eye" : "locked"}
+            name={showPassword ? "visibility" : "visibility-off"}
             size={14}
             color="#888"
           />
@@ -275,7 +300,7 @@ const RegisterPage = ({ route, navigation }) => {
         <TouchableOpacity
           onPress={() => setShowPasswordRe(!showPasswordRe)}>
           <Icon
-            name={showPasswordRe ? "eye" : "locked"}
+            name={showPasswordRe ? "visibility" : "visibility-off"}
             size={14}
             color="#888"
           />
@@ -314,16 +339,18 @@ const RegisterPage = ({ route, navigation }) => {
         </Text>
 
       </View>
-      <View style={styles.divider}>
+
+      
+      {/* <View style={styles.divider}>
         <Text style={styles.divi_text}>Hoặc</Text>
       </View>
-      <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleSignIn}>
+      <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleButtonPress}>
         <Image
           source={require('../../media/ico_lg_google.png')}
           style={styles.iconLogin}
         />
         <Text style={styles.buttonTextLogin}>Đăng ký bằng Google</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
     </View>
   );

@@ -24,7 +24,7 @@ const LoginScreen = ({ isVisible, onClose, onRegister }) => {
   const handleGoBack = () => {
     // navigation.navigate("HomePage");
     // navigation.navigate('MainTabs');
-    setVisible(false);
+    // setVisible(false);
     if (onClose) {
       onClose();
     } else {
@@ -37,7 +37,7 @@ const LoginScreen = ({ isVisible, onClose, onRegister }) => {
     });
   }, [navigation]);
 
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(true);
 
 
   useEffect(() => {
@@ -336,9 +336,9 @@ const LoginScreen = ({ isVisible, onClose, onRegister }) => {
             </Text>
 
           </View>
-          <View style={styles.divider}>
+          {/* <View style={styles.divider}>
             <Text style={styles.divi_text}>Hoặc</Text>
-          </View>
+          </View> */}
           {/*
       <TouchableOpacity style={styles.buttonLogin} onPress={onFacebookSignIn}>
         <Image
@@ -348,13 +348,13 @@ const LoginScreen = ({ isVisible, onClose, onRegister }) => {
         <Text style={styles.buttonTextLogin}>Đăng nhập bằng Facebook</Text>
       </TouchableOpacity>
       */}
-          <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleButtonPress}>
+          {/* <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleButtonPress}>
             <Image
               source={require('../../media/ico_lg_google.png')}
               style={styles.iconLogin}
             />
             <Text style={styles.buttonTextLogin}>Đăng nhập bằng Google</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <View style={styles.versionInfoContainer}>
             <Text style={styles.versionText}>
