@@ -1,6 +1,7 @@
-ENV['RCT_NEW_ARCH_ENABLED'] = '0'
+# ENV['RCT_NEW_ARCH_ENABLED'] = '0'
 require_relative '../node_modules/react-native/scripts/react_native_pods'
-
+ENV['USE_HERMES'] = '1'
+# ENV['RCT_NEW_ARCH_ENABLED'] = '0'
 
 def node_require(script)
   # Resolve script with node to allow for hoisting
@@ -30,10 +31,14 @@ target 'BinBin' do
 
   setup_permissions(['AppTrackingTransparency', 'LocationAlways', 'LocationWhenInUse'])
 
+    # rn_maps_path = '../node_modules/react-native-maps'
+    # pod 'react-native-google-maps', :path => rn_maps_path
+    # pod 'GoogleMaps'
+    # pod 'Google-Maps-iOS-Utils'
+
     rn_maps_path = '../node_modules/react-native-maps'
-    pod 'react-native-google-maps', :path => rn_maps_path
-    pod 'GoogleMaps'
-    pod 'Google-Maps-iOS-Utils'
+    pod 'react-native-maps/Google', :path => rn_maps_path
+
     pod 'react-native-blob-util', :path => '../node_modules/react-native-blob-util'
 
     # Specify the exact glog source path to avoid duplicate declarations

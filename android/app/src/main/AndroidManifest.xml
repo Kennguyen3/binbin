@@ -73,9 +73,9 @@
             android:usesCleartextTraffic="true">
 
         <!-- KHÔNG dùng background audio: gỡ service của react-native-track-player -->
-        <service
+        <!-- <service
                 android:name="com.doublesymmetry.trackplayer.service.MusicService"
-                tools:node="remove" />
+                tools:node="remove" /> -->
 
         <meta-data android:name="com.google.android.gms.wallet.api.enabled" android:value="true"/>
         <activity

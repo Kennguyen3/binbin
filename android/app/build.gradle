@@ -16,7 +16,7 @@ react {
     /* Bundling */
     // A list containing the node command and its flags. Default is just 'node'.
     // nodeExecutableAndArgs = ["/Users/macbookpro/.nvm/versions/node/v22.16.0/bin/node"]
-    nodeExecutableAndArgs = ["/Users/kiennd/.nvm/versions/node/v23.0.0/bin/node"]
+    nodeExecutableAndArgs = ["/Users/kiennd/.nvm/versions/node/v25.2.1/bin/node"]
 
     /* Folders */
     //   The root of your project, i.e. where "package.json" lives. Default is '..'

@@ -56,10 +56,6 @@
     {
       "path": "assets/sounds/ringtone.mp3",
       "sha1": "01344f0a2eae8d55235302022083ae80d7293c1e"
-    },
-    {
-      "path": "node_modules/react-native-international-phone-number/lib/assets/fonts/TwemojiMozilla.woff2",
-      "sha1": "3a2bb214a3ba69716cbc6a3177480aefb6b867e4"
     }
   ]
 }

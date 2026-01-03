@@ -23,7 +23,7 @@ module.exports = {
         },
       },
     ],
-
+    '@babel/plugin-transform-export-namespace-from',
     /* Reanimated phải luôn đứng cuối */
     'react-native-reanimated/plugin',
   ],

@@ -4,5 +4,5 @@ module.exports = {
       platforms: { android: null },
     },
   },
-  assets: ['./assets/fonts/', './assets/sounds/', './node_modules/react-native-international-phone-number/lib/assets/fonts'],
+  assets: ['./assets/fonts/', './assets/sounds/'],
 };

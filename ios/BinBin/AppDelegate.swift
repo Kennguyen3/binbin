@@ -6,11 +6,8 @@ import FirebaseCore
 import GoogleMaps
 import Firebase
 import FBSDKCoreKit
-import RNBranch
 import RCTLinking
 import AVFoundation
-import WebRTC
-import TSBackgroundFetch
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,28 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-  // --- WebRTC AudioSession setup ----------
-      let rtcAudioSession      = RTCAudioSession.sharedInstance()
-    let cfg                  = RTCAudioSessionConfiguration.webRTC()
-
-  // thu + phát
-      cfg.category             = AVAudioSession.Category.playAndRecord.rawValue
-  // bật AEC/AGC/NS chuẩn cho VoIP
-      cfg.mode                 = AVAudioSession.Mode.voiceChat.rawValue
-  // QUAN TRỌNG: mặc định phát loa + cho phép phát chuông (SoundPlayer) song song
-      cfg.categoryOptions      = [
-    .allowBluetooth,
-    .defaultToSpeaker,
-    .mixWithOthers
-      ]
-
-      do {
-        try rtcAudioSession.setConfiguration(cfg)
-        try rtcAudioSession.setActive(true)
-        print("RTCAudioSession configured & active")
-      } catch {
-        print("[AudioSession] Cannot apply WebRTC configuration:", error)
-      }
+  
     // Google Maps API Key
     GMSServices.provideAPIKey("AIzaSyD9jrcx3ybDO1H6cJi2m2iEptTLWcqFALU")
 
@@ -57,8 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       didFinishLaunchingWithOptions: launchOptions
     )
 
-    // Branch (nếu đang dùng)
-    RNBranch.initSession(launchOptions: launchOptions, isReferrable: true)
 
     // =========================================
     // 2) Setup React Native
@@ -79,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       launchOptions: launchOptions
     )
 
-    TSBackgroundFetch.sharedInstance().didFinishLaunching();
     return true
   }
 
@@ -90,8 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
   {
-    // Branch
-    RNBranch.application(application, open: url, options: options)
 
     // React Native Linking
     return RCTLinkingManager.application(application, open: url, options: options)
@@ -104,8 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     continue userActivity: NSUserActivity,
     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
   {
-    // Branch
-    RNBranch.continue(userActivity)
+
 
     // React Native Linking
     return RCTLinkingManager.application(

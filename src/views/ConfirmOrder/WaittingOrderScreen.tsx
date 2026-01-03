@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import { View, Image, Text, ScrollView, StyleSheet, Dimensions, TouchableOpacity, FlatList } from 'react-native';
-import Slider from '@react-native-community/slider';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import LoadingOverlay from '../../components/LoadingOverlay';
