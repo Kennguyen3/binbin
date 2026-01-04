@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { getStores } from '../../services/StoreDetail';
+import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
-import { Store } from '../../models/Store';
-// import { styles } from './styles';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import HeaderTab from '../../components/HeaderTab';
@@ -26,7 +23,7 @@ const OrderDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
   const [activeTracking, setActiveTracking] = useState<number>(4);
   const [order, setOrder] = useState<OrderList>();
   const [loadding, setLoadding] = useState(false);
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { user } = useAuth();
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false, // Ẩn thanh navbar

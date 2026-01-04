@@ -13,6 +13,8 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onGoogleSignIn } from '@/utils/firebase';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const onFacebookSignIn = async (): Promise<any> => {
 
@@ -250,71 +252,76 @@ const RegisterPage = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      {loading ?
-        <LoadingOverlay />
-        :
-        null
-      }
-      <TouchableOpacity
-        style={styles.icon_back}
-        onPress={() => handleGoBack()}>
-        <Icon
-          name="arrow-back"
-          size={20}
-          color="#000"
-        />
-      </TouchableOpacity>
-      <Image source={require('../../media/logoLogin.png')} style={styles.logo} />
-      <Text style={styles.welcome}>Đăng Ký</Text>
-      <Text style={styles.placeholder}>Nhập số điện thoại của bạn</Text>
-      <View style={styles.groupInput}>
-        <Text style={styles.prefixText}>+84</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nhập số điện thoại"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          keyboardType="phone-pad"
-        />
-      </View>
-      <View style={styles.groupInput}>
-        <TouchableOpacity
-          onPress={() => setShowPassword(!showPassword)}>
-          <Icon
-            name={showPassword ? "visibility" : "visibility-off"}
-            size={14}
-            color="#888"
-          />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.input}
-          placeholder="Nhập mật khẩu"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={!showPassword}// Ẩn ký tự nhập vào
-          autoCapitalize="none"  // Không viết hoa chữ cái đầu tiên
-        />
-      </View>
-      <View style={styles.groupInput}>
-        <TouchableOpacity
-          onPress={() => setShowPasswordRe(!showPasswordRe)}>
-          <Icon
-            name={showPasswordRe ? "visibility" : "visibility-off"}
-            size={14}
-            color="#888"
-          />
-        </TouchableOpacity>
-        <TextInput
-          style={styles.input}
-          placeholder="Nhập lại mật khẩu"
-          value={repassword}
-          onChangeText={setRepassword}
-          secureTextEntry={!showPasswordRe}
-          autoCapitalize="none"
-        />
-      </View>
-      {/* <View style={styles.groupInput}>
+    <SafeAreaView style={{
+      flex: 1,
+      backgroundColor: "#FFFFFF"
+    }}>
+      <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.container}>
+          {loading ?
+            <LoadingOverlay />
+            :
+            null
+          }
+          <TouchableOpacity
+            style={styles.icon_back}
+            onPress={() => handleGoBack()}>
+            <Icon
+              name="arrow-back"
+              size={20}
+              color="#000"
+            />
+          </TouchableOpacity>
+          <Image source={require('../../media/logoLogin.png')} style={styles.logo} />
+          <Text style={styles.welcome}>Đăng Ký</Text>
+          <Text style={styles.placeholder}>Nhập số điện thoại của bạn</Text>
+          <View style={styles.groupInput}>
+            <Text style={styles.prefixText}>+84</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Nhập số điện thoại"
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              keyboardType="phone-pad"
+            />
+          </View>
+          <View style={styles.groupInput}>
+            <TouchableOpacity
+              onPress={() => setShowPassword(!showPassword)}>
+              <Icon
+                name={showPassword ? "visibility" : "visibility-off"}
+                size={14}
+                color="#888"
+              />
+            </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="Nhập mật khẩu"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}// Ẩn ký tự nhập vào
+              autoCapitalize="none"  // Không viết hoa chữ cái đầu tiên
+            />
+          </View>
+          <View style={styles.groupInput}>
+            <TouchableOpacity
+              onPress={() => setShowPasswordRe(!showPasswordRe)}>
+              <Icon
+                name={showPasswordRe ? "visibility" : "visibility-off"}
+                size={14}
+                color="#888"
+              />
+            </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="Nhập lại mật khẩu"
+              value={repassword}
+              onChangeText={setRepassword}
+              secureTextEntry={!showPasswordRe}
+              autoCapitalize="none"
+            />
+          </View>
+          {/* <View style={styles.groupInput}>
 
         <Icon
           name={"email"}
@@ -328,20 +335,20 @@ const RegisterPage = ({ route, navigation }) => {
           onChangeText={setEmailInput}
         />
       </View> */}
-      <TouchableWithoutFeedback onPress={handleLoginNew}>
-        <Text style={styles.btnNext}>Đăng ký</Text>
-      </TouchableWithoutFeedback>
-      <View style={styles.register_group}>
-        <Text style={styles.register_text}>Nếu đã có tài khoản ?
-          <TouchableWithoutFeedback onPress={handleRegister}>
-            <Text style={styles.register_link} > Đăng Nhập</Text>
+          <TouchableWithoutFeedback onPress={handleLoginNew}>
+            <Text style={styles.btnNext}>Đăng ký</Text>
           </TouchableWithoutFeedback>
-        </Text>
+          <View style={styles.register_group}>
+            <Text style={styles.register_text}>Nếu đã có tài khoản ?
+              <TouchableWithoutFeedback onPress={handleRegister}>
+                <Text style={styles.register_link} > Đăng Nhập</Text>
+              </TouchableWithoutFeedback>
+            </Text>
 
-      </View>
+          </View>
 
-      
-      {/* <View style={styles.divider}>
+
+          {/* <View style={styles.divider}>
         <Text style={styles.divi_text}>Hoặc</Text>
       </View>
       <TouchableOpacity style={styles.buttonLogin} onPress={onGoogleButtonPress}>
@@ -352,7 +359,9 @@ const RegisterPage = ({ route, navigation }) => {
         <Text style={styles.buttonTextLogin}>Đăng ký bằng Google</Text>
       </TouchableOpacity> */}
 
-    </View>
+        </View>
+      </KeyboardAwareScrollView>
+    </SafeAreaView >
   );
 };
 

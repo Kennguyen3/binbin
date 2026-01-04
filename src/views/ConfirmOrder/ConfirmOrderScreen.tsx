@@ -3,7 +3,7 @@ import { View, Text, FlatList, Button, Dimensions, Alert, TouchableWithoutFeedba
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import HeaderTab from '../../components/HeaderTab';
-import { OrderCreate, ProductsOrder, OrderResponseCreate } from '../../models/OrderCreate';
+import { OrderCreate, ProductsOrder } from '../../models/OrderCreate';
 import { formatToVND } from '../../utils/currencyUtils';
 import { Distance } from '../../models/Distance';
 import { GET_DISTANCE, POST_ORDER } from '../../constants/API';
@@ -21,15 +21,15 @@ interface ConfirmOrderProps {
       data: OrderCreate;
     };
   };
-
 }
-const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
+
+const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route, }) => {
   const navigation = useNavigation<ConfirmOrderScreenNavigationProp>();
   const [orders, setOrders] = useState<OrderCreate>(route.params.data);
   const [note, setNote] = useState('');
   const [distances, setDistances] = useState<Distance | null>(null);
   const [loadding, setLoadding] = useState(false);
-  const { setLoginInfo, login, user, logout } = useAuth();
+  const { user } = useAuth();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -87,7 +87,7 @@ const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
       note: note,
       items: itemsArray
     };
-    
+
     fetch(POST_ORDER, {
       method: 'POST',
       body: JSON.stringify(jsonData),

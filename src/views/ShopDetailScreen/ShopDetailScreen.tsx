@@ -26,22 +26,11 @@ interface ShopDetailProps {
 }
 const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
   const { shopId, shopName } = route.params;
-
-  const [activeButton, setActiveButton] = useState('home');
   const navigation = useNavigation<ShopDetailScreenNavigationProp>();
-  const { login, user, logout } = useAuth();
+  const { user } = useAuth();
 
   const [chooseProduct, setChooseProduct] = useState<Product | null>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
-
-  const handleConfirmOrder = () => {
-    if (cart.products.length == 0) {
-      Alert.alert('Vui lòng thêm sản phẩm vào đơn hàng');
-      return;
-    }
-    navigation.navigate('ConfirmOrder', { data: cart });
-  };
-
   const [cart, setCart] = useState<OrderCreate>({
     "id_store": shopId,
     "address_shipping": user?.address_default?.address,
@@ -57,6 +46,14 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
     "qty": 0,
     "products": []
   });
+
+  const handleConfirmOrder = () => {
+    if (cart.products.length == 0) {
+      Alert.alert('Vui lòng thêm sản phẩm vào đơn hàng');
+      return;
+    }
+    navigation.navigate('ConfirmOrder', { data: cart });
+  };
 
   const [quantity, setQuantity] = useState(1);
   const [note, setNote] = useState('');
@@ -340,7 +337,7 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
             </View>
           )}
           {stores?.popular_products && stores?.popular_products.length > 0 && (
-            <View style={styles.listStores, styles.mgT10}>
+            <View style={[styles.listStores, styles.mgT10]}>
               <FlatList
                 data={stores?.popular_products}
                 renderItem={({ item }) => (
