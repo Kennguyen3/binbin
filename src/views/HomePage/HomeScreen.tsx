@@ -14,6 +14,8 @@ import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import LoginScreen from '../Login/LoginScreen';
+import { requestLocationPermission } from '@/utils/permissions';
+import { getLocation } from '@/utils/location';
 
 export interface CategoryItem {
   id: number;
@@ -50,73 +52,100 @@ const HomeScreen = ({ navigation }) => {
   const handleFilterPage = (typeId: number, keySearch: string, name: string = "") => {
     navigation.navigate('FilterPage', { typeId, keySearch, name });
   };
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        setLocationUser({ "latitude": position.coords.latitude, "longitude": position.coords.longitude });
-      },
-      (error) => {
-        console.error("❌ Error fetching location:", error);
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    );
-  };
-  async function requestLocationPermission() {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('Bạn đã cho phép truy cập vị trí');
-      } else {
-        console.log('Bạn đã từ chối truy cập vị trí');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  }
+  // const getLocation = () => {
+  //   Geolocation.getCurrentPosition(
+  //     (position) => {
+  //       setLocationUser({ "latitude": position.coords.latitude, "longitude": position.coords.longitude });
+  //     },
+  //     (error) => {
+  //       console.error("❌ Error fetching location:", error);
+  //     },
+  //     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+  //   );
+  // };
+
+  // async function requestLocationPermission() {
+  //   try {
+  //     const granted = await PermissionsAndroid.request(
+  //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+  //     );
+  //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+  //       console.log('Bạn đã cho phép truy cập vị trí');
+  //       return true;
+  //     } else {
+  //       console.log('Bạn đã từ chối truy cập vị trí');
+  //       return false;
+  //     }
+  //   } catch (err) {
+  //     console.warn(err);
+  //     return false;
+  //   }
+  // }
 
   useEffect(() => {
-    requestLocationPermission();
-    setLoadding(true);
-    getLocation();
-    console.log(locationUser);
+    let isMounted = true;
 
-    fetch(PRODUCT_ENDPOINT, {
-      method: 'POST',
-      body: JSON.stringify({
-        "user_lat": locationUser.latitude,
-        "user_long": locationUser.longitude
-      }),
-      headers: {
-        'Content-Type': 'application/json',
+    const initData = async () => {
+      try {
+        if (!isMounted) return;
+
+        setLoadding(true);
+
+        // 1️⃣ Xin quyền vị trí
+        const hasPermission = await requestLocationPermission();
+        if (!hasPermission) {
+          throw new Error('Location permission denied');
+        }
+
+        // 2️⃣ Lấy vị trí (await đảm bảo có dữ liệu)
+        const location = await getLocation();
+
+        if (!isMounted) return;
+
+        setLocationUser(location);
+
+        // 3️⃣ Call API song song
+        const [productResponse, categoryResponse] = await Promise.all([
+          fetch(PRODUCT_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_lat: location.latitude,
+              user_long: location.longitude,
+            }),
+          }),
+          fetch(CATEGORY_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }),
+        ]);
+
+        // 4️⃣ Parse response
+        const productData = await productResponse.json();
+        const categoryData = await categoryResponse.json();
+
+        if (!isMounted) return;
+
+        // 5️⃣ Set state
+        setStores(productData?.result ?? []);
+        setCategories(categoryData?.result?.data ?? []);
+      } catch (error) {
+        console.warn('❌ Init data error:', error);
+      } finally {
+        isMounted && setLoadding(false);
       }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setLoadding(false);
-        setStores(data.result);
-      })
-      .catch(error => {
-        setLoadding(false);
-      });
+    };
 
+    initData();
 
-    fetch(CATEGORY_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setLoadding(false);
-        setCategories(data.result.data);
-      })
-      .catch(error => {
-        setLoadding(false);
-      });
-
+    // 🧹 Cleanup tránh memory leak
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
 
