@@ -12,6 +12,7 @@ export const getStores = async (): Promise<Home> => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       }
     });
 

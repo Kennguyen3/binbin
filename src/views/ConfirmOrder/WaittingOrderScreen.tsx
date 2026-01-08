@@ -69,6 +69,7 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       }
     })
       .then(response => response.json())
@@ -78,7 +79,7 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
             clearTimeout(timeoutIdRef.current);
             timeoutIdRef.current = null;
           }
-          navigation.navigate('HomePage');
+          navigation.navigate('MainTabs');
           setLoadding(false);
           return;
         }
@@ -95,6 +96,7 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       }
     })
       .then(response => response.json())
@@ -152,6 +154,7 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       }
     })
       .then(response => response.json())

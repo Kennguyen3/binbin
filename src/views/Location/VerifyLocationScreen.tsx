@@ -64,6 +64,7 @@ const VerifyLocationScreen = ({ route, navigation }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         "lat": lat,
@@ -90,6 +91,7 @@ const VerifyLocationScreen = ({ route, navigation }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         "phone_number": user?.phone_number,

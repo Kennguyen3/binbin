@@ -40,6 +40,7 @@ const ShippingScreen = ({ navigation }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       }
     })
       .then(response => response.json())
@@ -59,6 +60,7 @@ const ShippingScreen = ({ navigation }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       }
     })
       .then(response => response.json())

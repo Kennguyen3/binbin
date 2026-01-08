@@ -29,45 +29,53 @@ const WishlistScreen = ({ navigation }) => {
     navigation.navigate('ShopDetail', { shopId: String(shopId), shopName });
   };
   const [products, setProducts] = useState<Store[]>([]);
-
-  useEffect(() => {
-    setLoadding(true);
-
-    fetch(LIST_FAVORITE, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user?.access_token}`,
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setLoadding(false);
-        setProducts(data.result.all_nearby_stores);
-      })
-      .catch(error => {
-        setLoadding(false);
-      });
-
-
-  }, []);
-
   const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
-      checkLoginStatus();
+      let isActive = true;
+
+      const initFavourite = async () => {
+        // 1️⃣ Nếu chưa login → show login screen
+        if (!user) {
+          setVisibleLoginScreen(true);
+          setProducts([]);
+          return;
+        }
+
+        // 2️⃣ Đã login
+        setVisibleLoginScreen(false);
+        setLoadding(true);
+
+        try {
+          const response = await fetch(LIST_FAVORITE, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${user.access_token}`,
+            },
+          });
+
+          const data = await response.json();
+
+          if (!isActive) return;
+
+          setProducts(data?.result?.all_nearby_stores ?? []);
+        } catch (error) {
+          console.warn('❌ Fetch favourite error:', error);
+        } finally {
+          isActive && setLoadding(false);
+        }
+      };
+
+      initFavourite();
+
+      return () => {
+        isActive = false;
+      };
     }, [user])
   );
 
-  const checkLoginStatus = async () => {
-    console.log('Checking login status...: ', user);
-    if (!user) {
-      setVisibleLoginScreen(true);
-    } else {
-      setVisibleLoginScreen(false);
-    }
-  };
 
   return (
     <View style={styles.container}>

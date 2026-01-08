@@ -24,16 +24,16 @@ import UpdateFullName from '../views/Profile/UpdateFullName';
 import SupportCenter from '../views/Profile/SupportCenter';
 import Conditions from '../views/Profile/Conditions';
 import Refund from '../views/Profile/Refund';
-import { SafeAreaView } from 'react-native';
 import BottomTabs from '@/navigation/BottomTabs';
 import { OrderCreate } from '@/models/OrderCreate';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export type RootStackParamList = {
   Login: undefined;
   Verify: undefined;
   ProductList: undefined;
   HomePage: undefined;
-  ShopDetail: undefined;
+  ShopDetail: { shopId: string, shopName: string };
   VerifyPhone: undefined;
   VerifyLocation: undefined;
   Shipping: undefined;
@@ -64,12 +64,9 @@ const AppNavigator = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <AuthProvider>
         <NavigationContainer>
-
           <Stack.Navigator id="Root" initialRouteName="MainTabs" screenOptions={{ headerShown: false }}>
-
             {/* ---- BottomTab Navigator ---- */}
             <Stack.Screen name="MainTabs" component={BottomTabs} />
-
             {/* ---- Screens ngoài tab ---- */}
             <Stack.Screen name="UpdateFullName" component={UpdateFullName} />
             <Stack.Screen name="Conditions" component={Conditions} />
@@ -91,7 +88,6 @@ const AppNavigator = () => {
             <Stack.Screen name="ShopDetail" component={ShopDetailScreen} />
             <Stack.Screen name="OrderDetail" component={OrderDetailScreen} />
             <Stack.Screen name="ConfirmOrder" component={ConfirmOrderScreen} />
-
           </Stack.Navigator>
         </NavigationContainer>
       </AuthProvider>

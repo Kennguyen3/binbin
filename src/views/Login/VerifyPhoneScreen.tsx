@@ -38,6 +38,7 @@ const VerifyPhoneScreen = () => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         "phone_number": phoneNumber,

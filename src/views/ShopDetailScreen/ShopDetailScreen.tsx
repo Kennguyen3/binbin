@@ -111,6 +111,7 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user?.access_token}`,
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         shop_id: shopId
@@ -144,6 +145,7 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${user?.access_token}`,
+          'Accept': 'application/json',
         }
       })
         .then(response => response.json())
