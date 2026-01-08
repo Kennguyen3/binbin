@@ -131,28 +131,18 @@ const VerifyLocationScreen = ({ route, navigation }) => {
   };
 
   const handlePress = (data: GooglePlaceData, details: GooglePlaceDetail | null) => {
-
-
     const addressComponents = details?.address_components || [];
-    const isInCaMau = addressComponents.some(component =>
-      component.long_name.includes('Cà Mau') || component.short_name.includes('Cà Mau')
-    );
-
-    if (isInCaMau) {
-      const fullAddress = details?.formatted_address || '';
-      // Lấy tọa độ
-      const latitude = details?.geometry?.location.lat || 0;
-      const longitude = details?.geometry?.location.lng || 0;
-      setLocationAddress(fullAddress);
-      setLocationDefault({
-        latitude: latitude,
-        longitude: longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      });
-    } else {
-      Alert.alert('Khu vực của bạn chưa được hỗ trợ, vui lòng chọn địa chỉ trong tỉnh càu mau');
-    }
+    const fullAddress = details?.formatted_address || '';
+    // Lấy tọa độ
+    const latitude = details?.geometry?.location.lat || 0;
+    const longitude = details?.geometry?.location.lng || 0;
+    setLocationAddress(fullAddress);
+    setLocationDefault({
+      latitude: latitude,
+      longitude: longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
   };
 
   return (

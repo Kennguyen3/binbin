@@ -12,6 +12,7 @@ import { useAuth } from '../../context/AuthContext';
 import MapView, { Marker } from 'react-native-maps';
 import { GooglePlacesAutocomplete, GooglePlaceData, GooglePlaceDetail } from 'react-native-google-places-autocomplete';
 import Geolocation from 'react-native-geolocation-service';
+import { getLocation, AppLocationModel } from '@/utils/location';
 
 type ConfirmOrderScreenNavigationProp = NavigationProp<RootStackParamList, 'ConfirmOrder'>;
 
@@ -39,13 +40,8 @@ const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route, }) => {
 
   const [showMenu, setShowMenu] = useState(false);
   const [locationAddress, setLocationAddress] = useState("");
-  const [locationDefault, setLocationDefault] = useState({
-    latitude: 10.0161,
-    longitude: 105.2416,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
-  const handleOpenLoaciton = () => {
+  const [locationDefault, setLocationDefault] = useState<AppLocationModel | null>(null);
+  const handleOpenLoacaton = () => {
     setShowMenu(true);
   };
   const getCurrentDate = () => {
@@ -109,24 +105,25 @@ const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route, }) => {
       });
   };
 
-  const getLocation = () => {
-    return new Promise((resolve, reject) => {
-      Geolocation.getCurrentPosition(
-        (position) => {
-          resolve({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          });
-        },
-        (error) => {
-          reject(error);
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-      );
-    });
-  };
+  // const getLocation = () => {
+  //   return new Promise((resolve, reject) => {
+  //     Geolocation.getCurrentPosition(
+  //       (position) => {
+  //         resolve({
+  //           latitude: position.coords.latitude,
+  //           longitude: position.coords.longitude,
+  //           latitudeDelta: 0.0922,
+  //           longitudeDelta: 0.0421,
+  //         });
+  //       },
+  //       (error) => {
+  //         reject(error);
+  //       },
+  //       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+  //     );
+  //   });
+  // };
+
   const fetchLocationAndProceed = async () => {
     try {
       const location = await getLocation();
@@ -183,55 +180,46 @@ const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route, }) => {
   const handlePress = (data: GooglePlaceData, details: GooglePlaceDetail | null) => {
 
     const addressComponents = details?.address_components || [];
-    const isInCaMau = addressComponents.some(component =>
-      component.long_name.includes('Cà Mau') || component.short_name.includes('Cà Mau')
-    );
+    setLoadding(true);
+    const fullAddress = details?.formatted_address || '';
+    // Lấy tọa độ
+    const latitude = details?.geometry?.location.lat || 0;
+    const longitude = details?.geometry?.location.lng || 0;
+    setLocationAddress(fullAddress);
+    setLocationDefault({
+      latitude: latitude,
+      longitude: longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
 
-    if (isInCaMau) {
-      setLoadding(true);
-      const fullAddress = details?.formatted_address || '';
-      // Lấy tọa độ
-      const latitude = details?.geometry?.location.lat || 0;
-      const longitude = details?.geometry?.location.lng || 0;
-      setLocationAddress(fullAddress);
-      setLocationDefault({
-        latitude: latitude,
-        longitude: longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      });
+    fetch(GET_DISTANCE, {
+      method: 'POST',
+      body: JSON.stringify({
+        "shop_id": orders?.id_store,
+        "lat": latitude,
+        "lng": longitude
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user?.access_token}`,
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.result);
 
-      fetch(GET_DISTANCE, {
-        method: 'POST',
-        body: JSON.stringify({
-          "shop_id": orders?.id_store,
-          "lat": latitude,
-          "lng": longitude
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user?.access_token}`,
-        }
+        setOrders((prevOrders) => ({
+          ...prevOrders,
+          price_shipping: data.result.shipping_cost,
+          address_shipping: data.result.destination_address
+        }));
+        setLoadding(false);
+        setDistances(data.result);
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data.result);
-
-          setOrders((prevOrders) => ({
-            ...prevOrders,
-            price_shipping: data.result.shipping_cost,
-            address_shipping: data.result.destination_address
-          }));
-          setLoadding(false);
-          setDistances(data.result);
-        })
-        .catch(error => {
-          setLoadding(false);
-        });
-
-    } else {
-      Alert.alert('Khu vực của bạn chưa được hỗ trợ, vui lòng chọn địa chỉ trong tỉnh càu mau');
-    }
+      .catch(error => {
+        setLoadding(false);
+      });
   };
   useEffect(() => {
     setLoadding(true);
@@ -263,7 +251,7 @@ const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route, }) => {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.contactCustomer}>
           <Text style={styles.titleContactCustomer}>Giao hàng đến</Text>
-          <TouchableOpacity style={styles.loactionGroupCustomer} onPress={handleOpenLoaciton}>
+          <TouchableOpacity style={styles.loactionGroupCustomer} onPress={handleOpenLoacaton}>
             <Image source={require('../../media/icon/location_customer.png')} style={styles.iconLocationCustomer} />
             <Text style={styles.locationCustomer}>{orders.address_shipping}</Text>
           </TouchableOpacity>
@@ -363,15 +351,20 @@ const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route, }) => {
 
             <MapView
               style={styles.mapView}
-              region={locationDefault}
+              region={{
+                latitude: locationDefault ? locationDefault.latitude : 10.0161,
+                longitude: locationDefault ? locationDefault.longitude : 105.2416,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
             >
               <Marker
                 coordinate={{
-                  latitude: locationDefault.latitude,
-                  longitude: locationDefault.longitude
+                  latitude: locationDefault?.latitude,
+                  longitude: locationDefault?.longitude
                 }}
-                title="Vị trí Cà Mau"
-                description="Đây là vị trí của Cà Mau"
+                title="Vị trí của bạn"
+                description="Đây là vị trí của bạn"
               />
             </MapView>
             <TouchableWithoutFeedback onPress={handleConfirmLocation}>

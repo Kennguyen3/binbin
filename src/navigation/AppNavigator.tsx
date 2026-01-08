@@ -26,6 +26,7 @@ import Conditions from '../views/Profile/Conditions';
 import Refund from '../views/Profile/Refund';
 import { SafeAreaView } from 'react-native';
 import BottomTabs from '@/navigation/BottomTabs';
+import { OrderCreate } from '@/models/OrderCreate';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -39,8 +40,12 @@ export type RootStackParamList = {
   OrderDetail: undefined;
   Wishlist: undefined;
   Notify: undefined;
-  ConfirmOrder: undefined;
-  WaittingOrder: undefined;
+  ConfirmOrder: {
+    data: OrderCreate;
+  };
+  WaittingOrder: {
+    id: number;
+  };
   RegisterPage: undefined;
   ProfilePage: undefined;
   UpdatePassword: undefined;
@@ -59,7 +64,7 @@ const AppNavigator = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <AuthProvider>
         <NavigationContainer>
-          
+
           <Stack.Navigator id="Root" initialRouteName="MainTabs" screenOptions={{ headerShown: false }}>
 
             {/* ---- BottomTab Navigator ---- */}

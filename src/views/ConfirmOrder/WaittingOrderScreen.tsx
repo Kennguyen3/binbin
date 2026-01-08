@@ -17,7 +17,6 @@ interface ConfirmOrderProps {
       id: number;
     };
   };
-
 }
 
 const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
@@ -207,7 +206,7 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
               {statuses.map((status, index) => (
                 <View style={styles.group_checkbox}>
                   <View
-                    key={index}
+                    key={status}
                     style={[
                       styles.trackerPoint,
                       (selectedIndex >= index && (selectedIndex != 2 || index != 2)) && styles.selectedTrackerPoint,
@@ -274,7 +273,6 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
                 <FlatList
                   data={order?.order_personal_items}
                   renderItem={({ item }) => (
-
                     <View style={styles.itemProduct}>
                       <Image source={{ uri: item.image_files }} style={styles.imgProduct} />
                       <View style={styles.infoProduct}>
@@ -284,7 +282,10 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
                       <Text style={styles.priceProduct}>{item.total_price_format}</Text>
                     </View>
                   )}
-                  keyExtractor={item => item.id.toString()}
+                  keyExtractor={item => {
+                    console.log('===> order_personal_items item:', item);
+                    return item.id.toString();
+                  }}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
                   contentContainerStyle={styles.contentContainer}
@@ -347,7 +348,7 @@ const WaittingOrderScreen: React.FC<ConfirmOrderProps> = ({ route }) => {
         </View>
       </ScrollView>
       <View>
-        <FooterMenu active={activeButton} />
+        {/* <FooterMenu active={activeButton} /> */}
       </View>
     </View>
   );
