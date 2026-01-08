@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="com.android.vending.BILLING"/>
+    <!-- <uses-permission android:name="com.android.vending.BILLING"/> -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <!-- PSTN (tuỳ bạn có dùng hay không). Nếu CHỈ VoIP/WebRTC, có thể bỏ CALL_PHONE/READ_PHONE_* -->
