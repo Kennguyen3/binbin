@@ -185,7 +185,7 @@ const FilterPage = ({ route, navigation }) => {
                 renderItem={({ item }) => (
                   <TouchableOpacity onPress={() => handleShopPress(item.id, item.name)}>
                     <View style={styles.itemContainerStoresLine}>
-                      <Image source={{ uri: item.avatar_files }} style={styles.imageStoresLine} resizeMode="cover" />
+                      <Image source={{ uri: item.avatar }} style={styles.imageStoresLine} resizeMode="cover" />
                       <View style={styles.groupInfoStoreLine} >
                         <View style={styles.groupDesTitle}>
                           <View style={styles.titleStoresGroupLine}>

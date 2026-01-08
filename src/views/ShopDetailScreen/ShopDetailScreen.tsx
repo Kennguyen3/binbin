@@ -250,7 +250,7 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.sliders}>
           <View style={styles.customSlide}>
-            <Image source={{ uri: stores?.avatar_files }} style={{ width: '100%', height: 200 }} resizeMode="cover" />
+            <Image source={{ uri: stores?.avatar }} style={{ width: '100%', height: 200 }} resizeMode="cover" />
           </View>
           <TouchableOpacity style={styles.backHeader} onPress={() => handleGoBack()}>
             <Image source={require('../../media/icon/back.png')} style={styles.backHeaderIMG} />

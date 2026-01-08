@@ -52,35 +52,6 @@ const HomeScreen = ({ navigation }) => {
   const handleFilterPage = (typeId: number, keySearch: string, name: string = "") => {
     navigation.navigate('FilterPage', { typeId, keySearch, name });
   };
-  // const getLocation = () => {
-  //   Geolocation.getCurrentPosition(
-  //     (position) => {
-  //       setLocationUser({ "latitude": position.coords.latitude, "longitude": position.coords.longitude });
-  //     },
-  //     (error) => {
-  //       console.error("❌ Error fetching location:", error);
-  //     },
-  //     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-  //   );
-  // };
-
-  // async function requestLocationPermission() {
-  //   try {
-  //     const granted = await PermissionsAndroid.request(
-  //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-  //     );
-  //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-  //       console.log('Bạn đã cho phép truy cập vị trí');
-  //       return true;
-  //     } else {
-  //       console.log('Bạn đã từ chối truy cập vị trí');
-  //       return false;
-  //     }
-  //   } catch (err) {
-  //     console.warn(err);
-  //     return false;
-  //   }
-  // }
 
   useEffect(() => {
     let isMounted = true;
@@ -148,24 +119,7 @@ const HomeScreen = ({ navigation }) => {
     };
   }, []);
 
-
   const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     checkLoginStatus();
-  //   }, [user])
-  // );
-
-  const checkLoginStatus = async () => {
-    console.log('Checking login status...: ', user);
-    if (!user) {
-      setVisibleLoginScreen(true);
-    } else {
-      setVisibleLoginScreen(false);
-    }
-  };
-
 
   const renderHeader = () => (
     <View>
@@ -222,7 +176,7 @@ const HomeScreen = ({ navigation }) => {
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => handleShopPress(item.id, item.name)}>
                   <View style={styles.itemContainerStores}>
-                    <Image source={{ uri: item.avatar_files }} style={styles.imageStores} />
+                    <Image source={{ uri: item.avatar }} style={styles.imageStores} />
                     <View style={styles.titleStoresGroup}>
                       <Image source={require('../../media/icon/check_title.png')} style={styles.iconTitleStores} />
                       <Text style={styles.titleStores}>{item.name}</Text>
@@ -270,7 +224,7 @@ const HomeScreen = ({ navigation }) => {
               renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => handleShopPress(item.id, item.name)}>
                   <View style={styles.itemContainerStores}>
-                    <Image source={{ uri: item.avatar_files }} style={styles.imageStores} />
+                    <Image source={{ uri: item.avatar }} style={styles.imageStores} />
                     <View style={styles.titleStoresGroup}>
                       <Image source={require('../../media/icon/check_title.png')} style={styles.iconTitleStores} />
                       <Text style={styles.titleStores}>{item.name}</Text>
@@ -343,7 +297,7 @@ const HomeScreen = ({ navigation }) => {
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleShopPress(item.id, item.name)}>
               <View style={styles.itemContainerStoresLine}>
-                <Image source={{ uri: item.avatar_files }} style={styles.imageStoresLine} resizeMode="cover" />
+                <Image source={{ uri: item.avatar }} style={styles.imageStoresLine} resizeMode="cover" />
                 <View style={styles.groupInfoStoreLine} >
                   <View style={styles.groupDesTitle}>
                     <View style={styles.titleStoresGroupLine}>

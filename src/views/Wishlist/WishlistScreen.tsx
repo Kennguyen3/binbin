@@ -103,7 +103,7 @@ const WishlistScreen = ({ navigation }) => {
                   <View>
                     <View style={styles.itemContainerStoresLine}>
                       <TouchableOpacity onPress={() => handleShopPress(item.id, item.name)}>
-                        <Image source={{ uri: item.avatar_files }} style={styles.imageStoresLine} resizeMode="cover" />
+                        <Image source={{ uri: item.avatar }} style={styles.imageStoresLine} resizeMode="cover" />
                       </TouchableOpacity>
                       <View style={styles.groupInfoStoreLine} >
                         <TouchableOpacity style={styles.groupDesTitle} onPress={() => handleShopPress(item.id, item.name)}>
