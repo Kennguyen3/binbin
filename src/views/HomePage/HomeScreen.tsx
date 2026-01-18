@@ -1,6 +1,6 @@
 // src/views/ProductList/ProductListScreen.tsx
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, ActivityIndicator, Animated } from 'react-native';
 import { getStores } from '../../services/HomeService';
 import { useAuth } from '../../context/AuthContext';
 import { Home } from '../../models/Home';
@@ -16,6 +16,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import LoginScreen from '../Login/LoginScreen';
 import { requestLocationPermission } from '@/utils/permissions';
 import { getLocation } from '@/utils/location';
+import { SkeletonHeader } from '@/components/SkeletonHeader';
 
 export interface CategoryItem {
   id: number;
@@ -285,15 +286,11 @@ const HomeScreen = ({ navigation }) => {
             });
           }} />
       }
-      {loadding ?
-        <LoadingOverlay />
-        :
-        null
-      }
       <View style={styles.contentContainer}>
         <FlatList
           data={stores?.all_nearby_stores}
           ListHeaderComponent={renderHeader}
+          ListFooterComponent={loadding ? <SkeletonHeader /> : null}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleShopPress(item.id, item.name)}>
               <View style={styles.itemContainerStoresLine}>
