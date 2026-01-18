@@ -1,18 +1,12 @@
 // src/views/ProductList/ProductListScreen.tsx
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, ActivityIndicator, Animated } from 'react-native';
-import { getStores } from '../../services/HomeService';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { View, Text, FlatList, TextInput, Image, TouchableOpacity, RefreshControl } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 import { Home } from '../../models/Home';
 import { styles } from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ImageSlider from 'react-native-image-slider';
 import { PRODUCT_ENDPOINT, CATEGORY_ENDPOINT } from '../../constants/API';
-import LoadingOverlay from '../../components/LoadingOverlay';
-import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import Geolocation from 'react-native-geolocation-service';
-import { PermissionsAndroid } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import LoginScreen from '../Login/LoginScreen';
 import { requestLocationPermission } from '@/utils/permissions';
 import { getLocation } from '@/utils/location';
@@ -26,7 +20,9 @@ export interface CategoryItem {
 
 const HomeScreen = ({ navigation }) => {
   const { login, user, logout } = useAuth();
-  const [loadding, setLoadding] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
   const [keySearchI, setKeySearchI] = useState('');
   const [locationUser, setLocationUser] = useState({ "latitude": 10.7960147, "longitude": 106.6408417 });
   const [categories, setCategories] = useState<CategoryItem[]>([]);
@@ -54,71 +50,91 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('FilterPage', { typeId, keySearch, name });
   };
 
-  useEffect(() => {
-    let isMounted = true;
+  const isMountedRef = useRef(true);
 
-    const initData = async () => {
-      try {
-        if (!isMounted) return;
-
-        setLoadding(true);
-
-        // 1️⃣ Xin quyền vị trí
-        const hasPermission = await requestLocationPermission();
-        if (!hasPermission) {
-          throw new Error('Location permission denied');
-        }
-
-        // 2️⃣ Lấy vị trí (await đảm bảo có dữ liệu)
-        const location = await getLocation();
-
-        if (!isMounted) return;
-
-        setLocationUser(location);
-
-        // 3️⃣ Call API song song
-        const [productResponse, categoryResponse] = await Promise.all([
-          fetch(PRODUCT_ENDPOINT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              user_lat: location.latitude,
-              user_long: location.longitude,
-            }),
-          }),
-          fetch(CATEGORY_ENDPOINT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }),
-        ]);
-
-        // 4️⃣ Parse response
-        const productData = await productResponse.json();
-        const categoryData = await categoryResponse.json();
-
-        if (!isMounted) return;
-
-        // 5️⃣ Set state
-        setStores(productData?.result ?? []);
-        setCategories(categoryData?.result?.data ?? []);
-      } catch (error) {
-        console.warn('❌ Init data error:', error);
-      } finally {
-        isMounted && setLoadding(false);
+  // ✅ Hàm getData có thể tái sử dụng
+  const getData = useCallback(async (showLoading = true) => {
+    try {
+      if (showLoading) {
+        setLoading(true);
       }
-    };
 
-    initData();
+      // 1️⃣ Xin quyền vị trí
+      const hasPermission = await requestLocationPermission();
+      if (!hasPermission) {
+        throw new Error('Location permission denied');
+      }
 
-    // 🧹 Cleanup tránh memory leak
-    return () => {
-      isMounted = false;
-    };
+      // 2️⃣ Lấy vị trí
+      const location = await getLocation();
+
+      if (!isMountedRef.current) return;
+
+      setLocationUser(location);
+
+      // 3️⃣ Call API song song
+      const [productResponse, categoryResponse] = await Promise.all([
+        fetch(PRODUCT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user_lat: location.latitude,
+            user_long: location.longitude,
+          }),
+        }),
+        fetch(CATEGORY_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      ]);
+
+      // 4️⃣ Kiểm tra response status
+      if (!productResponse.ok || !categoryResponse.ok) {
+        throw new Error('API request failed');
+      }
+
+      // 5️⃣ Parse response
+      const [productData, categoryData] = await Promise.all([
+        productResponse.json(),
+        categoryResponse.json(),
+      ]);
+
+      if (!isMountedRef.current) return;
+
+      // 6️⃣ Set state
+      setStores(productData?.result ?? []);
+      setCategories(categoryData?.result?.data ?? []);
+
+      return { success: true };
+    } catch (error) {
+      console.warn('❌ Get data error:', error);
+
+      // Có thể hiện Toast/Alert ở đây
+      // showToast('Không thể tải dữ liệu');
+
+      return { success: false, error };
+    } finally {
+      if (isMountedRef.current) {
+        setLoading(false);
+        setRefreshing(false);
+      }
+    }
   }, []);
+
+  // ✅ Load lần đầu
+  useEffect(() => {
+    getData(true);
+
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, [getData]);
+
+  // ✅ Pull to refresh
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await getData(true); // Không hiện loading overlay
+  }, [getData]);
 
   const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
 
@@ -290,34 +306,49 @@ const HomeScreen = ({ navigation }) => {
         <FlatList
           data={stores?.all_nearby_stores}
           ListHeaderComponent={renderHeader}
-          ListFooterComponent={loadding ? <SkeletonHeader /> : null}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleShopPress(item.id, item.name)}>
-              <View style={styles.itemContainerStoresLine}>
-                <Image source={{ uri: item.avatar }} style={styles.imageStoresLine} resizeMode="cover" />
-                <View style={styles.groupInfoStoreLine} >
-                  <View style={styles.groupDesTitle}>
-                    <View style={styles.titleStoresGroupLine}>
-                      <Image source={require('../../media/icon/check_title.png')} style={styles.iconTitleStores} />
-                      <Text style={styles.titleStores}>{item.name}</Text>
+          ListFooterComponent={loading ? <SkeletonHeader /> : null}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={['#007AFF']} // Android
+              tintColor="#007AFF" // iOS
+              title="Đang tải..." // iOS
+              titleColor="#666" // iOS
+            />
+          }
+          renderItem={({ item }) => {
+            if (loading) {
+              return null
+            }
+            return (
+              <TouchableOpacity onPress={() => handleShopPress(item.id, item.name)}>
+                <View style={styles.itemContainerStoresLine}>
+                  <Image source={{ uri: item.avatar }} style={styles.imageStoresLine} resizeMode="cover" />
+                  <View style={styles.groupInfoStoreLine} >
+                    <View style={styles.groupDesTitle}>
+                      <View style={styles.titleStoresGroupLine}>
+                        <Image source={require('../../media/icon/check_title.png')} style={styles.iconTitleStores} />
+                        <Text style={styles.titleStores}>{item.name}</Text>
+                      </View>
+                      <Text style={styles.descriptionStore}>{item.description}</Text>
                     </View>
-                    <Text style={styles.descriptionStore}>{item.description}</Text>
-                  </View>
-                  <View style={styles.starLocaitonGroup}>
-                    <View style={styles.starGroup}>
-                      <Image source={require('../../media/icon/star.png')} style={styles.starIco} />
-                      <Text style={styles.starTitle}>{item.averageStarRating}</Text>
-                    </View>
-                    <View style={styles.locationGroup}>
-                      <Image source={require('../../media/icon/location.png')} style={styles.locationIco} />
-                      <Text style={styles.locationTitle}>{item.distance} </Text>
+                    <View style={styles.starLocaitonGroup}>
+                      <View style={styles.starGroup}>
+                        <Image source={require('../../media/icon/star.png')} style={styles.starIco} />
+                        <Text style={styles.starTitle}>{item.averageStarRating}</Text>
+                      </View>
+                      <View style={styles.locationGroup}>
+                        <Image source={require('../../media/icon/location.png')} style={styles.locationIco} />
+                        <Text style={styles.locationTitle}>{item.distance} </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-              <View style={styles.hrLine}></View>
-            </TouchableOpacity>
-          )}
+                <View style={styles.hrLine}></View>
+              </TouchableOpacity>
+            )
+          }}
           keyExtractor={item => item.id.toString()}
         />
       </View>
