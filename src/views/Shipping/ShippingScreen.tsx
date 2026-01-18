@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, use, useCallback } from 'react';
-import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Button, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useNavigation, NavigationProp, useFocusEffect } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './stylesShipping';
@@ -123,31 +123,43 @@ const ShippingScreen = ({ navigation }) => {
       setVisibleLoginScreen(false);
     }
   };
-  return (
 
+  if (visibleLoginScreen) {
+    return (
+      <LoginScreen
+        isVisible={visibleLoginScreen}
+        onClose={() => {
+          setVisibleLoginScreen(false);
+          navigation.navigate('MainTabs', { screen: 'Home' });
+        }} onRegister={() => {
+          setVisibleLoginScreen(false);
+          navigation.navigate('RegisterPage', {
+            onLoginPress: () => {
+              setVisibleLoginScreen(true);
+            }
+          });
+        }} />
+    )
+  }
+
+  return (
     <View style={styles.container}>
-      {
-        visibleLoginScreen &&
-        <LoginScreen
-          isVisible={visibleLoginScreen}
-          onClose={() => {
-            setVisibleLoginScreen(false);
-            navigation.navigate('MainTabs', { screen: 'Home' });
-          }} onRegister={() => {
-            setVisibleLoginScreen(false);
-            navigation.navigate('RegisterPage', {
-              onLoginPress: () => {
-                setVisibleLoginScreen(true);
-              }
-            });
-          }} />
-      }
-      {loadding ?
-        <LoadingOverlay />
-        :
-        null
-      }
       <HeaderTab showBack={false} title="Đơn hàng" />
+      {loadding && (
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 10,
+        }}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View>
+      )}
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.menuTabs}>
           <TouchableOpacity

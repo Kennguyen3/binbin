@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Alert, Image, TouchableWithoutFeedback, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TextInput, Button, Alert, Image, TouchableWithoutFeedback, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import { styles } from './styles';
@@ -13,13 +13,13 @@ import auth from '@react-native-firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onGoogleSignIn } from '@/utils/firebase';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import DeviceInfo from "react-native-device-info";
 
 type LoginScreenNavigationProp = NavigationProp<RootStackParamList, 'Login'>;
 
 const LoginScreen = ({ isVisible, onClose, onRegister }) => {
-
+  const insets = useSafeAreaInsets();
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const handleGoBack = () => {
     // navigation.navigate("HomePage");
@@ -276,15 +276,23 @@ const LoginScreen = ({ isVisible, onClose, onRegister }) => {
   // };
   return (
     <Modal transparent visible={isVisible} animationType="slide">
-
-      <SafeAreaView style={{ flexGrow: 1, backgroundColor: '#872121ff' }}>
-
+      <View style={{ flexGrow: 1, backgroundColor: '#872121ff', marginTop: 0 }}>
         <View style={styles.container}>
-          {loading ?
-            <LoadingOverlay />
-            :
-            null
-          }
+          {loading && (
+            <View style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 10,
+            }}>
+              <ActivityIndicator size="large" color="#fff" />
+            </View>
+          )}
           <TouchableOpacity
             style={styles.icon_back}
             onPress={() => handleGoBack()}>
@@ -362,7 +370,7 @@ const LoginScreen = ({ isVisible, onClose, onRegister }) => {
             </Text>
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     </Modal>
   );
 };

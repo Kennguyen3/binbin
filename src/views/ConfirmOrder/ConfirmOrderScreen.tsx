@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Button, Dimensions, Alert, TouchableWithoutFeedback, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Button, Dimensions, Alert, TouchableWithoutFeedback, ScrollView, TextInput, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/AppNavigator';
 import HeaderTab from '../../components/HeaderTab';
@@ -245,11 +245,21 @@ const ConfirmOrderScreen: React.FC<ConfirmOrderProps> = ({ route, }) => {
 
   return (
     <View style={styles.container}>
-      {loadding ?
-        <LoadingOverlay />
-        :
-        null
-      }
+      {loadding && (
+        <View style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 10,
+        }}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View>
+      )}
       <HeaderTab showBack={true} title="Xác nhận đơn hàng" />
       <ScrollView contentContainerStyle={styles.contentContainer}>
         <View style={styles.contactCustomer}>
