@@ -13,7 +13,10 @@ import { Categorie } from '../../models/Categorie';
 import { Product } from '../../models/Product';
 import { formatToVND } from '../../utils/currencyUtils';  // Import hàm từ file utils
 import { OrderCreate } from '../../models/OrderCreate';
-import { STORE_DETAIL, ADD_REMOVE_FAVORITE } from '../../constants/API';
+import { STORE_DETAIL, ADD_REMOVE_FAVORITE, SHOP_DETAILS } from '../../constants/API';
+import { presentToastMessage } from '@/utils/functions';
+import { showMessage } from 'react-native-flash-message';
+import { SkeletonHeader } from '@/components/SkeletonHeader';
 
 type ShopDetailScreenNavigationProp = NavigationProp<RootStackParamList, 'ShopDetail'>;
 interface ShopDetailProps {
@@ -135,28 +138,109 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
   }, [navigation]);
 
   const [stores, setStores] = useState<Store>();
-  useEffect(() => {
-    if (!user) {
-      navigation.navigate("Login");
-    }
-    const fetchProducts = async () => {
-      fetch(STORE_DETAIL + shopId, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user?.access_token}`,
-          'Accept': 'application/json',
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
-          setStores(data.result);
-        })
-        .catch(error => { });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    // Early return nếu không có user
+    if (!user) {
+      showMessage({
+        message: "Vui lòng đăng nhập",
+        type: "warning",
+      });
+      navigation.navigate("Login");
+      return;
+    }
+
+    // AbortController để cancel request khi unmount
+    const abortController = new AbortController();
+
+    const fetchShopDetails = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch(SHOP_DETAILS(shopId), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${user.access_token}`,
+          },
+          signal: abortController.signal, // Cancel request on unmount
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || `Lỗi ${response.status}: Không thể tải thông tin cửa hàng`);
+        }
+
+        if (data?.result) {
+          setStores(data.result);
+        } else {
+          throw new Error('Không tìm thấy thông tin cửa hàng');
+        }
+
+      } catch (error: any) {
+        // Ignore abort errors
+        if (error.name === 'AbortError') {
+          console.log('Request cancelled');
+          return;
+        }
+
+        const errorMessage = error instanceof Error ? error.message : 'Đã có lỗi xảy ra';
+
+        setError(errorMessage);
+        console.error('Error fetching shop details:', errorMessage);
+
+        showMessage({
+          message: "Không thể tải thông tin",
+          description: errorMessage,
+          type: "danger",
+          duration: 4000,
+        });
+
+      } finally {
+        setLoading(false);
+      }
     };
-    fetchProducts();
-  }, []);
+
+    fetchShopDetails();
+
+    // Cleanup: cancel request khi component unmount
+    return () => {
+      abortController.abort();
+    };
+
+  }, [shopId, user, navigation]);
+
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigation.navigate("Login");
+  //   }
+  //   console.log('===> fetchProducts:', SHOP_DETAILS(shopId), user);
+  //   const fetchProducts = async () => {
+  //     fetch(SHOP_DETAILS(shopId), {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${user?.access_token}`,
+  //         'Accept': 'application/json',
+  //       }
+  //     })
+  //       .then(response => response.json())
+  //       .then(data => {
+  //         setStores(data.result);
+  //       })
+  //       .catch(error => { 
+  //         console.error('Error fetching store details:', error);
+  //       });
+
+  //   };
+  //   fetchProducts();
+  // }, []);
   const renderProductItem = ({ item }: { item: Product }) => (
     <View style={styles.itemContainerStoresLineCategory}>
       <Image source={{ uri: item.image_files }} style={styles.imageStoresLine} resizeMode="cover" />
@@ -249,132 +333,97 @@ const ShopDetailScreen: React.FC<ShopDetailProps> = ({ route }) => {
         </View>
         : null}
 
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View style={styles.sliders}>
-          <View style={styles.customSlide}>
-            <Image source={{ uri: stores?.avatar }} style={{ width: '100%', height: 200 }} resizeMode="cover" />
-          </View>
-          <TouchableOpacity style={styles.backHeader} onPress={() => handleGoBack()}>
-            <Image source={require('../../media/icon/back.png')} style={styles.backHeaderIMG} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.shareHeader} onPress={() => handleGoBack()}>
-            <Image source={require('../../media/icon/share.png')} style={styles.shareHeaderIMG} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.content_cuahang}>
-          <View style={styles.group_titleStore}>
-            <Image source={require('../../media/icon/check_title.png')} style={styles.ico_titleStore} />
-            <Text style={styles.tt_store}>{stores?.name}</Text>
-          </View>
-          <Text style={styles.add_store}>{stores?.address}</Text>
-
-          <View style={styles.rating_fatory}>
-            <View style={styles.starLocaitonGroup}>
-              <View style={styles.locationGroup}>
-                <Image source={require('../../media/icon/location.png')} style={styles.locationIco} />
-                <Text style={styles.locationTitle}>{stores?.distance}</Text>
-              </View>
-              <View style={styles.starGroup}>
-                <Image source={require('../../media/icon/star.png')} style={styles.starIco} />
-                <Text style={styles.starTitle}>{stores?.averageStarRating} (100+)</Text>
-              </View>
+      {loading ? (
+        <SkeletonHeader />
+      ) : (
+        <ScrollView contentContainerStyle={styles.contentContainer}>
+          <View style={styles.sliders}>
+            <View style={styles.customSlide}>
+              <Image source={{ uri: stores?.avatar }} style={{ width: '100%', height: 200 }} resizeMode="cover" />
             </View>
-            {
-              stores?.favorite ?
-                <TouchableOpacity style={styles.fatoryGroup} onPress={() => handleWishlist()}>
-                  <Text style={styles.fatoryTitle}>Yêu thích</Text>
-                  <Image source={require('../../media/icon/wishlist.png')} style={styles.factoryStore} />
-                </TouchableOpacity>
-                :
-                <TouchableOpacity style={styles.fatoryGroup} onPress={() => handleWishlist()}>
-                  <Text style={styles.fatoryTitle}>Yêu thích</Text>
-                  <Image source={require('../../media/icon/fatory_uncheck.png')} style={styles.factoryStore} />
-                </TouchableOpacity>
-            }
-
+            <TouchableOpacity style={styles.backHeader} onPress={() => handleGoBack()}>
+              <Image source={require('../../media/icon/back.png')} style={styles.backHeaderIMG} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.shareHeader} onPress={() => handleGoBack()}>
+              <Image source={require('../../media/icon/share.png')} style={styles.shareHeaderIMG} />
+            </TouchableOpacity>
           </View>
-          {/* {stores?.vouchers && stores?.vouchers.length > 0 && (
-            <View style={styles.titleGroup}>
-              <View style={styles.groupTitileImage}>
-                <Image source={require('../../media/icon/percent.png')} style={styles.ico_titleGroup} />
-                <Text style={styles.titleLeft}>Ưu đãi</Text>
-              </View>
-              <TouchableOpacity >
-                <Text style={styles.readMoreRight}>Xem tất cả ({stores?.vouchers?.length})</Text>
-              </TouchableOpacity>
+          <View style={styles.content_cuahang}>
+            <View style={styles.group_titleStore}>
+              <Image source={require('../../media/icon/check_title.png')} style={styles.ico_titleStore} />
+              <Text style={styles.tt_store}>{stores?.name}</Text>
             </View>
-          )} */}
-          {/* {stores?.vouchers && stores?.vouchers.length > 0 && (
-            <View style={styles.listStores}>
-              <FlatList
-                data={stores?.vouchers}
-                renderItem={({ item }) => (
-                  <TouchableOpacity>
-                    <View style={styles.itemContainerStores}>
-                      <View style={styles.imgVoucherDiscount}>
-                        <Image source={require('../../media/icon/bg_discount.png')} style={styles.imgBgDiscount} />
-                        <View style={styles.pricediscount}>
-                          <Text style={styles.textPriceStyle}>-{item?.price_show}</Text>
-                        </View>
-                      </View>
-                      <View style={styles.contentVoucher}>
-                        <Text style={styles.textContentVoucher}>{item?.content}</Text>
-                      </View>
-                      <View style={styles.viewBtnVoucher}>
-                        <Text style={styles.textViewBtnVoucher}>Xem</Text>
-                      </View>
-                    </View>
+            <Text style={styles.add_store}>{stores?.address}</Text>
+
+            <View style={styles.rating_fatory}>
+              <View style={styles.starLocaitonGroup}>
+                <View style={styles.locationGroup}>
+                  <Image source={require('../../media/icon/location.png')} style={styles.locationIco} />
+                  <Text style={styles.locationTitle}>{stores?.distance}</Text>
+                </View>
+                <View style={styles.starGroup}>
+                  <Image source={require('../../media/icon/star.png')} style={styles.starIco} />
+                  <Text style={styles.starTitle}>{stores?.averageStarRating} (100+)</Text>
+                </View>
+              </View>
+              {
+                stores?.favorite ?
+                  <TouchableOpacity style={styles.fatoryGroup} onPress={() => handleWishlist()}>
+                    <Text style={styles.fatoryTitle}>Yêu thích</Text>
+                    <Image source={require('../../media/icon/wishlist.png')} style={styles.factoryStore} />
                   </TouchableOpacity>
-                )}
-                keyExtractor={item => item.id.toString()}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.contentContainer}
-              />
+                  :
+                  <TouchableOpacity style={styles.fatoryGroup} onPress={() => handleWishlist()}>
+                    <Text style={styles.fatoryTitle}>Yêu thích</Text>
+                    <Image source={require('../../media/icon/fatory_uncheck.png')} style={styles.factoryStore} />
+                  </TouchableOpacity>
+              }
             </View>
-          )} */}
-          {stores?.popular_products && stores?.popular_products.length > 0 && (
-            <View style={styles.titleGroup}>
-              <Text style={styles.titleLeft}>Món Phổ Biến</Text>
-            </View>
-          )}
-          {stores?.popular_products && stores?.popular_products.length > 0 && (
-            <View style={[styles.listStores, styles.mgT10]}>
-              <FlatList
-                data={stores?.popular_products}
-                renderItem={({ item }) => (
+            {stores?.popular_products && stores?.popular_products.length > 0 && (
+              <View style={styles.titleGroup}>
+                <Text style={styles.titleLeft}>Món Phổ Biến</Text>
+              </View>
+            )}
+            {stores?.popular_products && stores?.popular_products.length > 0 && (
+              <View style={[styles.listStores, styles.mgT10]}>
+                <FlatList
+                  data={stores?.popular_products}
+                  renderItem={({ item }) => (
 
-                  <View style={styles.itemContainerStoresLine}>
-                    <Image source={{ uri: item.image_files }} style={styles.imageStoresLine} resizeMode="cover" />
-                    <View style={styles.groupInfoStoreLine} >
-                      <View style={styles.groupDesTitle}>
-                        <Text style={styles.titleStores}>{truncateText(item.name, 20)}</Text>
-                        <Text style={styles.descriptionStore}>{truncateText(item.description, 70)}</Text>
-                        <Text style={styles.soildedStore}>{item.quantity_sold} đã bán</Text>
-                        <View style={styles.groupAddtoCartPrice}>
-                          <Text style={styles.priceProductList}>{item.price_format}</Text>
-                          <TouchableOpacity onPress={() => addProductToCart(item)}>
-                            <Image source={require('../../media/icon/plus.png')} style={styles.plusCart} />
-                          </TouchableOpacity>
+                    <View style={styles.itemContainerStoresLine}>
+                      <Image source={{ uri: item.image_files }} style={styles.imageStoresLine} resizeMode="cover" />
+                      <View style={styles.groupInfoStoreLine} >
+                        <View style={styles.groupDesTitle}>
+                          <Text style={styles.titleStores}>{truncateText(item.name, 20)}</Text>
+                          <Text style={styles.descriptionStore}>{truncateText(item.description, 70)}</Text>
+                          <Text style={styles.soildedStore}>{item.quantity_sold} đã bán</Text>
+                          <View style={styles.groupAddtoCartPrice}>
+                            <Text style={styles.priceProductList}>{item.price_format}</Text>
+                            <TouchableOpacity onPress={() => addProductToCart(item)}>
+                              <Image source={require('../../media/icon/plus.png')} style={styles.plusCart} />
+                            </TouchableOpacity>
+                          </View>
                         </View>
                       </View>
                     </View>
-                  </View>
-                )}
-                keyExtractor={item => item.id.toString()}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.contentContainer}
-              />
-            </View>
-          )}
-          <FlatList
-            data={stores?.categories}
-            renderItem={renderCategoryItem}
-            keyExtractor={(category) => category.id.toString()}
-          />
-        </View>
-      </ScrollView>
+                  )}
+                  keyExtractor={item => item.id.toString()}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.contentContainer}
+                />
+              </View>
+            )}
+            <FlatList
+              data={stores?.categories}
+              renderItem={renderCategoryItem}
+              keyExtractor={(category) => category.id.toString()}
+            />
+          </View>
+        </ScrollView>
+      )
+      }
+
       <View>
         <View style={styles.containerFooter}>
           <View style={styles.cartPriceFooter}>

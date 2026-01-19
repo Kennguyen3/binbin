@@ -23,4 +23,6 @@ export const LIST_ORDER = `${API_URL}/personal/orders-list`;
 export const DETAIL_ORDER = `${API_URL}/personal/orders-detail`;
 export const LIST_ORDER_PROCESS = `${API_URL}/personal/orders-list-in-process`;
 
+export const SHOP_DETAILS = (id: number) => `${API_URL}/shop/${id}`;
+
 
