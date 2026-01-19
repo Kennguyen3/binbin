@@ -84,7 +84,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     paddingTop: 20,
-    paddingBottom: 20
+    paddingBottom: 20,
+    marginTop: 32
   },
   group_titleStore: {
     flexDirection: 'row',
@@ -601,8 +602,8 @@ export const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold'
   },
-  btnPlus:{
-    display:'flex',
+  btnPlus: {
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
@@ -622,7 +623,7 @@ export const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 16,
     height: 100,
-    textAlignVertical: 'top' 
+    textAlignVertical: 'top'
   },
   totalRow: {
     flexDirection: 'row',
@@ -649,5 +650,26 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  categoryTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    color: '#000',
+  },
+
+  emptyProductContainer: {
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    marginVertical: 8,
+  },
+
+  emptyProductText: {
+    fontSize: 14,
+    color: '#999',
+    fontStyle: 'italic',
   },
 });
