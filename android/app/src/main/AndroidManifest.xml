@@ -24,6 +24,7 @@
     <!-- Location (bạn đang dùng bản đồ) -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <!-- Bluetooth cho audio devices (tai nghe, v.v.) -->
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
@@ -112,6 +113,6 @@
         <!-- Branch / Facebook / Maps -->
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyASNgTRVBAkMa-W5fbwLO3Q6n-uZ7c5f6s"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD9jrcx3ybDO1H6cJi2m2iEptTLWcqFALU"/>
     </application>
 </manifest>

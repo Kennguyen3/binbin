@@ -61,6 +61,8 @@ const HomeScreen = ({ navigation }) => {
 
       // 1️⃣ Xin quyền vị trí
       const hasPermission = await requestLocationPermission();
+
+      console.log('✅ Location permission granted:', hasPermission);
       if (!hasPermission) {
         throw new Error('Location permission denied');
       }
@@ -68,6 +70,8 @@ const HomeScreen = ({ navigation }) => {
       // 2️⃣ Lấy vị trí
       const location = await getLocation();
 
+      console.log('✅ User location:', location);
+      
       if (!isMountedRef.current) return;
 
       setLocationUser(location);
