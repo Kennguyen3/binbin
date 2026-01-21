@@ -92,19 +92,6 @@ const FilterPage = ({ route, navigation }) => {
   const ListHeaderComponent = useMemo(() => {
     return (
       <>
-        {typeId === 5 && (
-          <View style={styles.searchData}>
-            <TouchableOpacity style={styles.backHeader} onPress={handleGoBack}>
-              <Image
-                source={require('../../media/icon/back.png')}
-                style={styles.backHeaderIMG}
-              />
-            </TouchableOpacity>
-          </View>
-        )}
-
-        {/* {stores.length > 0 && <View style={styles.hrLine} />} */}
-
         {stores.length > 0 && (
           <View style={styles.titleGroup}>
             <Text style={styles.titleLeft}>
@@ -162,7 +149,6 @@ const FilterPage = ({ route, navigation }) => {
           />
         )
       }
-
     </View>
   );
 };

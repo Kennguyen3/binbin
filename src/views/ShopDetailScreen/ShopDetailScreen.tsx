@@ -155,18 +155,13 @@ const ShopDetailScreen = ({ route, navigation }) => {
 
       case 'popular_products':
         return (
-          <View style={{ paddingHorizontal: 16 }}>
+          <View style={{ marginHorizontal: 16 }}>
             <View style={styles.titleGroup}>
               <Text style={styles.titleLeft}>Món Phổ Biến</Text>
             </View>
             <FlatList
               data={item.data}
-              renderItem={({ item: product }) => (
-                <PopularProductItem
-                  item={product}
-                  onAddToCart={addProductToCart}
-                />
-              )}
+              renderItem={renderProductItem}
               keyExtractor={product => product.id.toString()}
               horizontal
               showsHorizontalScrollIndicator={false}

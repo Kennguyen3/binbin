@@ -12,6 +12,7 @@ import { requestLocationPermission } from '@/utils/permissions';
 import { getLocation } from '@/utils/location';
 import { SkeletonHeader } from '@/components/SkeletonHeader';
 import SearchComponent from '@/components/SearchComponent';
+import { showMessage } from 'react-native-flash-message';
 
 export interface CategoryItem {
   id: number;
@@ -113,7 +114,11 @@ const HomeScreen = ({ navigation }) => {
       return { success: true };
     } catch (error) {
       console.warn('❌ Get data error:', error);
-
+      showMessage({
+        message: "Không thể tải dữ liệu",
+        description: error.message ??  "Đã có lỗi xảy ra khi tải dữ liệu. Vui lòng thử lại.",
+        type: "danger",
+      });
       // Có thể hiện Toast/Alert ở đây
       // showToast('Không thể tải dữ liệu');
 
