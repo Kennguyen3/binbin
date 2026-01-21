@@ -1,6 +1,6 @@
 // src/views/ProductList/ProductListScreen.tsx
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { View, Text, FlatList, TextInput, Image, TouchableOpacity, RefreshControl } from 'react-native';
+import React, { useState, useEffect, useCallback, useRef, memo } from 'react';
+import { View, Text, FlatList, TextInput, Image, TouchableOpacity, RefreshControl, Pressable } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 import { Home } from '../../models/Home';
 import { styles } from './styles';
@@ -11,6 +11,7 @@ import LoginScreen from '../Login/LoginScreen';
 import { requestLocationPermission } from '@/utils/permissions';
 import { getLocation } from '@/utils/location';
 import { SkeletonHeader } from '@/components/SkeletonHeader';
+import SearchComponent from '@/components/SearchComponent';
 
 export interface CategoryItem {
   id: number;
@@ -23,7 +24,7 @@ const HomeScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  const [keySearchI, setKeySearchI] = useState('');
+  // const [searchKeyword, setSearchKeyword] = useState('');
   const [locationUser, setLocationUser] = useState({ "latitude": 10.7960147, "longitude": 106.6408417 });
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   const images = [
@@ -71,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
       const location = await getLocation();
 
       console.log('✅ User location:', location);
-      
+
       if (!isMountedRef.current) return;
 
       setLocationUser(location);
@@ -142,6 +143,13 @@ const HomeScreen = ({ navigation }) => {
 
   const [visibleLoginScreen, setVisibleLoginScreen] = useState(false);
 
+
+  // ✅ Memoize callback để tránh re-create
+  const handleSearch = useCallback((keyword: string) => {
+    console.log('Search với keyword:', keyword);
+    handleFilterPage(1, keyword)
+  }, []);
+
   const renderHeader = () => (
     <View>
       <View style={styles.sliders}>
@@ -170,14 +178,18 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <View style={styles.content_cuahang}>
         <View style={styles.searchData}>
-          <Icon name="search" size={16} style={styles.iconSearch} onPress={() => handleFilterPage(1, keySearchI)} />
+          {/* <Pressable onPress={() => handleFilterPage(1, searchKeyword)}>
+            <Icon name="search" size={16} style={styles.iconSearch} />
+          </Pressable>
           <TextInput
             placeholder="Bạn tìm kiếm gì ?"
             style={styles.inputSearch}
             placeholderTextColor="#000"
-            value={keySearchI}
-            onChangeText={setKeySearchI}
-          />
+            value={searchKeyword}
+            onChangeText={setSearchKeyword}
+          /> */}
+          <SearchComponent onSearch={handleSearch} />
+
         </View>
         {stores?.stores_with_most_vouchers && stores?.stores_with_most_vouchers.length > 0 && (
           <View style={styles.titleGroup}>
@@ -308,6 +320,7 @@ const HomeScreen = ({ navigation }) => {
       }
       <View style={styles.contentContainer}>
         <FlatList
+          keyboardShouldPersistTaps="handled"
           data={stores?.all_nearby_stores}
           ListHeaderComponent={renderHeader}
           ListFooterComponent={loading ? <SkeletonHeader /> : null}

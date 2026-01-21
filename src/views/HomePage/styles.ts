@@ -93,9 +93,9 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#EFEFEF',
     borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#EFEFEF',
-    paddingHorizontal: 15,
+    // borderWidth: 1,
+    // borderColor: '#EFEFEF',
+    // paddingHorizontal: 15,
     marginBottom: 20
   },
   iconSearch: {
